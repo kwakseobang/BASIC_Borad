@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.views.repository;
+package com.kwakmunsu.board.view.repository;
 
 
 import lombok.RequiredArgsConstructor;

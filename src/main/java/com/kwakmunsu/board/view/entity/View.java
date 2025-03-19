@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.views.entity;
+package com.kwakmunsu.board.view.entity;
 
 
 import com.kwakmunsu.board.global.entity.BaseEntity;

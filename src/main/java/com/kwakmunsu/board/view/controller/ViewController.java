@@ -1,6 +1,6 @@
-package com.kwakmunsu.board.views.controller;
+package com.kwakmunsu.board.view.controller;
 
-import com.kwakmunsu.board.views.service.ViewService;
+import com.kwakmunsu.board.view.service.ViewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
