@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.like.entity;
+package com.kwakmunsu.board.postLike.entity;
 
 import com.kwakmunsu.board.global.entity.BaseEntity;
 import jakarta.persistence.Column;
@@ -11,15 +11,15 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "like")
+@Table(name = "post_like")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Like extends BaseEntity {
+public class PostLike extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "post_like_id")
     private Long id;
 
 }
