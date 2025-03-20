@@ -1,6 +1,8 @@
 package com.kwakmunsu.board.global.jwt.token;
 
 
+import static com.kwakmunsu.board.global.jwt.common.TokenType.AUTHORIZATION_HEADER;
+
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.jwt.common.TokenExpiration;
 import com.kwakmunsu.board.global.jwt.common.TokenType;
@@ -55,7 +57,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .subject(String.valueOf(memberId))
                 .claim(CATEGORY_KEY, TokenType.ACCESS.getValue())
-                .claim(TokenType.AUTHORIZATION_HEADER.getValue(), role)
+                .claim(AUTHORIZATION_HEADER.getValue(), role)
                 .expiration(validity)
                 .signWith(this.secretKey)
                 .compact();
@@ -79,21 +81,21 @@ public class JwtProvider {
         GrantedAuthority authority = new SimpleGrantedAuthority(getAuthority(token).getValue());
         return new UsernamePasswordAuthenticationToken(
                 memberId,
-                "",
+                null,
                 Collections.singletonList(authority)
         );
     }
 
     private Role getAuthority(String token) {
-        return getClaimsFromToken(token)
-                .get(TokenType.AUTHORIZATION_HEADER.getValue(), Role.class);
+        Claims claimsFromToken = getClaimsFromToken(token);
+        return Role.valueOf(claimsFromToken.get(AUTHORIZATION_HEADER.getValue(), String.class));
     }
 
-    public boolean validateToken(String token) {
+    public boolean isNotValidateToken(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
             validateExpiredToken(claims);
-            return true;
+            return false;
         } catch (SecurityException | MalformedJwtException e) {
             log.warn(ErrorCode.INVALID_TOKEN.getMessage() + token);
         } catch (ExpiredJwtException e) {
@@ -103,7 +105,7 @@ public class JwtProvider {
         } catch (IllegalArgumentException e) {
             log.warn(ErrorCode.BAD_REQUEST_TOKEN.getMessage() + token);
         }
-        return false;
+        return true;
     }
 
     private Claims getClaimsFromToken(String token) {

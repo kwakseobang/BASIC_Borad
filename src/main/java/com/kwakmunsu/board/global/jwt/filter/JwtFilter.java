@@ -47,7 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
             jwtErrorResponder.sendErrorResponse(response, ErrorCode.WRONG_AUTH_HEADER);
             return;
         }
-        if (jwtProvider.validateToken(token)) {
+        if (jwtProvider.isNotValidateToken(token)) {
             jwtErrorResponder.sendErrorResponse(response, ErrorCode.INVALID_TOKEN);
             return;
         }
