@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class MemberValidator {
+public class MemberReader {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -28,6 +28,10 @@ public class MemberValidator {
         if (!bCryptPasswordEncoder.matches(rawPassword, encryptedPassword)) {
             throw new NotFoundException(ErrorCode.BAD_REQUEST_PASSWORD);
         }
+    }
+
+    public Member findByRefreshToken(String refreshToken) {
+         return memberRepository.findByRefreshToken(refreshToken);
     }
 
 }

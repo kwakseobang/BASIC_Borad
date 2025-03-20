@@ -14,20 +14,25 @@ import org.springframework.stereotype.Repository;
 public class MemberRepositoryImpl implements MemberRepository {
 
     private final MemberJpaRepository memberJpaRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void append(Member member) {
         memberJpaRepository.save(member);
     }
 
-
+    @Override
     public Member getMember(String username) {
         return memberJpaRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException(
                         ErrorCode.NOT_FOUND_MEMBER,
                         String.format("username: %s", username)
                 ));
+    }
+
+    @Override
+    public Member findByRefreshToken(String refreshToken) {
+        return memberJpaRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_TOKEN));
     }
 
     @Override
