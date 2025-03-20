@@ -16,6 +16,7 @@ public enum SuccessCode implements StatusCode {
     CREATED_MEMBER(CREATED.value(), SuccessMessage.CREATED_MEMBER.getMessage()),
     READ_MEMBER(OK.value(), SuccessMessage.READ_MEMBER.getMessage()),
     UPDATE_MEMBER(NO_CONTENT.value(), SuccessMessage.UPDATE_MEMBER.getMessage()),
+    UPDATE_NICKNAME(NO_CONTENT.value(), SuccessMessage.UPDATE_NICKNAME.getMessage()),
     DELETE_MEMBER(NO_CONTENT.value(), SuccessMessage.DELETE_MEMBER.getMessage()),
 
     // <=============== POST ===============>
@@ -24,6 +25,7 @@ public enum SuccessCode implements StatusCode {
     READ_POST_LIST(OK.value(), SuccessMessage.READ_POST_LIST.getMessage()),
     UPDATE_POST(NO_CONTENT.value(), SuccessMessage.UPDATE_POST.getMessage()),
     DELETE_POST(NO_CONTENT.value(), SuccessMessage.DELETE_POST.getMessage()),
+
     // TODO: 메세지 추가 예정
 
     // <=============== AUTH ===============>

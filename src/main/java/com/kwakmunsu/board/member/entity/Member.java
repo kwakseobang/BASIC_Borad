@@ -54,4 +54,8 @@ public class Member extends BaseEntity {
         this.refreshToken = newRefreshToken;
     }
 
+    public void updateNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
+
 }

@@ -30,6 +30,12 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public Member getMember(Long memberId) {
+        return memberJpaRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_MEMBER));
+    }
+
+    @Override
     public Member findByRefreshToken(String refreshToken) {
         return memberJpaRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_TOKEN));

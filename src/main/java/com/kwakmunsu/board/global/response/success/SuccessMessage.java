@@ -11,6 +11,7 @@ public enum SuccessMessage {
     CREATED_MEMBER("SUCCESS - 회원 가입 성공"),
     READ_MEMBER("SUCCESS - 회원 정보 조회 성공"),
     UPDATE_MEMBER("SUCCESS - 회원 정보 수정 성공"),
+    UPDATE_NICKNAME("SUCCESS - 회원 닉네임 수정 성공"),
     DELETE_MEMBER("SUCCESS - 회원 정보 삭제 성공"),
 
     // <=============== POST ===============>
@@ -19,6 +20,7 @@ public enum SuccessMessage {
     READ_POST_LIST("SUCCESS - 게시물 목록 조회 성공"),
     UPDATE_POST("SUCCESS - 게시물 수정 성공"),
     DELETE_POST("SUCCESS - 게시물 삭제"),
+
     // TODO: 메세지 추가 예정
 
     // <=============== AUTH ===============>

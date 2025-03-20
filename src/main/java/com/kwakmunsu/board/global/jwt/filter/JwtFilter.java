@@ -1,8 +1,8 @@
 package com.kwakmunsu.board.global.jwt.filter;
 
+import com.kwakmunsu.board.global.jwt.common.TokenType;
 import com.kwakmunsu.board.global.jwt.response.JwtErrorResponder;
 import com.kwakmunsu.board.global.jwt.token.JwtProvider;
-import com.kwakmunsu.board.global.jwt.common.TokenType;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,7 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
     private final JwtErrorResponder jwtErrorResponder;
     private static final List<String> EXCLUDE_PATHS = List.of(
-        "/", "/h2-console/**", "/swagger/**", "/swagger-ui/**", "/v3/api-docs/**", "/auth/**"
+            "/", "/h2-console/**", "/swagger/**", "/swagger-ui/**", "/v3/api-docs/**", "/auth/**"
     );
     private static final AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -33,21 +33,21 @@ public class JwtFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
         return EXCLUDE_PATHS.stream()
-            .anyMatch(exclude -> pathMatcher.match(exclude, path));
+                .anyMatch(exclude -> pathMatcher.match(exclude, path));
     }
 
     @Override
     protected void doFilterInternal(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        FilterChain filterChain
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
     ) throws ServletException, IOException {
         String token = getTokenFromHeader(request);
         if (!StringUtils.hasText(token)) {
             jwtErrorResponder.sendErrorResponse(response, ErrorCode.WRONG_AUTH_HEADER);
             return;
         }
-        if (jwtProvider.validateToken(token)) {
+        if (jwtProvider.isNotValidateToken(token)) {
             jwtErrorResponder.sendErrorResponse(response, ErrorCode.INVALID_TOKEN);
             return;
         }

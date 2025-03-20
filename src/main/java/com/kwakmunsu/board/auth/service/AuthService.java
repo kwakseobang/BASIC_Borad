@@ -11,11 +11,9 @@ import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.infrastruture.MemberAppender;
 import com.kwakmunsu.board.member.infrastruture.MemberReader;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class AuthService {
@@ -38,7 +36,7 @@ public class AuthService {
     // TODO: 로직 분리 할 수 있을 거 같다. 좀 더 고민해보자.
     @Transactional
     public MemberTokens reissue(ReissueTokenDto reissueTokenDto) {
-        if (!jwtProvider.validateToken(reissueTokenDto.reissueToken())) {
+        if (jwtProvider.isNotValidateToken(reissueTokenDto.reissueToken())) {
             throw new UnAuthenticationException(ErrorCode.INVALID_TOKEN);
         }
         Member member = memberReader.findByRefreshToken(reissueTokenDto.reissueToken());
