@@ -2,8 +2,6 @@ package com.kwakmunsu.board.global.jwt.token;
 
 
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
-import com.kwakmunsu.board.global.jwt.entity.RefreshToken;
-import com.kwakmunsu.board.global.jwt.repository.RefreshTokenRepository;
 import com.kwakmunsu.board.global.jwt.common.TokenExpiration;
 import com.kwakmunsu.board.global.jwt.common.TokenType;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
