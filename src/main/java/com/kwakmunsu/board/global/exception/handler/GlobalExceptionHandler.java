@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     // TODO: 예외 핸들러 추가 예정
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseData<String>> handleException(Exception e) {
