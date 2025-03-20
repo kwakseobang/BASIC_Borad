@@ -1,7 +1,7 @@
-package com.kwakmunsu.board.favoritesPost.controller;
+package com.kwakmunsu.board.favoritespost.controller;
 
 
-import com.kwakmunsu.board.favoritesPost.service.FavoritesPostService;
+import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

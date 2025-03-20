@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.favoritesPost.entity;
+package com.kwakmunsu.board.favoritespost.entity;
 
 import com.kwakmunsu.board.global.entity.BaseEntity;
 import jakarta.persistence.Column;

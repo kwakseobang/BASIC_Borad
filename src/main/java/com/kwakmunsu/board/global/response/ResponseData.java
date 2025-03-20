@@ -20,8 +20,7 @@ public class ResponseData<T> {
     private final String timestamp;
     private final T data;
 
-    // <================ [DATA X] ================>
-    public static ResponseEntity<ResponseData> success(SuccessCode successCode) {
+    public static ResponseEntity<ResponseData<?>> success(SuccessCode successCode) {
         return ResponseEntity
             .status(successCode.getHttpStatus())
             .body(ResponseData.builder()
@@ -33,7 +32,6 @@ public class ResponseData<T> {
             );
     }
 
-    // <================ [DATA O] ================>
     public static <T> ResponseEntity<ResponseData<T>> success(SuccessCode successCode, T data) {
         return ResponseEntity
             .status(successCode.getHttpStatus())
@@ -47,8 +45,7 @@ public class ResponseData<T> {
             );
     }
 
-    // <================ [DATA X] ================>
-    public static ResponseEntity<ResponseData> error(ErrorCode errorCode) {
+    public static ResponseEntity<ResponseData<?>> error(ErrorCode errorCode) {
         return ResponseEntity
             .status(errorCode.getHttpStatus())
             .body(ResponseData.builder()
@@ -60,7 +57,6 @@ public class ResponseData<T> {
             );
     }
 
-    // <================ [DATA O] ================>
     public static <T> ResponseEntity<ResponseData<T>> error(ErrorCode errorCode, T data) {
         return ResponseEntity
             .status(errorCode.getHttpStatus())

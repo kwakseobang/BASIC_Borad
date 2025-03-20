@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.favoritesPost.service;
+package com.kwakmunsu.board.favoritespost.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

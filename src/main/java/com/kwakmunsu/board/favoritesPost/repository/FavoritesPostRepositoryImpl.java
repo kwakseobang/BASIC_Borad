@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.favoritesPost.repository;
+package com.kwakmunsu.board.favoritespost.repository;
 
 
 import lombok.RequiredArgsConstructor;

@@ -39,12 +39,19 @@ public class Member extends BaseEntity {
     @Column(name = "role",nullable = false)
     private Role role;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     @Builder
     public Member(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.role = Role.MEMBER;
+    }
+
+    public void updateRefreshToken(String newRefreshToken) {
+        this.refreshToken = newRefreshToken;
     }
 
 }

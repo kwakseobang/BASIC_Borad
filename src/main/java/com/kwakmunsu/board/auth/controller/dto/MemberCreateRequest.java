@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.NewMember;
+import com.kwakmunsu.board.auth.service.dto.NewMemberDto;
 
 public record MemberCreateRequest(
         String username,
@@ -8,8 +8,8 @@ public record MemberCreateRequest(
         String nickname
 ) {
 
-    public NewMember toNewMember() {
-        return new NewMember(username, password, nickname);
+    public NewMemberDto toNewMember() {
+        return new NewMemberDto(username, password, nickname);
     }
 
 }

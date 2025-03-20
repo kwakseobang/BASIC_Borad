@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.favoritesPost.repository;
+package com.kwakmunsu.board.favoritespost.repository;
 
 public interface FavoritesPostRepository {
 
