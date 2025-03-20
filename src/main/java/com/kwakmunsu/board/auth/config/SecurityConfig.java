@@ -23,7 +23,8 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
     private final String[] adminUrl = {"/admin/**"};
     private final String[] permitAllUrl = {
-            "/","/h2-console/**", "/auth/**", "/swagger/**", "/swagger-ui/**", "/v3/api-docs/**"
+            "/", "/error", "/h2-console/**", "/auth/**", "/swagger/**", "/swagger-ui/**",
+            "/v3/api-docs/**"
     };
     private final String[] hasRoleUrl = {
             "/posts/**", "/members/**", "/comments/**", "/favorites/**"

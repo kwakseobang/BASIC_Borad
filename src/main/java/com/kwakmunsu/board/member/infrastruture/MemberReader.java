@@ -34,4 +34,8 @@ public class MemberReader {
          return memberRepository.findByRefreshToken(refreshToken);
     }
 
+    public Member getMember(Long memberId) {
+        return memberRepository.getMember(memberId);
+    }
+
 }
