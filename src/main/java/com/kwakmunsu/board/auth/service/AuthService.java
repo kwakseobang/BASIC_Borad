@@ -9,7 +9,6 @@ import com.kwakmunsu.board.member.infrastruture.MemberAppender;
 import com.kwakmunsu.board.member.infrastruture.MemberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,11 +22,12 @@ public class AuthService {
         memberAppender.create(newMemberDto);
     }
 
-
     public MemberTokens login(LoginDto loginDto) {
         Member member = memberValidator.login(loginDto);
-        return jwtProvider.createTokens(member.getId(), member.getRole());
+        MemberTokens memberTokens = jwtProvider.createTokens(member.getId(), member.getRole());
+        member.updateRefreshToken(member.getRefreshToken());
+        return memberTokens;
     }
 
-// 토비 스프링 6 , 최범균
+
 }

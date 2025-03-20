@@ -30,15 +30,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtProvider {
 
-    private final RefreshTokenRepository refreshTokenRepository;
     private final SecretKey secretKey;
     private static final String CATEGORY_KEY = "category";
 
     public JwtProvider(
-            RefreshTokenRepository refreshTokenRepository,
             @Value("${spring.jwt.secretKey}") String key
     ) {
-        this.refreshTokenRepository = refreshTokenRepository;
         this.secretKey = new SecretKeySpec(
                 key.getBytes(StandardCharsets.UTF_8),
                 Jwts.SIG.HS256
@@ -51,7 +48,6 @@ public class JwtProvider {
     public MemberTokens createTokens(Long memberId, Role role) {
         String accessToken = createAccessToken(memberId, role);
         String refreshToken = createRefreshToken();
-        saveRefreshToken(memberId, refreshToken, role);
         return new MemberTokens(accessToken, refreshToken);
     }
 
@@ -77,15 +73,6 @@ public class JwtProvider {
                 .expiration(validity)
                 .signWith(this.secretKey)
                 .compact();
-    }
-
-    private void saveRefreshToken(Long memberId, String refreshToken, Role role) {
-        RefreshToken newRefreshToken = RefreshToken.builder()
-                .memberId(memberId)
-                .refreshToken(refreshToken)
-                .role(role)
-                .build();
-        refreshTokenRepository.save(newRefreshToken);
     }
 
     public Authentication getAuthentication(String token) {
