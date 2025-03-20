@@ -13,10 +13,9 @@ public final class JwtUtil {
     public static Long getCurrentMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication.getName() == null) {
-            log.error("error:" + authentication);
             throw new UnAuthenticationException(
-                ErrorCode.UNAUTHORIZED_ERROR,
-                "Security Context 에 인증 정보가 없습니다.");
+                    ErrorCode.UNAUTHORIZED_ERROR,
+                    "Security Context 에 인증 정보가 없습니다.");
         }
         return Long.parseLong(authentication.getName());
     }
