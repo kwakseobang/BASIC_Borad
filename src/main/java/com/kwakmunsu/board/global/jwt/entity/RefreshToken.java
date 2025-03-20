@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.auth.jwt.entity;
+package com.kwakmunsu.board.global.jwt.entity;
 
 import com.kwakmunsu.board.member.entity.Role;
 import jakarta.persistence.Column;

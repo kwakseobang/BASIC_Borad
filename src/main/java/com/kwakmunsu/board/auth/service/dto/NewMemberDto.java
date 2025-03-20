@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.service.dto;
 
-public record NewMember(
+public record NewMemberDto(
         String username,
         String password,
         String nickname
