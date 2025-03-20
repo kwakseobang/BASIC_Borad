@@ -2,7 +2,7 @@ package com.kwakmunsu.board.auth.controller;
 
 
 import static com.kwakmunsu.board.global.jwt.common.TokenType.REFRESH;
-import static com.kwakmunsu.board.util.CookieUtil.createCookie;
+import static com.kwakmunsu.board.util.CookieUtil.create;
 
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
@@ -11,8 +11,10 @@ import com.kwakmunsu.board.auth.service.dto.ReissueTokenDto;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
+import com.kwakmunsu.board.util.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +47,12 @@ public class AuthController {
     ) {
         MemberTokens memberTokens = authService.login(request.tologinDto());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
-        response.addCookie(createCookie(REFRESH.getValue(), memberTokens.refreshToken()));
+        Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
+        response.addCookie(cookie);
 
         return ResponseData.success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
     }
+
 
     @PostMapping("/reissue")
     @Operation(summary = "Access Token 재발급 요청 [쿠키 사용]")
@@ -57,7 +61,8 @@ public class AuthController {
             @CookieValue("refreshToken") final String refreshTokenRequest
     ) {
         MemberTokens memberTokens = authService.reissue(new ReissueTokenDto(refreshTokenRequest));
-        response.addCookie(createCookie(REFRESH.getValue(), memberTokens.refreshToken()));
+        Cookie cookie = create(REFRESH.getValue(), memberTokens.refreshToken());
+        response.addCookie(cookie);
 
         return ResponseData.success(SuccessCode.REISSUE_SUCCESS, memberTokens.accessToken());
     }
