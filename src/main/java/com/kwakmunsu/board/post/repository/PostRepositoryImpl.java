@@ -14,8 +14,8 @@ public class PostRepositoryImpl implements PostRepository {
     private final PostJpaRepository postJpaRepository;
 
     @Override
-    public Post append(Post post) {
-        return postJpaRepository.save(post);
+    public void append(Post post) {
+        postJpaRepository.save(post);
     }
 
     @Override

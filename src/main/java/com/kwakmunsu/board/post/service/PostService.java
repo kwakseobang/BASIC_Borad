@@ -1,5 +1,7 @@
 package com.kwakmunsu.board.post.service;
 
+import com.kwakmunsu.board.comment.infrastruture.CommentReader;
+import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostAppender;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
@@ -16,18 +18,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostService {
 
     private final PostAppender postAppender;
-    private final PostUpdater postUpdater;
     private final PostReader postReader;
+    private final LikesReader likesReader;
+    private final CommentReader commentReader;
+    //
 
-    public PostResponse create(PostCreateCommand postCreateCommand) {
-        Post post = postAppender.append(
+    public void create(PostCreateCommand postCreateCommand) {
+        postAppender.append(
                 postCreateCommand.title(),
                 postCreateCommand.content(),
                 postCreateCommand.memberId()
         );
-
-        return PostResponse.from(post);
     }
+
 
     @Transactional
     public void update(PostUpdateCommand postUpdateCommand) {
