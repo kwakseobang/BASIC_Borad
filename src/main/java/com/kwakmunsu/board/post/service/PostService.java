@@ -9,6 +9,7 @@ import com.kwakmunsu.board.post.infrastruture.PostUpdater;
 import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,18 @@ public class PostService {
     public void update(PostUpdateCommand postUpdateCommand) {
         Post post = postReader.read(postUpdateCommand.postId());
         post.updatePost(postUpdateCommand.title(), postUpdateCommand.content());
+    }
+
+    @Transactional
+    public void updateViews(Long postId) {
+        Post post = postReader.read(postId);
+        post.incrementViewCount();
+    }
+
+    public PostViewsResponse readViews(Long postId) {
+        Post post = postReader.read(postId);
+
+        return new PostViewsResponse(post.getViewCount());
     }
 
 }

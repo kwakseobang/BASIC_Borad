@@ -33,11 +33,19 @@ public class Post extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Column(name = "view_count")
+    private long viewCount;
+
     @Builder
     public Post(Long writerId, String title, String content) {
         this.writerId = writerId;
         this.title = title;
         this.content = content;
+        this.viewCount = 0; // 명시하기 위해 추가함.
+    }
+
+    public void incrementViewCount() {
+        this.viewCount++;
     }
 
     public void updatePost(String title, String content) {
