@@ -6,10 +6,12 @@ import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +46,20 @@ public class PostController {
         return ResponseData.success(SuccessCode.UPDATE_POST);
     }
 
+    @Operation(summary = "게시글 조회수 증가")
+    @PostMapping("/{postId}/views")
+    public ResponseEntity<ResponseData<?>> updateViews(@PathVariable("postId") Long postId) {
+        postService.updateViews(postId);
+        return ResponseData.success(SuccessCode.UPDATE_VIEWS);
+    }
 
+    @Operation(summary = "게시글 조회수 조회")
+    @GetMapping ("/{postId}/views")
+    public ResponseEntity<ResponseData<PostViewsResponse>> readViews(
+            @PathVariable("postId") Long postId
+    ) {
+        PostViewsResponse postViewsResponse = postService.readViews(postId);
+        return ResponseData.success(SuccessCode.UPDATE_VIEWS,postViewsResponse);
+    }
 
 }
