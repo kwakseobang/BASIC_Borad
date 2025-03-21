@@ -32,8 +32,12 @@ public enum ErrorCode implements StatusCode {
     BAD_REQUEST_COMMENT(BAD_REQUEST.value(), ErrorMessage.BAD_REQUEST_COMMENT.getMessage()),
 
     // <=============== LIKE ===============>
-    FAILED_LIKE(NOT_FOUND.value(), ErrorMessage.FAILED_LIKE.getMessage()),
-    FAILED_UNLIKE(BAD_REQUEST.value(), ErrorMessage.FAILED_UNLIKE.getMessage()),
+    FAILED_LIKE(CONFLICT.value(), ErrorMessage.FAILED_LIKE.getMessage()),
+    FAILED_UNLIKE(CONFLICT.value(), ErrorMessage.FAILED_UNLIKE.getMessage()),
+
+    // <=============== FAVORITES_POST ===============>
+    FAILED_SAVE(CONFLICT.value(), ErrorMessage.FAILED_SAVE.getMessage()),
+    FAILED_RELEASE(CONFLICT.value(), ErrorMessage.FAILED_RELEASE.getMessage()),
 
     // <=============== JWT ===============>
     TOKEN_EXPIRED(UNAUTHORIZED.value(), ErrorMessage.TOKEN_EXPIRED.getMessage()),
@@ -52,7 +56,6 @@ public enum ErrorCode implements StatusCode {
     ),
 
     // <=============== ETC ===============>
-    PREVENT_GET_ERROR(NO_CONTENT.value(), ErrorMessage.PREVENT_GET_ERROR.getMessage()),
     INTERNAL_SERVER_ERROR(
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
         ErrorMessage.INTERNAL_SERVER_ERROR.getMessage()
