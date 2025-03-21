@@ -1,11 +1,9 @@
 package com.kwakmunsu.board.post.controller;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
-import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.service.PostService;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
@@ -14,7 +12,6 @@ import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

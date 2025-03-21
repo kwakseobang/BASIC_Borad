@@ -12,6 +12,7 @@ import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
