@@ -26,6 +26,10 @@ public enum SuccessCode implements StatusCode {
     UPDATE_POST(CREATED.value(), SuccessMessage.UPDATE_POST.getMessage()),
     DELETE_POST(NO_CONTENT.value(), SuccessMessage.DELETE_POST.getMessage()),
 
+    // <=============== VIEWS ===============>
+    UPDATE_VIEWS(CREATED.value(), SuccessMessage.UPDATE_VIEWS.getMessage()),
+    READ_VIEWS(OK.value(), SuccessMessage.UPDATE_VIEWS.getMessage()),
+
     // <=============== COMMENT ===============>
     CREATED_COMMENT(CREATED.value(), SuccessMessage.CREATED_COMMENT.getMessage()),
     READ_COMMENT(OK.value(), SuccessMessage.READ_COMMENT.getMessage()),
