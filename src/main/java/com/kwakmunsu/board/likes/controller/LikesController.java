@@ -31,7 +31,7 @@ public class LikesController {
         Long memberId = getCurrentMemberId();
         LikesCommand likesCommand = new LikesCommand(postId, memberId);
         likesService.likePost(likesCommand);
-        return ResponseData.success(SuccessCode.SUCCESS_LIKE);
+        return ResponseData.success(SuccessCode.LIKE_SUCCESS);
     }
 
     @Operation(summary = "좋아요 취소")
@@ -40,7 +40,7 @@ public class LikesController {
         Long memberId = getCurrentMemberId();
         LikesCommand likesCommand = new LikesCommand(postId, memberId);
         likesService.unlikePost(likesCommand);
-        return  ResponseData.success(SuccessCode.SUCCESS_UNLIKE);
+        return  ResponseData.success(SuccessCode.UNLIKE_SUCCESS);
     }
 
 }
