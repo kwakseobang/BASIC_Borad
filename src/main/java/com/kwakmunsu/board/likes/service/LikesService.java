@@ -15,13 +15,13 @@ public class LikesService {
     private final LikesReader likesReader;
 
     public void likePost(LikesCommand likesCommand) {
-        // 좋아요가 안되어 있어야지 유효한 검증이다.
+        // 유저가 게시물의 좋아요가 되어있지 않으면 유효성 검증 통과
         likesReader.validateNotLiked(likesCommand.postId(), likesCommand.memberId());
         likesUpdater.like(likesCommand.postId(), likesCommand.memberId());
     }
 
     public void unlikePost(LikesCommand likesCommand) {
-        // 좋아요가 되어 있어야지 유효한 검증이다.
+        // 유저가 게시물의 좋아요가 되어있어야 유효성 검증 통과
         likesReader.validateLiked(likesCommand.postId(), likesCommand.memberId());
         likesUpdater.unLike(likesCommand.postId(), likesCommand.memberId());
     }

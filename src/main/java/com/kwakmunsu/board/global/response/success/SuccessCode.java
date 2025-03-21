@@ -33,8 +33,12 @@ public enum SuccessCode implements StatusCode {
     DELETE_COMMENT(NO_CONTENT.value(), SuccessMessage.DELETE_COMMENT.getMessage()),
 
     // <=============== LIKE ===============>
-    SUCCESS_LIKE(CREATED.value(), SuccessMessage.CREATED_LIKE.getMessage()),
-    SUCCESS_UNLIKE(NO_CONTENT.value(), SuccessMessage.CREATED_UNLIKE.getMessage()),
+    LIKE_SUCCESS(CREATED.value(), SuccessMessage.LIKE_SUCCESS.getMessage()),
+    UNLIKE_SUCCESS(NO_CONTENT.value(), SuccessMessage.UNLIKE_SUCCESS.getMessage()),
+
+    // <=============== FAVORITES_POST ===============>
+    SAVE_POST_SUCCESS(CREATED.value(), SuccessMessage.SAVE_POST_SUCCESS.getMessage()),
+    CANCEL_POST_SUCCESS(NO_CONTENT.value(), SuccessMessage.CANCEL_POST_SUCCESS.getMessage()),
 
     // <=============== AUTH ===============>
     READ_IS_LOGIN(OK.value(), SuccessMessage.READ_IS_LOGIN.getMessage()),
