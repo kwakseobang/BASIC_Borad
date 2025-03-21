@@ -26,7 +26,10 @@ public enum ErrorCode implements StatusCode {
     // <=============== POST ===============>
     NOT_FOUND_POST(NOT_FOUND.value(), ErrorMessage.NOT_FOUND_POST.getMessage()),
     BAD_REQUEST_POST(BAD_REQUEST.value(), ErrorMessage.BAD_REQUEST_POST.getMessage()),
-    // TODO: 메세지 추가 예정
+
+    // <=============== COMMENT ===============>
+    NOT_FOUND_COMMENT(NOT_FOUND.value(), ErrorMessage.NOT_FOUND_COMMENT.getMessage()),
+    BAD_REQUEST_COMMENT(BAD_REQUEST.value(), ErrorMessage.BAD_REQUEST_COMMENT.getMessage()),
 
     // <=============== JWT ===============>
     TOKEN_EXPIRED(UNAUTHORIZED.value(), ErrorMessage.TOKEN_EXPIRED.getMessage()),

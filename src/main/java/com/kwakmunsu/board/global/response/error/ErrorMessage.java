@@ -17,7 +17,10 @@ public enum ErrorMessage {
     // <=============== POST ===============>
     NOT_FOUND_POST("ERROR - 해당 게시물을 찾을 수 없습니다."),
     BAD_REQUEST_POST("ERROR - 잘못된 게시물 요청 에러"),
-    // TODO: 메세지 추가 예정
+
+    // <=============== COMMENT ===============>
+    NOT_FOUND_COMMENT("ERROR - 해당 댓글을 찾을 수 없습니다."),
+    BAD_REQUEST_COMMENT("ERROR - 잘못된 댓글 요청 에러"),
 
     //  <=============== JWT ===============>
     TOKEN_EXPIRED("ERROR - JWT 토큰 만료 에러"),
