@@ -1,0 +1,27 @@
+package com.kwakmunsu.board.favoritespost.infrastruture;
+
+import com.kwakmunsu.board.favoritespost.repository.FavoritesPostRepository;
+import com.kwakmunsu.board.global.exception.DuplicationException;
+import com.kwakmunsu.board.global.response.error.ErrorCode;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@RequiredArgsConstructor
+@Component
+public class FavoritesPostReader {
+
+    private final FavoritesPostRepository favoritesPostRepository;
+
+    public void validateNotSave(Long postId, Long memberId) {
+        if (favoritesPostRepository.isSave(postId, memberId)) {
+            throw new DuplicationException(ErrorCode.FAILED_SAVE, "이미 저장된 게시물압니다.");
+        }
+    }
+
+    public void validateSave(Long postId, Long memberId) {
+        if (!favoritesPostRepository.isSave(postId, memberId)) {
+            throw new DuplicationException(ErrorCode.FAILED_RELEASE, "저장하지 않은 게시물입니다.");
+        }
+    }
+
+}
