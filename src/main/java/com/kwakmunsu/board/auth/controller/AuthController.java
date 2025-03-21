@@ -32,15 +32,15 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/signup")
     @Operation(summary = "회원가입 [JWT 사용 X]")
+    @PostMapping("/signup")
     public ResponseEntity<ResponseData<?>> signUp(@RequestBody MemberCreateRequest request) {
         authService.signUp(request.toMemberCreateCommand());
         return ResponseData.success(SuccessCode.CREATED_MEMBER);
     }
 
-    @PostMapping("/login")
     @Operation(summary = "로그인 [JWT 사용 X]")
+    @PostMapping("/login")
     public ResponseEntity<ResponseData<String>> login(
             HttpServletResponse response,
             @RequestBody LoginRequest request
@@ -54,8 +54,8 @@ public class AuthController {
     }
 
 
-    @PostMapping("/reissue")
     @Operation(summary = "Access Token 재발급 요청 [쿠키 사용]")
+    @PostMapping("/reissue")
     public ResponseEntity<ResponseData<String>> reissue(
             HttpServletResponse response,
             @CookieValue("refreshToken") final String refreshTokenRequest
