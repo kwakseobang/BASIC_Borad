@@ -32,21 +32,25 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> readAll(Long postId, Long writerId) {
-        return null;
-    }
-
-    @Override
     public void delete(Long commentId) {
         commentJpaRepository.deleteById(commentId);
     }
 
     @Override
-    public void validateCommentExists(Long commentId) {
+    public void deleteAll(Long postId) {
+        commentJpaRepository.deleteByPostId(postId);
+    }
+
+    @Override
+    public void validateCommentById(Long commentId) {
         if (commentJpaRepository.existsById(commentId)) {
             return;
         }
         throw new NotFoundException(ErrorCode.NOT_FOUND_COMMENT);
     }
 
+    @Override
+    public boolean isExistByPostId(Long postId) {
+        return commentJpaRepository.existsByPostId(postId);
+    }
 }

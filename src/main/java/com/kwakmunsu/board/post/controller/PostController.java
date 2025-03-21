@@ -5,6 +5,7 @@ import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
+import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +48,8 @@ public class PostController {
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
 
-    @Operation(summary = "게시물 목록 조회 [내림차순]",
+    @Operation(
+            summary = "게시물 목록 조회 [내림차순]",
             description = "정렬: 생성일(createdAt=Default), 제목(title), 글 번호(id), 조회수(viewCount)"
                     + "page - 현재 요청한 페이지, pageSize - 페이지 당 표시할 게시글 개수"
                     + "page > 0"
@@ -92,6 +95,14 @@ public class PostController {
         PostViewsResponse postViewsResponse = postService.readViews(postId);
 
         return ResponseData.success(SuccessCode.UPDATE_VIEWS, postViewsResponse);
+    }
+
+    @Operation(summary = "게시글 삭제")
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ResponseData<?>> delete(@PathVariable("postId") Long postId) {
+        postService.delete(PostDeleteCommand.from(postId));
+
+        return ResponseData.success(SuccessCode.DELETE_POST);
     }
 
 }
