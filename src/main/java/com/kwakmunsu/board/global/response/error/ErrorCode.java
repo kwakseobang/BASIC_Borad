@@ -39,6 +39,9 @@ public enum ErrorCode implements StatusCode {
     FAILED_SAVE(CONFLICT.value(), ErrorMessage.FAILED_SAVE.getMessage()),
     FAILED_RELEASE(CONFLICT.value(), ErrorMessage.FAILED_RELEASE.getMessage()),
 
+    // <=============== PAGING ===============>
+    FAILED_PAGING(BAD_REQUEST.value(), ErrorMessage.FAILED_PAGING.getMessage()),
+
     // <=============== JWT ===============>
     TOKEN_EXPIRED(UNAUTHORIZED.value(), ErrorMessage.TOKEN_EXPIRED.getMessage()),
     INVALID_TOKEN(UNAUTHORIZED.value(), ErrorMessage.INVALID_TOKEN.getMessage()),
