@@ -1,6 +1,9 @@
 package com.kwakmunsu.board.auth.service.dto;
 
-public record NewMemberDto(
+import lombok.Builder;
+
+@Builder
+public record MemberCreateCommand(
         String username,
         String password,
         String nickname

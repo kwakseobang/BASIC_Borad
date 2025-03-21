@@ -1,7 +1,6 @@
 package com.kwakmunsu.board.member.infrastruture;
 
 
-import com.kwakmunsu.board.auth.service.dto.LoginDto;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.member.entity.Member;
@@ -17,9 +16,9 @@ public class MemberReader {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Member login(LoginDto loginDto) {
-        Member member = memberRepository.getMember(loginDto.username());
-        validatePassword(loginDto.password(), member.getPassword());
+    public Member login(String username, String password) {
+        Member member = memberRepository.getMember(username);
+        validatePassword(password, member.getPassword());
         return member;
     }
 

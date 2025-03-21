@@ -1,11 +1,14 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.LoginDto;
+import com.kwakmunsu.board.auth.service.dto.LoginCommand;
 
 public record LoginRequest(String username, String password) {
 
-    public LoginDto tologinDto() {
-        return new LoginDto(username, password);
+    public LoginCommand tologinCommand() {
+        return LoginCommand.builder()
+                .username(username)
+                .password(password)
+                .build();
     }
 
 }

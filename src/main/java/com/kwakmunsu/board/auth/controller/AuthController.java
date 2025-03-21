@@ -7,7 +7,7 @@ import static com.kwakmunsu.board.util.CookieUtil.create;
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
 import com.kwakmunsu.board.auth.service.AuthService;
-import com.kwakmunsu.board.auth.service.dto.ReissueTokenDto;
+import com.kwakmunsu.board.auth.service.dto.ReissueTokenCommand;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
@@ -32,20 +32,20 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/signup")
     @Operation(summary = "회원가입 [JWT 사용 X]")
+    @PostMapping("/signup")
     public ResponseEntity<ResponseData<?>> signUp(@RequestBody MemberCreateRequest request) {
-        authService.signUp(request.toNewMember());
+        authService.signUp(request.toMemberCreateCommand());
         return ResponseData.success(SuccessCode.CREATED_MEMBER);
     }
 
-    @PostMapping("/login")
     @Operation(summary = "로그인 [JWT 사용 X]")
+    @PostMapping("/login")
     public ResponseEntity<ResponseData<String>> login(
             HttpServletResponse response,
             @RequestBody LoginRequest request
     ) {
-        MemberTokens memberTokens = authService.login(request.tologinDto());
+        MemberTokens memberTokens = authService.login(request.tologinCommand());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
         Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
@@ -54,13 +54,15 @@ public class AuthController {
     }
 
 
-    @PostMapping("/reissue")
     @Operation(summary = "Access Token 재발급 요청 [쿠키 사용]")
+    @PostMapping("/reissue")
     public ResponseEntity<ResponseData<String>> reissue(
             HttpServletResponse response,
             @CookieValue("refreshToken") final String refreshTokenRequest
     ) {
-        MemberTokens memberTokens = authService.reissue(new ReissueTokenDto(refreshTokenRequest));
+        MemberTokens memberTokens = authService.reissue(
+                new ReissueTokenCommand(refreshTokenRequest)
+        );
         Cookie cookie = create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
 
