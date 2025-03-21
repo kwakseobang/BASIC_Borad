@@ -3,6 +3,7 @@ package com.kwakmunsu.board.post.service.dto.response;
 import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.post.entity.Post;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Builder;
 
 @Builder
@@ -14,14 +15,13 @@ public record PostResponse(
         LocalDateTime createAt,
         long likeCount,
         long viewCount,
-        Comment comment
+        List<Comment> comments
 ) {
 
     public static PostResponse from(
             Post post,
-            Comment comment,
             long likeCount,
-            long viewCount
+            List<Comment> comments
     ) {
         return PostResponse.builder()
                 .id(post.getId())
@@ -30,8 +30,8 @@ public record PostResponse(
                 .content(post.getContent())
                 .createAt(post.getCreatedAt())
                 .likeCount(likeCount)
-                .viewCount(viewCount)
-                .comment(comment)
+                .viewCount(post.getViewCount())
+                .comments(comments)
                 .build();
     }
 

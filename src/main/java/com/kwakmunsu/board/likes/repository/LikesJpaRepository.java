@@ -7,5 +7,6 @@ public interface LikesJpaRepository extends JpaRepository<Likes, Long> {
 
     boolean existsByPostIdAndMemberId(Long postId, Long memberId);
     void deleteByPostIdAndMemberId(Long postId, Long memberId);
+    long countByPostId(Long postId);
 
 }

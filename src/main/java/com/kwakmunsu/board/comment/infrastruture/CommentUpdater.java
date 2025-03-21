@@ -16,7 +16,7 @@ public class CommentUpdater {
 
     @Transactional
     public void update(String newContent, Long commentId) {
-        Comment comment = commentRepository.read(commentId);
+        Comment comment = commentRepository.readById(commentId);
         comment.updateComment(newContent);
     }
 

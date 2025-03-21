@@ -12,6 +12,11 @@ public class LikesRepositoryImpl implements LikesRepository {
     private final LikesJpaRepository likesJpaRepository;
 
     @Override
+    public long read(Long postId) {
+        return likesJpaRepository.countByPostId(postId);
+    }
+
+    @Override
     public void incrementLikes(Likes likes) {
         likesJpaRepository.save(likes);
     }

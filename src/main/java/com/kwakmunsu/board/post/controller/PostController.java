@@ -5,11 +5,8 @@ import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
-<<<<<<< HEAD
-=======
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
->>>>>>> 52bcf4f (Feat[#20]: 게시글 조회수 증가 및 조회 기능 구현)
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -40,10 +37,10 @@ public class PostController {
 
     @Operation(summary = "게시물 상세 조회")
     @GetMapping("/{postId}")
-    public ResponseEntity<ResponseData<?>> read(@PathVariable("postId") Long postId) {
-        // 게시물을 조회힌다.. 게시물 아이디를 넘긴다.
-        // 조회할 때는 게시물, 댓글과 좋아요 수, 조회 수를 넘겨준다.
-//        postService.read(postId);
+    public ResponseEntity<ResponseData<PostResponse>> read(@PathVariable("postId") Long postId) {
+        PostResponse postResponse = postService.read(postId);
+
+        return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
 
     @Operation(summary = "게시글 수정")
@@ -65,12 +62,12 @@ public class PostController {
     }
 
     @Operation(summary = "게시글 조회수 조회")
-    @GetMapping ("/{postId}/views")
+    @GetMapping("/{postId}/views")
     public ResponseEntity<ResponseData<PostViewsResponse>> readViews(
             @PathVariable("postId") Long postId
     ) {
         PostViewsResponse postViewsResponse = postService.readViews(postId);
-        return ResponseData.success(SuccessCode.UPDATE_VIEWS,postViewsResponse);
+        return ResponseData.success(SuccessCode.UPDATE_VIEWS, postViewsResponse);
     }
 
 }

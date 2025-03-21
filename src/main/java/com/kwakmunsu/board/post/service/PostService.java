@@ -1,5 +1,6 @@
 package com.kwakmunsu.board.post.service;
 
+import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.comment.infrastruture.CommentReader;
 import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.post.entity.Post;
@@ -10,6 +11,7 @@ import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +24,7 @@ public class PostService {
     private final PostReader postReader;
     private final LikesReader likesReader;
     private final CommentReader commentReader;
-    //
+
 
     public void create(PostCreateCommand postCreateCommand) {
         postAppender.append(
@@ -30,6 +32,13 @@ public class PostService {
                 postCreateCommand.content(),
                 postCreateCommand.memberId()
         );
+    }
+
+    public PostResponse read(Long postId) {
+        Post post = postReader.read(postId);
+        long likesCount = likesReader.readLikes(postId);
+        List<Comment> comments = commentReader.readByPostId(postId);
+        return PostResponse.from(post, likesCount, comments);
     }
 
 
