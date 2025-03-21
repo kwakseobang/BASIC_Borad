@@ -16,7 +16,7 @@ public class PostAppender {
         Post post = Post.builder()
                 .title(title)
                 .content(content)
-                .memberId(memberId)
+                .writerId(memberId)
                 .build();
         return postRepository.append(post);
     }
