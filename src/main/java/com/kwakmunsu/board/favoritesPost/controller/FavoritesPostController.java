@@ -3,12 +3,14 @@ package com.kwakmunsu.board.favoritespost.controller;
 
 import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,12 @@ public class FavoritesPostController {
         favoritesPostService.append(favoritesCommand);
 
         return ResponseData.success(SuccessCode.SAVE_POST_SUCCESS);
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseData<FavoritesResponse>> readAll() {
+        FavoritesResponse favoritesResponse = favoritesPostService.readAll();
+        return ResponseData.success(SuccessCode.READ_POST, favoritesResponse);
     }
 
     @DeleteMapping("/{postId}")

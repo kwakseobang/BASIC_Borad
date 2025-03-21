@@ -2,6 +2,8 @@ package com.kwakmunsu.board.favoritespost.repository;
 
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
+import com.kwakmunsu.board.post.entity.Post;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,11 @@ import org.springframework.stereotype.Repository;
 public class FavoritesPostRepositoryImpl implements FavoritesPostRepository {
 
     private final FavoritesPostJpaRepository favoritesPostJpaRepository;
+
+    @Override
+    public List<FavoritesPost> readAll() {
+        return favoritesPostJpaRepository.findAll();
+    }
 
     @Override
     public void append(FavoritesPost favoritesPost) {
