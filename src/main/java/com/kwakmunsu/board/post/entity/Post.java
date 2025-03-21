@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,5 +23,26 @@ public class Post extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
+
+    @Column(name = "member_id")
+    private Long memberId;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    @Builder
+    public Post(Long memberId, String title, String content) {
+        this.memberId = memberId;
+        this.title = title;
+        this.content = content;
+    }
+
+    public void updatePost(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
 }

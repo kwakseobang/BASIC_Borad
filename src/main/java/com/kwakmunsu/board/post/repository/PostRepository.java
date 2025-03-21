@@ -1,5 +1,7 @@
 package com.kwakmunsu.board.post.repository;
 
-public interface PostRepository {
+import com.kwakmunsu.board.post.entity.Post;
 
+public interface PostRepository {
+    Post append(Post post);
 }
