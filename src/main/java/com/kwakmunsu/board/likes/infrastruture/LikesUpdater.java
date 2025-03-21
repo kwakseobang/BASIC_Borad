@@ -18,12 +18,13 @@ public class LikesUpdater {
                 .memberId(memberId)
                 .build();
         likesRepository.incrementLikes(like);
-
     }
 
     @Transactional
     public void unLike(Long postId, Long memberId) {
-        likesRepository.decrementLikes(postId, memberId);
+        if (likesRepository.isLike(postId, memberId)) {
+            likesRepository.decrementLikes(postId, memberId);
+        }
     }
 
 }

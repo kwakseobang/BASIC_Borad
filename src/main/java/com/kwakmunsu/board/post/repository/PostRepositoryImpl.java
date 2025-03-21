@@ -22,6 +22,11 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
+    public void deleteById(Long postId) {
+        postJpaRepository.deleteById(postId);
+    }
+
+    @Override
     public Post read(Long postId) {
         return postJpaRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_POST));
@@ -36,4 +41,8 @@ public class PostRepositoryImpl implements PostRepository {
         }
     }
 
+    @Override
+    public boolean isExist(Long postId) {
+        return postJpaRepository.existsById(postId);
+    }
 }

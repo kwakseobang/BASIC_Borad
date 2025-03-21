@@ -24,6 +24,9 @@ public class FavoritesPostUpdater {
 
     @Transactional
     public void cancel(Long postId, Long memberId) {
-        favoritesPostRepository.cancel(postId, memberId);
+        if (favoritesPostRepository.isSave(postId, memberId)) {
+            favoritesPostRepository.cancel(postId, memberId);
+        }
     }
+
 }

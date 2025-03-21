@@ -8,8 +8,9 @@ public interface CommentRepository {
     void append(Comment comment);
     Comment readById(Long commentId);
     List<Comment> readByPostId(Long postId);
-    List<Comment> readAll(Long postId, Long writerId);
     void delete(Long commentId);
-    void validateCommentExists(Long commentId);
+    void deleteAll(Long postId);
+    void validateCommentById(Long commentId);
+    boolean isExistByPostId(Long commentId);
 
 }
