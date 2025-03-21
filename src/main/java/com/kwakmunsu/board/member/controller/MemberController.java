@@ -7,7 +7,7 @@ import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.member.controller.dto.NicknameRequest;
 import com.kwakmunsu.board.member.service.MemberService;
-import com.kwakmunsu.board.member.service.dto.NewNicknameDto;
+import com.kwakmunsu.board.member.service.dto.NicknameCreateCommand;
 import com.kwakmunsu.board.util.CookieUtil;
 import com.kwakmunsu.board.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,9 +34,8 @@ public class MemberController {
     public ResponseEntity<ResponseData<?>> updateNickname(
             @RequestBody NicknameRequest nicknameRequest
     ) {
-        Long memberId = JwtUtil.getCurrentMemberId();
-        NewNicknameDto newNicknameDto = nicknameRequest.toNewNicknameDto();
-        memberService.updateNickname(memberId, newNicknameDto);
+        NicknameCreateCommand nicknameCreateCommand = nicknameRequest.toNicknameCreateCommand();
+        memberService.updateNickname(nicknameCreateCommand);
 
         return ResponseData.success(SuccessCode.UPDATE_NICKNAME);
     }

@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.member.infrastruture;
 
 
-import com.kwakmunsu.board.auth.service.dto.NewMemberDto;
+import com.kwakmunsu.board.auth.service.dto.MemberCreateCommand;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +15,13 @@ public class MemberAppender {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void create(NewMemberDto newMemberDto) {
-        String username = newMemberDto.username();
-        String nickname = newMemberDto.nickname();
+    public void create(MemberCreateCommand memberCreateCommand) {
+        String username = memberCreateCommand.username();
+        String nickname = memberCreateCommand.nickname();
         memberRepository.validateUsername(username);
         memberRepository.validateNickname(nickname);
 
-        String encodedPassword = bCryptPasswordEncoder.encode(newMemberDto.password());
+        String encodedPassword = bCryptPasswordEncoder.encode(memberCreateCommand.password());
         Member member = Member.builder()
                 .username(username)
                 .password(encodedPassword)

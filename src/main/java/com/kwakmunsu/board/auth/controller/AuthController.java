@@ -7,7 +7,7 @@ import static com.kwakmunsu.board.util.CookieUtil.create;
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
 import com.kwakmunsu.board.auth.service.AuthService;
-import com.kwakmunsu.board.auth.service.dto.ReissueTokenDto;
+import com.kwakmunsu.board.auth.service.dto.ReissueTokenCommand;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
@@ -35,7 +35,7 @@ public class AuthController {
     @PostMapping("/signup")
     @Operation(summary = "회원가입 [JWT 사용 X]")
     public ResponseEntity<ResponseData<?>> signUp(@RequestBody MemberCreateRequest request) {
-        authService.signUp(request.toNewMember());
+        authService.signUp(request.toMemberCreateCommand());
         return ResponseData.success(SuccessCode.CREATED_MEMBER);
     }
 
@@ -45,7 +45,7 @@ public class AuthController {
             HttpServletResponse response,
             @RequestBody LoginRequest request
     ) {
-        MemberTokens memberTokens = authService.login(request.tologinDto());
+        MemberTokens memberTokens = authService.login(request.tologinCommand());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
         Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
@@ -60,7 +60,9 @@ public class AuthController {
             HttpServletResponse response,
             @CookieValue("refreshToken") final String refreshTokenRequest
     ) {
-        MemberTokens memberTokens = authService.reissue(new ReissueTokenDto(refreshTokenRequest));
+        MemberTokens memberTokens = authService.reissue(
+                new ReissueTokenCommand(refreshTokenRequest)
+        );
         Cookie cookie = create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
 
