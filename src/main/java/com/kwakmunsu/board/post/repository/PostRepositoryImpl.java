@@ -1,7 +1,8 @@
 package com.kwakmunsu.board.post.repository;
 
 
-import com.kwakmunsu.board.member.entity.Member;
+import com.kwakmunsu.board.global.exception.NotFoundException;
+import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.post.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,12 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post append(Post post) {
         return postJpaRepository.save(post);
+    }
+
+    @Override
+    public Post read(Long postId) {
+        return postJpaRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_POST));
     }
 
 }
