@@ -21,7 +21,11 @@ public enum SuccessMessage {
     UPDATE_POST("SUCCESS - 게시물 수정 성공"),
     DELETE_POST("SUCCESS - 게시물 삭제"),
 
-    // TODO: 메세지 추가 예정
+    // <=============== COMMENT ===============>
+    CREATED_COMMENT("SUCCESS - 댓글 등록 성공"),
+    READ_COMMENT("SUCCESS - 댓글 조회 성공"),
+    UPDATE_COMMENT("SUCCESS - 댓글 수정 성공"),
+    DELETE_COMMENT("SUCCESS - 댓글 삭제"),
 
     // <=============== AUTH ===============>
     LOGIN_SUCCESS("SUCCESS - 로그인 성공"),

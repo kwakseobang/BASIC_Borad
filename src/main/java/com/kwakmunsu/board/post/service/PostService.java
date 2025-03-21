@@ -2,8 +2,8 @@ package com.kwakmunsu.board.post.service;
 
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostAppender;
-import com.kwakmunsu.board.post.service.dto.PostCreateCommand;
-import com.kwakmunsu.board.post.service.dto.PostResponse;
+import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
+import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class PostService {
                 postCreateCommand.content(),
                 postCreateCommand.memberId()
         );
-        return new PostResponse(post);
+        return PostResponse.from(post);
     }
 
 }

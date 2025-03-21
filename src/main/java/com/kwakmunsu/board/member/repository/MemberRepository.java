@@ -11,5 +11,4 @@ public interface MemberRepository {
     void validateUsername(String username);
     void validateNickname(String nickname);
 
-
 }

@@ -24,8 +24,8 @@ public class Post extends BaseEntity {
     @Column(name = "post_id")
     private Long id;
 
-    @Column(name = "member_id")
-    private Long memberId;
+    @Column(name = "writer_id")
+    private Long writerId;
 
     @Column(nullable = false)
     private String title;
@@ -34,8 +34,8 @@ public class Post extends BaseEntity {
     private String content;
 
     @Builder
-    public Post(Long memberId, String title, String content) {
-        this.memberId = memberId;
+    public Post(Long writerId, String title, String content) {
+        this.writerId = writerId;
         this.title = title;
         this.content = content;
     }
