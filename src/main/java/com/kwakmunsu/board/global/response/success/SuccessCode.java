@@ -15,23 +15,26 @@ public enum SuccessCode implements StatusCode {
     // <=============== MEMBER ===============>
     CREATED_MEMBER(CREATED.value(), SuccessMessage.CREATED_MEMBER.getMessage()),
     READ_MEMBER(OK.value(), SuccessMessage.READ_MEMBER.getMessage()),
-    UPDATE_MEMBER(NO_CONTENT.value(), SuccessMessage.UPDATE_MEMBER.getMessage()),
-    UPDATE_NICKNAME(NO_CONTENT.value(), SuccessMessage.UPDATE_NICKNAME.getMessage()),
+    UPDATE_MEMBER(CREATED.value(), SuccessMessage.UPDATE_MEMBER.getMessage()),
+    UPDATE_NICKNAME(CREATED.value(), SuccessMessage.UPDATE_NICKNAME.getMessage()),
     DELETE_MEMBER(NO_CONTENT.value(), SuccessMessage.DELETE_MEMBER.getMessage()),
 
     // <=============== POST ===============>
     CREATED_POST(CREATED.value(), SuccessMessage.CREATED_POST.getMessage()),
     READ_POST(OK.value(), SuccessMessage.READ_POST.getMessage()),
     READ_POST_LIST(OK.value(), SuccessMessage.READ_POST_LIST.getMessage()),
-    UPDATE_POST(NO_CONTENT.value(), SuccessMessage.UPDATE_POST.getMessage()),
+    UPDATE_POST(CREATED.value(), SuccessMessage.UPDATE_POST.getMessage()),
     DELETE_POST(NO_CONTENT.value(), SuccessMessage.DELETE_POST.getMessage()),
 
     // <=============== COMMENT ===============>
     CREATED_COMMENT(CREATED.value(), SuccessMessage.CREATED_COMMENT.getMessage()),
     READ_COMMENT(OK.value(), SuccessMessage.READ_COMMENT.getMessage()),
-    UPDATE_COMMENT(NO_CONTENT.value(), SuccessMessage.UPDATE_COMMENT.getMessage()),
+    UPDATE_COMMENT(CREATED.value(), SuccessMessage.UPDATE_COMMENT.getMessage()),
     DELETE_COMMENT(NO_CONTENT.value(), SuccessMessage.DELETE_COMMENT.getMessage()),
-    // TODO: 메세지 추가 예정
+
+    // <=============== LIKE ===============>
+    SUCCESS_LIKE(CREATED.value(), SuccessMessage.CREATED_LIKE.getMessage()),
+    SUCCESS_UNLIKE(NO_CONTENT.value(), SuccessMessage.CREATED_UNLIKE.getMessage()),
 
     // <=============== AUTH ===============>
     READ_IS_LOGIN(OK.value(), SuccessMessage.READ_IS_LOGIN.getMessage()),

@@ -27,6 +27,10 @@ public enum SuccessMessage {
     UPDATE_COMMENT("SUCCESS - 댓글 수정 성공"),
     DELETE_COMMENT("SUCCESS - 댓글 삭제"),
 
+    // <=============== LIKE ===============>
+    CREATED_LIKE("SUCCESS - 좋아요 등록 성공"),
+    CREATED_UNLIKE("SUCCESS - 좋아요 취소 성공"),
+
     // <=============== AUTH ===============>
     LOGIN_SUCCESS("SUCCESS - 로그인 성공"),
     LOGOUT_SUCCESS("SUCCESS - 로그아웃 성공 및 user Refresh Token 삭제"),
