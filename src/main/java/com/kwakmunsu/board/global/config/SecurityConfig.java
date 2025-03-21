@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.auth.config;
+package com.kwakmunsu.board.global.config;
 
 
 import com.kwakmunsu.board.global.jwt.filter.JwtFilter;
