@@ -25,6 +25,7 @@ public class PostService {
                 postCreateCommand.content(),
                 postCreateCommand.memberId()
         );
+
         return PostResponse.from(post);
     }
 

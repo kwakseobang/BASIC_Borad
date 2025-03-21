@@ -7,6 +7,7 @@ public record PostCreateRequest(String title, String content) {
 
     public PostCreateCommand toPostCreateCommand() {
         Long memberId = JwtUtil.getCurrentMemberId();
+
         return PostCreateCommand.builder()
                 .title(title)
                 .content(content)

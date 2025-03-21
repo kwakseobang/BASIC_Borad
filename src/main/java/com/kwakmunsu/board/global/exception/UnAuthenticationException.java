@@ -11,4 +11,5 @@ public class UnAuthenticationException extends BoardException {
     public UnAuthenticationException(ErrorCode errorCode, String message) {
         super(errorCode, message);
     }
+
 }

@@ -8,6 +8,4 @@ public record PostUpdateCommand(
         String content,
         Long postId,
         Long memberId
-) {
-
-}
+) { }

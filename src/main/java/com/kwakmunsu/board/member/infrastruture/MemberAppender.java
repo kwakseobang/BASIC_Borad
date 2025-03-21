@@ -18,15 +18,18 @@ public class MemberAppender {
     public void create(MemberCreateCommand memberCreateCommand) {
         String username = memberCreateCommand.username();
         String nickname = memberCreateCommand.nickname();
+
         memberRepository.validateUsername(username);
         memberRepository.validateNickname(nickname);
 
         String encodedPassword = bCryptPasswordEncoder.encode(memberCreateCommand.password());
+
         Member member = Member.builder()
                 .username(username)
                 .password(encodedPassword)
                 .nickname(nickname)
                 .build();
+
         memberRepository.append(member);
     }
 

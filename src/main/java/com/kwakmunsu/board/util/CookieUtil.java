@@ -15,6 +15,7 @@ public final class CookieUtil {
         //cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
+
         return cookie;
     }
 
@@ -22,6 +23,7 @@ public final class CookieUtil {
         Cookie cookie = new Cookie(key, null);
         cookie.setMaxAge(0);
         cookie.setPath("/");
+
         return cookie;
     }
 

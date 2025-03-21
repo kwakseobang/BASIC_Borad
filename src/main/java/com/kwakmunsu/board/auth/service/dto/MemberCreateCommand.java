@@ -7,6 +7,4 @@ public record MemberCreateCommand(
         String username,
         String password,
         String nickname
-) {
-
-}
+) { }

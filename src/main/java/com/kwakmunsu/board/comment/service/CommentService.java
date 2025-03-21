@@ -30,6 +30,7 @@ public class CommentService {
 
     public CommentResponse read(Long commentId) {
         Comment comment = commentReader.read(commentId);
+
         return CommentResponse.from(comment);
     }
 

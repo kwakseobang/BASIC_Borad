@@ -18,6 +18,7 @@ public class PostAppender {
                 .content(content)
                 .writerId(memberId)
                 .build();
+
         return postRepository.append(post);
     }
 

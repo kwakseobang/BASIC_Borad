@@ -19,6 +19,7 @@ public class MemberReader {
     public Member login(String username, String password) {
         Member member = memberRepository.getMember(username);
         validatePassword(password, member.getPassword());
+
         return member;
     }
 

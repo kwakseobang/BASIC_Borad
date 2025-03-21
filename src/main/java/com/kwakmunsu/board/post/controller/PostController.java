@@ -31,6 +31,7 @@ public class PostController {
             @RequestBody PostCreateRequest request
     ) {
         PostResponse postResponse = postService.create(request.toPostCreateCommand());
+
         return ResponseData.success(SuccessCode.CREATED_POST, postResponse);
     }
 
@@ -41,9 +42,8 @@ public class PostController {
             @RequestBody PostUpdateRequest request
     ) {
         postService.update(request.toPostUpdateCommand(postId));
+
         return ResponseData.success(SuccessCode.UPDATE_POST);
     }
-
-
 
 }

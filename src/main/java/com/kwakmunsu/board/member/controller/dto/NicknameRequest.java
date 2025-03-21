@@ -7,6 +7,7 @@ public record NicknameRequest(String nickname) {
 
     public NicknameCreateCommand toNicknameCreateCommand() {
         Long memberId = JwtUtil.getCurrentMemberId();
+
         return NicknameCreateCommand.builder()
                 .nickname(nickname)
                 .memberId(memberId)
