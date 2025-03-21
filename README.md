@@ -18,6 +18,11 @@
 - 당연한 예외처리(게시글의 작성자만 수정 가능 등)들은 직접 고민하시고 작성하시면 됩니다.
 
 
+## ERD
+
+![board (3)](https://github.com/user-attachments/assets/e1047390-9a7b-4cfb-ac91-4de91a1317d6)
+
+
 ## 🔥 Task (변동 될 수 있음)
 1. 프로젝트 초기 셋팅
    - [x] README 작성
