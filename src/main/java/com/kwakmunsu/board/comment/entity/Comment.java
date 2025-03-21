@@ -8,12 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Table(name = "comment")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class Comment extends BaseEntity {
 
@@ -21,5 +22,25 @@ public class Comment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
+
+    @Column(name = "post_id", nullable = false)
+    private Long postId;
+
+    @Column(name = "writer_id", nullable = false)
+    private Long writerId;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    @Builder
+    public Comment(Long postId, Long writerId, String content) {
+        this.postId = postId;
+        this.writerId = writerId;
+        this.content = content;
+    }
+
+    public void updateComment(String content) {
+        this.content = content;
+    }
 
 }
