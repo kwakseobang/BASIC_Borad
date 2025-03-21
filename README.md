@@ -20,7 +20,8 @@
 
 ## ERD
 
-![board (3)](https://github.com/user-attachments/assets/e1047390-9a7b-4cfb-ac91-4de91a1317d6)
+![board (4)](https://github.com/user-attachments/assets/d2480e1e-d121-48ac-a06b-8a3afc11ecb2)
+
 
 
 ## 🔥 Task (변동 될 수 있음)
