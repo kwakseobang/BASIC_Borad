@@ -18,6 +18,7 @@ public class FavoritesPostUpdater {
                 .postId(postId)
                 .memberId(memberId)
                 .build();
+
         favoritesPostRepository.append(favoritesPost);
     }
 

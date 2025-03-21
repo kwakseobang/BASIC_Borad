@@ -7,6 +7,4 @@ public record JwtExceptionResponse(
     int status,
     String message,
     String timestamp
-) {
-
-}
+) { }

@@ -7,6 +7,4 @@ public record CommentCreateCommand(
         String content,
         Long postId,
         Long writerId
-) {
-
-}
+) { }

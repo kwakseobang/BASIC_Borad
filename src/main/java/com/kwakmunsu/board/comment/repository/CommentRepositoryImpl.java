@@ -20,9 +20,15 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Comment read(Long commentId) {
+    public Comment readById(Long commentId) {
         return commentJpaRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_COMMENT));
+    }
+
+    @Override
+    public List<Comment> readByPostId(Long postId) {
+        return commentJpaRepository.findByPostId(postId);
+
     }
 
     @Override

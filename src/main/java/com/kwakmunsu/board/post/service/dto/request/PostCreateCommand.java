@@ -7,6 +7,4 @@ public record PostCreateCommand(
         String title,
         String content,
         Long memberId
-) {
-
-}
+) { }

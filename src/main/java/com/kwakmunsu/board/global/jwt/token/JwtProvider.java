@@ -33,9 +33,7 @@ public class JwtProvider {
     private final SecretKey secretKey;
     private static final String CATEGORY_KEY = "category";
 
-    public JwtProvider(
-            @Value("${spring.jwt.secretKey}") String key
-    ) {
+    public JwtProvider(@Value("${spring.jwt.secretKey}") String key) {
         this.secretKey = new SecretKeySpec(
                 key.getBytes(StandardCharsets.UTF_8),
                 Jwts.SIG.HS256
@@ -48,12 +46,14 @@ public class JwtProvider {
     public MemberTokens createTokens(Long memberId, Role role) {
         String accessToken = createAccessToken(memberId, role);
         String refreshToken = createRefreshToken();
+
         return new MemberTokens(accessToken, refreshToken);
     }
 
     private String createAccessToken(Long memberId, Role role) {
         Date date = new Date();
         Date validity = new Date(date.getTime() + TokenExpiration.ACCESS_TOKEN.getExpirationTime());
+
         return Jwts.builder()
                 .subject(String.valueOf(memberId))
                 .claim(CATEGORY_KEY, TokenType.ACCESS.getValue())
@@ -68,6 +68,7 @@ public class JwtProvider {
         Date validity = new Date(
                 date.getTime() + TokenExpiration.REFRESH_TOKEN.getExpirationTime()
         );
+
         return Jwts.builder()
                 .claim(CATEGORY_KEY, TokenType.REFRESH.getValue())
                 .expiration(validity)
@@ -79,6 +80,7 @@ public class JwtProvider {
         String memberId = getClaimsFromToken(token).getSubject();
         // 유저 권한은 하나밖에 없기에 singletonList 로 진행함. 단 하나의 권한만 가질때 사용.
         GrantedAuthority authority = new SimpleGrantedAuthority(getAuthority(token).getValue());
+
         return new UsernamePasswordAuthenticationToken(
                 memberId,
                 null,

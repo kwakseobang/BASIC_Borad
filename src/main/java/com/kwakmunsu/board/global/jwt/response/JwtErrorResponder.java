@@ -29,6 +29,7 @@ public class JwtErrorResponder {
             errorCode.getMessage(),
             LocalDateTime.now().toString()
         );
+
         String jsonToString = objectMapper.writeValueAsString(responseJson);
         response.getWriter().write(jsonToString);
     }

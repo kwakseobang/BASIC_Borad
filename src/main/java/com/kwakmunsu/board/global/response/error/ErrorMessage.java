@@ -30,6 +30,9 @@ public enum ErrorMessage {
     FAILED_SAVE("ERROR - 즐겨찾기 등록 실패"),
     FAILED_RELEASE("ERROR - 즐겨찾기 취소 실패"),
 
+    // <=============== PAGING ===============>
+    FAILED_PAGING("ERROR - 정렬 기준이 잘못되었습니다."),
+
     //  <=============== JWT ===============>
     TOKEN_EXPIRED("ERROR - JWT 토큰 만료"),
     INVALID_TOKEN("ERROR - 유효하지 않은 토큰입니다."),

@@ -32,6 +32,7 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<ResponseData<?>> create(@RequestBody CommentCreateRequest request) {
         commentService.create(request.toCommentCreateCommand());
+
         return ResponseData.success(SuccessCode.CREATED_COMMENT);
     }
 
@@ -41,6 +42,7 @@ public class CommentController {
             @PathVariable("commentId") Long commentId
     ) {
         CommentResponse commentResponse = commentService.read(commentId);
+
         return ResponseData.success(SuccessCode.READ_COMMENT, commentResponse);
     }
 
@@ -51,6 +53,7 @@ public class CommentController {
             @RequestBody CommentUpdateRequest request
     ) {
         commentService.update(request.toCommentUpdateCommand(commentId));
+
         return ResponseData.success(SuccessCode.UPDATE_COMMENT);
     }
 
@@ -58,6 +61,7 @@ public class CommentController {
     @DeleteMapping("/{commentId}")
     public ResponseEntity<ResponseData<?>> delete(@PathVariable("commentId") Long commentId) {
         commentService.delete(commentId);
+
         return ResponseData.success(SuccessCode.DELETE_COMMENT);
     }
 

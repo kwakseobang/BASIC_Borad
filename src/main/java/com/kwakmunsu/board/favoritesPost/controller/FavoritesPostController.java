@@ -26,6 +26,7 @@ public class FavoritesPostController {
     public ResponseEntity<ResponseData<?>> append(@PathVariable("postId") Long postId) {
         FavoritesCommand favoritesCommand = FavoritesCommand.from(postId);
         favoritesPostService.append(favoritesCommand);
+
         return ResponseData.success(SuccessCode.SAVE_POST_SUCCESS);
     }
 
@@ -33,6 +34,7 @@ public class FavoritesPostController {
     public ResponseEntity<ResponseData<?>> cancel(@PathVariable("postId") Long postId) {
         FavoritesCommand favoritesCommand = FavoritesCommand.from(postId);
         favoritesPostService.cancel(favoritesCommand);
+
         return ResponseData.success(SuccessCode.CANCEL_POST_SUCCESS);
     }
 

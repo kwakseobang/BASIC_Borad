@@ -17,6 +17,7 @@ public class MemberService {
     public void updateNickname(NicknameCreateCommand nicknameCreateCommand) {
         Long memberId = nicknameCreateCommand.memberId();
         String nickname = nicknameCreateCommand.nickname();
+
         memberUpdater.updateNickname(memberId, nickname);
     }
 

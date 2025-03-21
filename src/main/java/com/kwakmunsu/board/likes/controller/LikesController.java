@@ -31,6 +31,7 @@ public class LikesController {
         Long memberId = getCurrentMemberId();
         LikesCommand likesCommand = new LikesCommand(postId, memberId);
         likesService.likePost(likesCommand);
+
         return ResponseData.success(SuccessCode.LIKE_SUCCESS);
     }
 
@@ -40,6 +41,7 @@ public class LikesController {
         Long memberId = getCurrentMemberId();
         LikesCommand likesCommand = new LikesCommand(postId, memberId);
         likesService.unlikePost(likesCommand);
+
         return  ResponseData.success(SuccessCode.UNLIKE_SUCCESS);
     }
 

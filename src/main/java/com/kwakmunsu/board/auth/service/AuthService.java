@@ -31,6 +31,7 @@ public class AuthService {
         Member member = memberReader.login(loginCommand.username(),loginCommand.password());
         MemberTokens memberTokens = jwtProvider.createTokens(member.getId(), member.getRole());
         member.updateRefreshToken(memberTokens.refreshToken());
+
         return memberTokens;
     }
     // TODO: 로직 분리 할 수 있을 거 같다. 좀 더 고민해보자.
@@ -42,6 +43,7 @@ public class AuthService {
         Member member = memberReader.findByRefreshToken(reissueTokenCommand.reissueToken());
         MemberTokens memberTokens = jwtProvider.createTokens(member.getId(), member.getRole());
         member.updateRefreshToken(memberTokens.refreshToken());
+
         return memberTokens;
     }
 

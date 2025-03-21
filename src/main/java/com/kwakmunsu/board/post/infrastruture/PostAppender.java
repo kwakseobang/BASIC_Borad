@@ -12,13 +12,14 @@ public class PostAppender {
 
     private final PostRepository postRepository;
 
-    public Post append(String title, String content, Long memberId) {
+    public void append(String title, String content, Long memberId) {
         Post post = Post.builder()
                 .title(title)
                 .content(content)
                 .writerId(memberId)
                 .build();
-        return postRepository.append(post);
+
+        postRepository.append(post);
     }
 
 }

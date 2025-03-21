@@ -7,6 +7,7 @@ public record PostUpdateRequest(String title, String content) {
 
     public PostUpdateCommand toPostUpdateCommand(Long postId) {
         Long memberId = JwtUtil.getCurrentMemberId();
+
         return PostUpdateCommand.builder()
                 .title(title)
                 .content(content)

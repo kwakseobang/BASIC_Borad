@@ -7,10 +7,12 @@ public record CommentCreateRequest(String content, Long postId) {
 
     public CommentCreateCommand toCommentCreateCommand() {
         Long memberId = JwtUtil.getCurrentMemberId();
+
         return CommentCreateCommand.builder()
                 .content(content)
                 .postId(postId)
                 .writerId(memberId)
                 .build();
     }
+
 }
