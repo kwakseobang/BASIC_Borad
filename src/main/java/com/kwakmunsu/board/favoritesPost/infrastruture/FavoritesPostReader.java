@@ -19,13 +19,13 @@ public class FavoritesPostReader {
     }
     public void validateNotSave(Long postId, Long memberId) {
         if (favoritesPostRepository.isSave(postId, memberId)) {
-            throw new DuplicationException(ErrorCode.FAILED_SAVE, "이미 저장된 게시물압니다.");
+            throw new DuplicationException(ErrorCode.FAILED_SAVE, "이미 저장된 게시물 입니다.");
         }
     }
 
     public void validateSave(Long postId, Long memberId) {
         if (!favoritesPostRepository.isSave(postId, memberId)) {
-            throw new DuplicationException(ErrorCode.FAILED_RELEASE, "저장하지 않은 게시물입니다.");
+            throw new DuplicationException(ErrorCode.FAILED_RELEASE, "저장하지 않은 게시물 입니다.");
         }
     }
 
