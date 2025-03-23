@@ -8,7 +8,7 @@ import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.jwt.token.JwtProvider;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.member.entity.Member;
-import com.kwakmunsu.board.member.infrastruture.MemberAppender;
+import com.kwakmunsu.board.member.infrastruture.MemberCommander;
 import com.kwakmunsu.board.member.infrastruture.MemberReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AuthService {
 
-    private final MemberAppender memberAppender;
+    private final MemberCommander memberCommander;
     private final MemberReader memberReader;
     private final JwtProvider jwtProvider;
 
     public void signUp(MemberCreateCommand memberCreateCommand) {
-        memberAppender.create(memberCreateCommand);
+        memberCommander.create(memberCreateCommand);
     }
 
     @Transactional
