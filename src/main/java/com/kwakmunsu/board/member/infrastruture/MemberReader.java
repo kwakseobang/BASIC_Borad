@@ -2,6 +2,7 @@ package com.kwakmunsu.board.member.infrastruture;
 
 
 import com.kwakmunsu.board.global.exception.NotFoundException;
+import com.kwakmunsu.board.global.exception.UnAuthenticationException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.repository.MemberRepository;
@@ -26,7 +27,7 @@ public class MemberReader {
     private void validatePassword(String rawPassword, String encryptedPassword) {
         // matches(평문 패스워드, 암호화 패스워드) 순서로 해야 됨.
         if (!bCryptPasswordEncoder.matches(rawPassword, encryptedPassword)) {
-            throw new NotFoundException(ErrorCode.BAD_REQUEST_PASSWORD);
+            throw new UnAuthenticationException(ErrorCode.UNAUTHORIZED_ERROR);
         }
     }
 
