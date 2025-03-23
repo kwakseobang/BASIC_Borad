@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.likes.repository;
+package com.kwakmunsu.board.likes.service.repository;
 
 import com.kwakmunsu.board.likes.entity.Likes;
 

@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.member.repository;
+package com.kwakmunsu.board.member.service.repository;
 
 import com.kwakmunsu.board.member.entity.Member;
 

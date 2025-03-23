@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.post.repository;
+package com.kwakmunsu.board.post.service.repository;
 
 import com.kwakmunsu.board.post.entity.Post;
 import org.springframework.data.domain.Page;

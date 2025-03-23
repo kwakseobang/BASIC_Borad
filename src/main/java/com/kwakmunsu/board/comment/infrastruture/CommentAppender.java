@@ -2,7 +2,7 @@ package com.kwakmunsu.board.comment.infrastruture;
 
 
 import com.kwakmunsu.board.comment.entity.Comment;
-import com.kwakmunsu.board.comment.repository.CommentRepository;
+import com.kwakmunsu.board.comment.service.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

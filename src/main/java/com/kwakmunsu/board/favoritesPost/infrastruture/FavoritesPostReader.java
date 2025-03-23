@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.favoritespost.infrastruture;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
-import com.kwakmunsu.board.favoritespost.repository.FavoritesPostRepository;
+import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
 import com.kwakmunsu.board.global.exception.DuplicationException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import java.util.List;

@@ -5,8 +5,8 @@ import com.kwakmunsu.board.global.exception.DuplicationException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.member.entity.Member;
+import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor

@@ -2,7 +2,7 @@ package com.kwakmunsu.board.favoritespost.repository;
 
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
-import com.kwakmunsu.board.post.entity.Post;
+import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

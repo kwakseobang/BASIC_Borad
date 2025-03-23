@@ -5,6 +5,7 @@ import com.kwakmunsu.board.global.exception.BadRequestException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.post.entity.Post;
+import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
