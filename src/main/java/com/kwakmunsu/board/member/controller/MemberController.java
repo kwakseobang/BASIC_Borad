@@ -22,15 +22,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "member")
 @RequestMapping("/members")
 @RequiredArgsConstructor
 @RestController
-public class MemberController {
+public class MemberController implements MemberApiController {
 
     private final MemberService memberService;
 
-    @Operation(summary = "닉네임 변경")
     @PutMapping
     public ResponseEntity<ResponseData<?>> updateNickname(
             @RequestBody NicknameRequest nicknameRequest
@@ -42,8 +40,7 @@ public class MemberController {
     }
 
     // 클라이언트에서 AccessToken 삭제해주어야 함.
-    // TODO: 보안 강화 로직 추가 가능
-    @Operation(summary = "로그아웃")
+    // TODO : 보안 강화 로직 추가 가능
     @PostMapping("/logout")
     public ResponseEntity<ResponseData<?>> logout(HttpServletResponse response) {
         // TODO: getCurrentMemberId()를 어느 레이어에서 호출 할 지 고민이다..

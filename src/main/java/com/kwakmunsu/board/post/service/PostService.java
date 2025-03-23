@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -65,11 +66,13 @@ public class PostService {
         return new PostPageResponse(postReader.readAll(pageable));
     }
 
+    @Transactional
     public void update(PostUpdateCommand postUpdateCommand) {
         Post post = postReader.read(postUpdateCommand.postId());
         post.updatePost(postUpdateCommand.title(), postUpdateCommand.content());
     }
 
+    @Transactional
     public void updateViews(Long postId) {
         Post post = postReader.read(postId);
         post.incrementViewCount();

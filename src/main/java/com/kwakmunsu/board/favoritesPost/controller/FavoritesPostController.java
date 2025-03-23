@@ -6,7 +6,6 @@ import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,11 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "favoritesPost")
 @RequestMapping("/favorites-post")
 @RequiredArgsConstructor
 @RestController
-public class FavoritesPostController {
+public class FavoritesPostController implements FavoritesPostApiController {
 
     private final FavoritesPostService favoritesPostService;
 

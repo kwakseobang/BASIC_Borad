@@ -12,8 +12,6 @@ import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.util.CookieUtil;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,22 +22,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Auth")
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @RestController
-public class AuthController {
+public class AuthController implements AuthApiController{
 
     private final AuthService authService;
 
-    @Operation(summary = "회원가입 [JWT 사용 X]")
     @PostMapping("/signup")
     public ResponseEntity<ResponseData<?>> signUp(@RequestBody MemberCreateRequest request) {
         authService.signUp(request.toMemberCreateCommand());
         return ResponseData.success(SuccessCode.CREATED_MEMBER);
     }
 
-    @Operation(summary = "로그인 [JWT 사용 X]")
     @PostMapping("/login")
     public ResponseEntity<ResponseData<String>> login(
             HttpServletResponse response,
@@ -53,8 +48,6 @@ public class AuthController {
         return ResponseData.success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
     }
 
-
-    @Operation(summary = "Access Token 재발급 요청 [쿠키 사용]")
     @PostMapping("/reissue")
     public ResponseEntity<ResponseData<String>> reissue(
             HttpServletResponse response,

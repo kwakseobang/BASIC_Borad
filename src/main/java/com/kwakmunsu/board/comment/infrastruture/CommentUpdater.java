@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentUpdater {
 
     private final CommentRepository commentRepository;
-    private final CommentReader commentReader;
 
     @Transactional
     public void update(String newContent, Long commentId) {
