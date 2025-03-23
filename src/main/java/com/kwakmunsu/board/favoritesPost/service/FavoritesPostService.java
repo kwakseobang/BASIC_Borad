@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.favoritespost.service;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
-import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostUpdater;
+import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostCommander;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostReader;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FavoritesPostService {
 
-    private final FavoritesPostUpdater favoritesPostUpdater;
+    private final FavoritesPostCommander favoritesPostCommander;
     private final FavoritesPostReader favoritesPostReader;
     private final PostReader postReader;
 
@@ -26,7 +26,7 @@ public class FavoritesPostService {
         postReader.validatePostExist(postId);
         // 해당 유저가 해당 게시물을 저장하지 않았으면 유효성 검증 통과
         favoritesPostReader.validateNotSave(postId, favoritesCommand.memberId());
-        favoritesPostUpdater.append(postId, favoritesCommand.memberId());
+        favoritesPostCommander.append(postId, favoritesCommand.memberId());
     }
 
     public FavoritesResponse readAll() {
@@ -45,7 +45,7 @@ public class FavoritesPostService {
 
         // 해당 유저가 해당 게시물을 저장했으면 유효성 검증 통과
         favoritesPostReader.validateSave(postId, favoritesCommand.memberId());
-        favoritesPostUpdater.cancel(postId, favoritesCommand.memberId());
+        favoritesPostCommander.cancel(postId, favoritesCommand.memberId());
     }
 
 }

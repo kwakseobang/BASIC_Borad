@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Component
-public class LikesUpdater {
+public class LikesCommander {
 
     private final LikesRepository likesRepository;
 

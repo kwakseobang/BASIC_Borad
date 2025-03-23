@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.favoritespost.infrastruture;
 
-
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Component
-public class FavoritesPostUpdater {
+public class FavoritesPostCommander {
 
     private final FavoritesPostRepository favoritesPostRepository;
 
