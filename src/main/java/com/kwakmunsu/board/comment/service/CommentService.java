@@ -21,6 +21,7 @@ public class CommentService {
     private final CommentRemover commentRemover;
 
     public void create(CommentCreateCommand commentCreateCommand) {
+        // FIXME: 게시글 존재하는 지 유효성 검사가 빠져있습니다. 구현해 주세요.
         commentAppender.append(
                 commentCreateCommand.content(),
                 commentCreateCommand.postId(),

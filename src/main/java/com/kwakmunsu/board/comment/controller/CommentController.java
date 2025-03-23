@@ -20,15 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "comment")
+
 @RequestMapping("/comments")
 @RequiredArgsConstructor
 @RestController
-public class CommentController {
+public class CommentController implements CommentApiController {
 
     private final CommentService commentService;
 
-    @Operation(summary = "댓글 생성")
     @PostMapping
     public ResponseEntity<ResponseData<?>> create(@RequestBody CommentCreateRequest request) {
         commentService.create(request.toCommentCreateCommand());
@@ -36,7 +35,6 @@ public class CommentController {
         return ResponseData.success(SuccessCode.CREATED_COMMENT);
     }
 
-    @Operation(summary = "댓글 조회")
     @GetMapping("/{commentId}")
     public ResponseEntity<ResponseData<CommentResponse>> read(
             @PathVariable("commentId") Long commentId
@@ -46,7 +44,6 @@ public class CommentController {
         return ResponseData.success(SuccessCode.READ_COMMENT, commentResponse);
     }
 
-    @Operation(summary = "댓글 수정")
     @PutMapping("/{commentId}")
     public ResponseEntity<ResponseData<?>> update(
             @PathVariable("commentId") Long commentId,
@@ -57,7 +54,6 @@ public class CommentController {
         return ResponseData.success(SuccessCode.UPDATE_COMMENT);
     }
 
-    @Operation(summary = "댓글 삭제")
     @DeleteMapping("/{commentId}")
     public ResponseEntity<ResponseData<?>> delete(@PathVariable("commentId") Long commentId) {
         commentService.delete(commentId);
