@@ -2,6 +2,7 @@ package com.kwakmunsu.board.comment.repository;
 
 
 import com.kwakmunsu.board.comment.entity.Comment;
+import com.kwakmunsu.board.comment.service.repository.CommentRepository;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import java.util.List;

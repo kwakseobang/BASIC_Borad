@@ -3,7 +3,7 @@ package com.kwakmunsu.board.likes.infrastruture;
 
 import com.kwakmunsu.board.global.exception.DuplicationException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
-import com.kwakmunsu.board.likes.repository.LikesRepository;
+import com.kwakmunsu.board.likes.service.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

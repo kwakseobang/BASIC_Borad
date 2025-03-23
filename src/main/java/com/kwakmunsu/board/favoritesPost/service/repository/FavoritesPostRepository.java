@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.favoritespost.repository;
+package com.kwakmunsu.board.favoritespost.service.repository;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import java.util.List;

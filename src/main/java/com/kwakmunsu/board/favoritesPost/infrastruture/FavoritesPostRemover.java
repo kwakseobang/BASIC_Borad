@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.favoritespost.infrastruture;
 
 
-import com.kwakmunsu.board.favoritespost.repository.FavoritesPostRepository;
+import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -2,6 +2,7 @@ package com.kwakmunsu.board.likes.repository;
 
 
 import com.kwakmunsu.board.likes.entity.Likes;
+import com.kwakmunsu.board.likes.service.repository.LikesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

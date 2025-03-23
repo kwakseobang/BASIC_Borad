@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.comment.repository;
+package com.kwakmunsu.board.comment.service.repository;
 
 import com.kwakmunsu.board.comment.entity.Comment;
 import java.util.List;

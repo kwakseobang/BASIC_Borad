@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.post.infrastruture;
 
 
-import com.kwakmunsu.board.post.repository.PostRepository;
+import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

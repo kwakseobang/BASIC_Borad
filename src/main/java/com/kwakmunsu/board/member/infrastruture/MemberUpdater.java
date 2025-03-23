@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.member.infrastruture;
 
 import com.kwakmunsu.board.member.entity.Member;
-import com.kwakmunsu.board.member.repository.MemberRepository;
+import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

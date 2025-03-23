@@ -3,7 +3,7 @@ package com.kwakmunsu.board.member.infrastruture;
 
 import com.kwakmunsu.board.auth.service.dto.MemberCreateCommand;
 import com.kwakmunsu.board.member.entity.Member;
-import com.kwakmunsu.board.member.repository.MemberRepository;
+import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
