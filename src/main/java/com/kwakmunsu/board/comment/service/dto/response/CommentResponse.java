@@ -1,7 +1,8 @@
 package com.kwakmunsu.board.comment.service.dto.response;
 
+import static com.kwakmunsu.board.util.TimeConverter.datetimeToString;
+
 import com.kwakmunsu.board.comment.entity.Comment;
-import java.time.LocalDateTime;
 import lombok.Builder;
 
 @Builder
@@ -10,7 +11,7 @@ public record CommentResponse(
         String content,
         Long postId,
         Long writerId,
-        LocalDateTime createAt
+        String createAt
 ) {
 
     public static CommentResponse from(Comment comment) {
@@ -19,7 +20,7 @@ public record CommentResponse(
                 .content(comment.getContent())
                 .postId(comment.getPostId())
                 .writerId(comment.getWriterId())
-                .createAt(comment.getCreatedAt())
+                .createAt(datetimeToString(comment.getCreatedAt()))
                 .build();
     }
 
