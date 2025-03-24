@@ -6,7 +6,7 @@ import com.kwakmunsu.board.post.entity.Post;
 import lombok.Builder;
 
 @Builder
-public record FavoritesPageResponse(
+public record FavoritesPreviewResponse(
         long id,
         String title,
         String writer,
@@ -16,8 +16,8 @@ public record FavoritesPageResponse(
         long favoritesCount
 ) {
 
-    public static FavoritesPageResponse from(Post post, long likeCount, long favoritesCount) {
-        return FavoritesPageResponse.builder()
+    public static FavoritesPreviewResponse from(Post post, long likeCount, long favoritesCount) {
+        return FavoritesPreviewResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
                 .writer(post.getWriter().getNickname())

@@ -5,7 +5,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 
 import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.comment.infrastruture.CommentReader;
-import com.kwakmunsu.board.comment.service.dto.response.CommentPageResponse;
+import com.kwakmunsu.board.comment.service.dto.response.CommentPreviewResponse;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostReader;
 import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.member.entity.Member;
@@ -17,11 +17,9 @@ import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
-import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,32 +38,29 @@ public class PostService {
     private final MemberReader memberReader;
     private final FavoritesPostReader favoritesPostReader;
 
-    public PostCreateResponse create(PostCreateCommand postCreateCommand) {
+    public Long create(PostCreateCommand postCreateCommand) {
         Member member = memberReader.getMember(postCreateCommand.memberId());
 
-        long newPostId = postCommander.append(
+        return postCommander.append(
                 postCreateCommand.title(),
                 postCreateCommand.content(),
                 member
         );
-        return new PostCreateResponse(newPostId);
     }
 
-    public PostDetailResponse read(Long postId) {
+    public PostResponse read(Long postId) {
         Post post = postReader.read(postId);
         long likesCount = likesReader.readLikes(postId);
         long favoritesCount = favoritesPostReader.countByPostId(postId);
-        PostResponse postResponse = PostResponse.from(post, likesCount, favoritesCount);
-
         List<Comment> comments = commentReader.readByPostId(postId);
-        List<CommentPageResponse> commentPageResponses = comments.stream()
-                .map(CommentPageResponse::from)
+        List<CommentPreviewResponse> commentPreviewResponses = comments.stream()
+                .map(CommentPreviewResponse::from)
                 .toList();
 
-        return new PostDetailResponse(postResponse, commentPageResponses);
+        return PostResponse.from(post, likesCount, favoritesCount, commentPreviewResponses);
     }
 
-    public PostPageResponse readAll(PostPageableCommand pageableCommand) {
+    public List<PostPreviewResponse> readAll(PostPageableCommand pageableCommand) {
         // 간단한 삼항 연산자라 사용함.
         Direction direction = pageableCommand.isDesc() ? DESC : ASC;
         Page<Post> posts = postReader.readAll(
@@ -73,9 +68,16 @@ public class PostService {
                 pageableCommand.pageSize(),
                 pageableCommand.sortBy(),
                 direction
-                );
+        );
 
-        return new PostPageResponse(posts);
+        List<PostPreviewResponse> postPreviewResponses = new ArrayList<>();
+        for (Post post : posts) {
+            long likesCount = likesReader.readLikes(post.getId());
+            long favoritesCount = favoritesPostReader.countByPostId(post.getId());
+            postPreviewResponses.add(PostPreviewResponse.from(post, likesCount, favoritesCount));
+        }
+
+        return postPreviewResponses;
     }
 
     @Transactional
@@ -98,10 +100,10 @@ public class PostService {
         post.incrementViewCount();
     }
 
-    public PostViewsResponse readViews(Long postId) {
+    public Long readViews(Long postId) {
         Post post = postReader.read(postId);
 
-        return new PostViewsResponse(post.getViewCount());
+        return post.getViewCount();
     }
 
 }

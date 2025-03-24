@@ -4,7 +4,7 @@ import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostCommander;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostReader;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
@@ -33,20 +33,20 @@ public class FavoritesPostService {
         favoritesPostCommander.append(postId, memberId);
     }
 
-    public List<FavoritesPageResponse> readAll() {
+    public List<FavoritesPreviewResponse> readAll() {
         List<FavoritesPost> favoritesPosts = favoritesPostReader.readAll();
-        List<FavoritesPageResponse> favoritesPageResponses = new ArrayList<>();
+        List<FavoritesPreviewResponse> favoritesPreviewRespons = new ArrayList<>();
 
         for (FavoritesPost favoritesPost : favoritesPosts) {
             Post post = postReader.read(favoritesPost.getPostId());
             long likesCount = likesReader.readLikes(post.getId());
             long favoritesCount = favoritesPostReader.countByPostId(post.getId());
-            favoritesPageResponses.add(
-                    FavoritesPageResponse.from(post, likesCount, favoritesCount)
+            favoritesPreviewRespons.add(
+                    FavoritesPreviewResponse.from(post, likesCount, favoritesCount)
             );
         }
 
-        return favoritesPageResponses;
+        return favoritesPreviewRespons;
     }
 
     @Transactional

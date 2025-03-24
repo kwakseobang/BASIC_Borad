@@ -3,7 +3,7 @@ package com.kwakmunsu.board.favoritespost.controller;
 
 import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import java.util.List;
@@ -32,10 +32,10 @@ public class FavoritesPostController implements FavoritesPostApiController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<List<FavoritesPageResponse>>> readAll() {
-        List<FavoritesPageResponse> favoritesPageResponses = favoritesPostService.readAll();
+    public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll() {
+        List<FavoritesPreviewResponse> favoritesPreviewRespons = favoritesPostService.readAll();
 
-        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPageResponses);
+        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPreviewRespons);
     }
 
     @DeleteMapping("/{postId}")

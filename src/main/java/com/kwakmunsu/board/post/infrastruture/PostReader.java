@@ -23,7 +23,12 @@ public class PostReader {
         return postRepository.read(postId);
     }
 
-    public Page<Post> readAll(int page, int pageSize, String sortBy, Direction direction) {
+    public Page<Post> readAll(
+            int page,
+            int pageSize,
+            String sortBy,
+            Direction direction
+    ) {
         Pageable pageable = PageRequest.of(
                 page - 1,
                 pageSize,

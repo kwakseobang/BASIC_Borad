@@ -16,8 +16,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     private final CommentJpaRepository commentJpaRepository;
 
     @Override
-    public long append(Comment comment) {
+    public Long append(Comment comment) {
         Comment saved = commentJpaRepository.save(comment);
+
         return saved.getId();
     }
 

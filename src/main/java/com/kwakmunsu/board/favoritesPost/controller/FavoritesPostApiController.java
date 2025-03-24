@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
 
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,7 +26,7 @@ public interface FavoritesPostApiController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     })
-    ResponseEntity<ResponseData<List<FavoritesPageResponse>>> readAll();
+    ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll();
 
     @Operation(summary = "게시글 저장 취소")
     @ApiResponses(value = {
