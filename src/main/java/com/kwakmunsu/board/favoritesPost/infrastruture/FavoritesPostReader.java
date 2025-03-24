@@ -17,6 +17,15 @@ public class FavoritesPostReader {
     public List<FavoritesPost> readAll() {
         return  favoritesPostRepository.readAll();
     }
+
+    public long countByPostId(Long postId) {
+        return favoritesPostRepository.countByPostId(postId);
+    }
+
+    public long countByMemberId(Long memberId) {
+        return favoritesPostRepository.countByMemberId(memberId);
+    }
+
     public void validateNotSave(Long postId, Long memberId) {
         if (favoritesPostRepository.isSave(postId, memberId)) {
             throw new DuplicationException(ErrorCode.FAILED_SAVE, "이미 저장된 게시물 입니다.");

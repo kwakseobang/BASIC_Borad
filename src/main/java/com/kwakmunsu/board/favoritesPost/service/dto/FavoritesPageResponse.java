@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.post.service.dto.response;
+package com.kwakmunsu.board.favoritespost.service.dto;
 
 import static com.kwakmunsu.board.util.TimeConverter.datetimeToString;
 
@@ -6,27 +6,21 @@ import com.kwakmunsu.board.post.entity.Post;
 import lombok.Builder;
 
 @Builder
-public record PostResponse(
+public record FavoritesPageResponse(
         long id,
-        String writer,
         String title,
-        String content,
+        String writer,
         String createAt,
         long viewCount,
         long likeCount,
         long favoritesCount
 ) {
 
-    public static PostResponse from(
-            Post post,
-            long likeCount,
-            long favoritesCount
-    ) {
-        return PostResponse.builder()
+    public static FavoritesPageResponse from(Post post, long likeCount, long favoritesCount) {
+        return FavoritesPageResponse.builder()
                 .id(post.getId())
-                .writer(post.getWriter().getNickname())
                 .title(post.getTitle())
-                .content(post.getContent())
+                .writer(post.getWriter().getNickname())
                 .createAt(datetimeToString(post.getCreatedAt()))
                 .viewCount(post.getViewCount())
                 .likeCount(likeCount)

@@ -1,17 +1,15 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
 
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Tag(name = "FavoritesPostController", description = "FavoritesPost API")
 public interface FavoritesPostApiController {
@@ -28,7 +26,7 @@ public interface FavoritesPostApiController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     })
-    ResponseEntity<ResponseData<FavoritesResponse>> readAll();
+    ResponseEntity<ResponseData<List<FavoritesPageResponse>>> readAll();
 
     @Operation(summary = "게시글 저장 취소")
     @ApiResponses(value = {

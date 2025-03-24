@@ -38,6 +38,8 @@ public enum SuccessMessage {
     // <=============== FAVORITES_POST ===============>
     SAVE_POST_SUCCESS("SUCCESS - 게시물 저장 성공"),
     CANCEL_POST_SUCCESS("SUCCESS - 게시물 저장 취소 성공"),
+    READ_FAVORITES_LIST("SUCCESS - 저장 게시물 목록 조회 성공"),
+
 
     // <=============== AUTH ===============>
     LOGIN_SUCCESS("SUCCESS - 로그인 성공"),

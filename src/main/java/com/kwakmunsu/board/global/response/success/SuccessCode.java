@@ -43,6 +43,7 @@ public enum SuccessCode implements StatusCode {
     // <=============== FAVORITES_POST ===============>
     SAVE_POST_SUCCESS(CREATED.value(), SuccessMessage.SAVE_POST_SUCCESS.getMessage()),
     CANCEL_POST_SUCCESS(NO_CONTENT.value(), SuccessMessage.CANCEL_POST_SUCCESS.getMessage()),
+    READ_FAVORITES_LIST(OK.value(), SuccessMessage.READ_FAVORITES_LIST.getMessage()),
 
     // <=============== AUTH ===============>
     READ_IS_LOGIN(OK.value(), SuccessMessage.READ_IS_LOGIN.getMessage()),

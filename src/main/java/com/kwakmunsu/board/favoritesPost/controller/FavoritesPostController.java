@@ -3,9 +3,10 @@ package com.kwakmunsu.board.favoritespost.controller;
 
 import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/favorites-post")
+@RequestMapping("/favorites-posts")
 @RequiredArgsConstructor
 @RestController
 public class FavoritesPostController implements FavoritesPostApiController {
@@ -31,9 +32,10 @@ public class FavoritesPostController implements FavoritesPostApiController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<FavoritesResponse>> readAll() {
-        FavoritesResponse favoritesResponse = favoritesPostService.readAll();
-        return ResponseData.success(SuccessCode.READ_POST, favoritesResponse);
+    public ResponseEntity<ResponseData<List<FavoritesPageResponse>>> readAll() {
+        List<FavoritesPageResponse> favoritesPageResponses = favoritesPostService.readAll();
+
+        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPageResponses);
     }
 
     @DeleteMapping("/{postId}")

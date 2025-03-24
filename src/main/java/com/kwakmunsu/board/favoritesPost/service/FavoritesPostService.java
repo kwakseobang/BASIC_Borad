@@ -4,7 +4,8 @@ import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostCommander;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostReader;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesResponse;
+import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPageResponse;
+import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
 import java.util.ArrayList;
@@ -20,22 +21,30 @@ public class FavoritesPostService {
     private final FavoritesPostCommander favoritesPostCommander;
     private final FavoritesPostReader favoritesPostReader;
     private final PostReader postReader;
+    private final LikesReader likesReader;
+
 
     public void append(FavoritesCommand favoritesCommand) {
         Long postId = favoritesCommand.postId();
-        postReader.validatePostExist(postId);
+        Post post = postReader.read(postId);
         // 해당 유저가 해당 게시물을 저장하지 않았으면 유효성 검증 통과
         favoritesPostReader.validateNotSave(postId, favoritesCommand.memberId());
-        favoritesPostCommander.append(postId, favoritesCommand.memberId());
+        favoritesPostCommander.append(post);
     }
 
-    public FavoritesResponse readAll() {
+    public List<FavoritesPageResponse> readAll() {
         List<FavoritesPost> favoritesPosts = favoritesPostReader.readAll();
-        List<Post> posts = new ArrayList<>();
+        List<FavoritesPageResponse> favoritesPageResponses = new ArrayList<>();
+
         for (FavoritesPost favoritesPost : favoritesPosts) {
-            posts.add(postReader.read(favoritesPost.getPostId()));
+            Post post = postReader.read(favoritesPost.getPostId());
+            long likesCount = likesReader.readLikes(post.getId());
+            long favoritesCount = favoritesPostReader.countByPostId(post.getId());
+            favoritesPageResponses.add(
+                    FavoritesPageResponse.from(post, likesCount, favoritesCount)
+            );
         }
-        return new FavoritesResponse(posts);
+        return favoritesPageResponses;
     }
 
     @Transactional
