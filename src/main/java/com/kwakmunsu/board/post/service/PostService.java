@@ -17,6 +17,7 @@ import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
+import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
@@ -39,14 +40,15 @@ public class PostService {
     private final MemberReader memberReader;
     private final FavoritesPostReader favoritesPostReader;
 
-    public void create(PostCreateCommand postCreateCommand) {
+    public PostCreateResponse create(PostCreateCommand postCreateCommand) {
         Member member = memberReader.getMember(postCreateCommand.memberId());
 
-        postCommander.append(
+        long newPostId = postCommander.append(
                 postCreateCommand.title(),
                 postCreateCommand.content(),
                 member
         );
+        return new PostCreateResponse(newPostId);
     }
 
     public PostDetailResponse read(Long postId) {

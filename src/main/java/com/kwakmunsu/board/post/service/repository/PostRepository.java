@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostRepository {
 
-    void append(Post post);
+    long append(Post post);
     void deleteById(Long postId);
     Post read(Long postId);
     boolean isExist(Long postId);

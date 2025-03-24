@@ -20,14 +20,14 @@ public class PostCommander {
     private final CommentCommander commentCommander;
     private final PostRepository postRepository;
 
-    public void append(String title, String content, Member writer) {
+    public long append(String title, String content, Member writer) {
         Post post = Post.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
                 .build();
 
-        postRepository.append(post);
+        return postRepository.append(post);
     }
 
     @Transactional

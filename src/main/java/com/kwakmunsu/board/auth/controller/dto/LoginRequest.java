@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.LoginCommand;
+import com.kwakmunsu.board.auth.service.dto.request.LoginCommand;
 
 public record LoginRequest(String username, String password) {
 

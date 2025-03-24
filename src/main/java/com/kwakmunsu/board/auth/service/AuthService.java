@@ -1,8 +1,8 @@
 package com.kwakmunsu.board.auth.service;
 
-import com.kwakmunsu.board.auth.service.dto.LoginCommand;
-import com.kwakmunsu.board.auth.service.dto.MemberCreateCommand;
-import com.kwakmunsu.board.auth.service.dto.ReissueTokenCommand;
+import com.kwakmunsu.board.auth.service.dto.request.LoginCommand;
+import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
+import com.kwakmunsu.board.auth.service.dto.request.ReissueTokenCommand;
 import com.kwakmunsu.board.global.exception.UnAuthenticationException;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.jwt.token.JwtProvider;

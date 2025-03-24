@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.auth.service.dto;
+package com.kwakmunsu.board.auth.service.dto.request;
 
 import lombok.Builder;
 
