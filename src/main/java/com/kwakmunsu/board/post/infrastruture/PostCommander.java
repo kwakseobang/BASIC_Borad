@@ -21,7 +21,6 @@ public class PostCommander {
     private final PostRepository postRepository;
 
     public void append(String title, String content, Member writer) {
-
         Post post = Post.builder()
                 .title(title)
                 .content(content)

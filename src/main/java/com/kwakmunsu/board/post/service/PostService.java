@@ -1,5 +1,8 @@
 package com.kwakmunsu.board.post.service;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
+import static org.springframework.data.domain.Sort.Direction.DESC;
+
 import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.comment.infrastruture.CommentReader;
 import com.kwakmunsu.board.comment.service.dto.response.CommentPageResponse;
@@ -21,9 +24,6 @@ import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,12 +64,14 @@ public class PostService {
     }
 
     public PostPageResponse readAll(PostPageableCommand pageableCommand) {
-        Pageable pageable = PageRequest.of(
-                pageableCommand.page() - 1,
+        // 간단한 삼항 연산자라 사용함.
+        Direction direction = pageableCommand.isDesc() ? DESC : ASC;
+        Page<Post> posts = postReader.readAll(
+                pageableCommand.page(),
                 pageableCommand.pageSize(),
-                Sort.by(Direction.DESC, pageableCommand.sortBy())
-        );
-        Page<Post> posts = postReader.readAll(pageable);
+                pageableCommand.sortBy(),
+                direction
+                );
 
         return new PostPageResponse(posts);
     }

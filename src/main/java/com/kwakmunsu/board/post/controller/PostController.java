@@ -9,10 +9,8 @@ import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,21 +38,23 @@ public class PostController implements PostApiController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<ResponseData<PostDetailResponse>> read(@PathVariable("postId") Long postId) {
+    public ResponseEntity<ResponseData<PostDetailResponse>> read(
+            @PathVariable("postId") Long postId) {
         PostDetailResponse postResponse = postService.read(postId);
 
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
-    // TODO: 내림차순 올림차순 기준도 추가해주세여.
+
     @GetMapping
     public ResponseEntity<ResponseData<PostPageResponse>> readAll(
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pageSize,
             @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt")
-            String sortBy
+            String sortBy,
+            @RequestParam("isDesc") boolean isDesc
     ) {
         PostPageResponse postPageResponse = postService.readAll(
-                new PostPageableCommand(page, pageSize, sortBy)
+                new PostPageableCommand(page, pageSize, sortBy, isDesc)
         );
 
         return ResponseData.success(SuccessCode.READ_POST_LIST, postPageResponse);
@@ -68,6 +68,13 @@ public class PostController implements PostApiController {
         postService.update(request.toPostUpdateCommand(postId));
 
         return ResponseData.success(SuccessCode.UPDATE_POST);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<ResponseData<?>> delete(@PathVariable("postId") Long postId) {
+        postService.delete(PostDeleteCommand.from(postId));
+
+        return ResponseData.success(SuccessCode.DELETE_POST);
     }
 
     @Operation(summary = "게시글 조회수 증가")
@@ -85,13 +92,6 @@ public class PostController implements PostApiController {
         PostViewsResponse postViewsResponse = postService.readViews(postId);
 
         return ResponseData.success(SuccessCode.READ_VIEWS, postViewsResponse);
-    }
-
-    @DeleteMapping("/{postId}")
-    public ResponseEntity<ResponseData<?>> delete(@PathVariable("postId") Long postId) {
-        postService.delete(PostDeleteCommand.from(postId));
-
-        return ResponseData.success(SuccessCode.DELETE_POST);
     }
 
 }
