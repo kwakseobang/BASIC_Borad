@@ -4,6 +4,7 @@ package com.kwakmunsu.board.post.controller;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
+import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
@@ -23,7 +24,7 @@ public interface PostApiController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "게시글 생성 성공")
     })
-    ResponseEntity<ResponseData<?>> create(@RequestBody PostCreateRequest request);
+    ResponseEntity<ResponseData<PostCreateResponse>> create(@RequestBody PostCreateRequest request);
 
     @Operation(summary = "게시물 상세 조회")
     @ApiResponses(value = {

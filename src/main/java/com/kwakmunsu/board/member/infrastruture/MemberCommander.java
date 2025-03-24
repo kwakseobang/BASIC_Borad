@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.member.infrastruture;
 
-import com.kwakmunsu.board.auth.service.dto.MemberCreateCommand;
+import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

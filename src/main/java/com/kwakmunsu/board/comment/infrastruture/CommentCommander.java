@@ -13,13 +13,13 @@ public class CommentCommander {
 
     private final CommentRepository commentRepository;
 
-    public void append(String content, Long postId, Long writerId) {
+    public long append(String content, Long postId, Long writerId) {
         Comment comment = Comment.builder()
                 .content(content)
                 .postId(postId)
                 .writerId(writerId)
                 .build();
-        commentRepository.append(comment);
+        return commentRepository.append(comment);
     }
 
     @Transactional

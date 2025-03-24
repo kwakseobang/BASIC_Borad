@@ -4,11 +4,10 @@ package com.kwakmunsu.board.comment.controller;
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.CommentService;
+import com.kwakmunsu.board.comment.service.dto.response.CommentCreateResponse;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,10 +28,13 @@ public class CommentController implements CommentApiController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<ResponseData<?>> create(@RequestBody CommentCreateRequest request) {
-        commentService.create(request.toCommentCreateCommand());
-
-        return ResponseData.success(SuccessCode.CREATED_COMMENT);
+    public ResponseEntity<ResponseData<CommentCreateResponse>> create(
+            @RequestBody CommentCreateRequest request
+    ) {
+        CommentCreateResponse commentCreateResponse = commentService.create(
+                request.toCommentCreateCommand()
+        );
+        return ResponseData.success(SuccessCode.CREATED_COMMENT, commentCreateResponse);
     }
 
     @GetMapping("/{commentId}")

@@ -7,6 +7,7 @@ import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
+import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
@@ -31,15 +32,18 @@ public class PostController implements PostApiController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<ResponseData<?>> create(@RequestBody PostCreateRequest request) {
-        postService.create(request.toPostCreateCommand());
+    public ResponseEntity<ResponseData<PostCreateResponse>> create(
+            @RequestBody PostCreateRequest request
+    ) {
+        PostCreateResponse postCreateResponse = postService.create(request.toPostCreateCommand());
 
-        return ResponseData.success(SuccessCode.CREATED_POST);
+        return ResponseData.success(SuccessCode.CREATED_POST, postCreateResponse);
     }
 
     @GetMapping("/{postId}")
     public ResponseEntity<ResponseData<PostDetailResponse>> read(
-            @PathVariable("postId") Long postId) {
+            @PathVariable("postId") Long postId
+    ) {
         PostDetailResponse postResponse = postService.read(postId);
 
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
@@ -56,7 +60,6 @@ public class PostController implements PostApiController {
         PostPageResponse postPageResponse = postService.readAll(
                 new PostPageableCommand(page, pageSize, sortBy, isDesc)
         );
-
         return ResponseData.success(SuccessCode.READ_POST_LIST, postPageResponse);
     }
 
