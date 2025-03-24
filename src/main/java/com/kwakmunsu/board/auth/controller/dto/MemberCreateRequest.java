@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.MemberCreateCommand;
+import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
 
 public record MemberCreateRequest(
         String username,
