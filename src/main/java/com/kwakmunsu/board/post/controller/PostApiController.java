@@ -46,7 +46,8 @@ public interface PostApiController {
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pageSize,
             @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt")
-            String sortBy
+            String sortBy,
+            @RequestParam("isDesc") boolean isDesc
     );
 
     @Operation(summary = "게시글 수정")

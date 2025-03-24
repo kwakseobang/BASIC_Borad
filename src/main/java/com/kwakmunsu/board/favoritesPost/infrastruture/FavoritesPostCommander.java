@@ -13,10 +13,10 @@ public class FavoritesPostCommander {
 
     private final FavoritesPostRepository favoritesPostRepository;
 
-    public void append(Post post) {
+    public void append(Long postId, Long memberId) {
         FavoritesPost favoritesPost = FavoritesPost.builder()
-                .postId(post.getId())
-                .member(post.getWriter())
+                .postId(postId)
+                .memberId(memberId)
                 .build();
 
         favoritesPostRepository.append(favoritesPost);

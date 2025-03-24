@@ -26,10 +26,11 @@ public class FavoritesPostService {
 
     public void append(FavoritesCommand favoritesCommand) {
         Long postId = favoritesCommand.postId();
-        Post post = postReader.read(postId);
+        Long memberId = favoritesCommand.memberId();
+        postReader.validatePostExist(postId);
         // 해당 유저가 해당 게시물을 저장하지 않았으면 유효성 검증 통과
-        favoritesPostReader.validateNotSave(postId, favoritesCommand.memberId());
-        favoritesPostCommander.append(post);
+        favoritesPostReader.validateNotSave(postId, memberId);
+        favoritesPostCommander.append(postId, memberId);
     }
 
     public List<FavoritesPageResponse> readAll() {
@@ -44,6 +45,7 @@ public class FavoritesPostService {
                     FavoritesPageResponse.from(post, likesCount, favoritesCount)
             );
         }
+
         return favoritesPageResponses;
     }
 

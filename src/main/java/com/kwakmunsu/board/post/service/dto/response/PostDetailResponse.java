@@ -4,15 +4,6 @@ import com.kwakmunsu.board.comment.service.dto.response.CommentPageResponse;
 import java.util.List;
 
 public record PostDetailResponse(
-        PostResponse postResponses,
+        PostResponse postResponse,
         List<CommentPageResponse> commentPageResponses
-) {
-
-    public static PostDetailResponse of(
-            PostResponse postResponses,
-            List<CommentPageResponse> commentPageResponses
-    ) {
-        return new PostDetailResponse(postResponses, commentPageResponses);
-    }
-
-}
+) {}
