@@ -4,6 +4,7 @@ package com.kwakmunsu.board.post.infrastruture;
 import com.kwakmunsu.board.comment.infrastruture.CommentCommander;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostCommander;
 import com.kwakmunsu.board.likes.infrastruture.LikesCommander;
+import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,12 @@ public class PostCommander {
     private final CommentCommander commentCommander;
     private final PostRepository postRepository;
 
-    public void append(String title, String content, Long memberId) {
+    public void append(String title, String content, Member writer) {
+
         Post post = Post.builder()
                 .title(title)
                 .content(content)
-                .writerId(memberId)
+                .writer(writer)
                 .build();
 
         postRepository.append(post);

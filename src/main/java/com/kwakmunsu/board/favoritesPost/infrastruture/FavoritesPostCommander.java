@@ -2,6 +2,7 @@ package com.kwakmunsu.board.favoritespost.infrastruture;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
+import com.kwakmunsu.board.post.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +13,10 @@ public class FavoritesPostCommander {
 
     private final FavoritesPostRepository favoritesPostRepository;
 
-    public void append(Long postId, Long memberId) {
+    public void append(Post post) {
         FavoritesPost favoritesPost = FavoritesPost.builder()
-                .postId(postId)
-                .memberId(memberId)
+                .postId(post.getId())
+                .member(post.getWriter())
                 .build();
 
         favoritesPostRepository.append(favoritesPost);

@@ -7,5 +7,7 @@ public interface FavoritesPostJpaRepository extends JpaRepository<FavoritesPost,
 
     boolean existsByPostIdAndMemberId(Long postId, Long memberId);
     void deleteByPostIdAndMemberId(Long postId, Long memberId);
+    long countByPostId(Long postId);
+    long countByMemberId(Long memberId);
 
 }

@@ -19,6 +19,16 @@ public class FavoritesPostRepositoryImpl implements FavoritesPostRepository {
     }
 
     @Override
+    public long countByPostId(Long postId) {
+        return favoritesPostJpaRepository.countByPostId(postId);
+    }
+
+    @Override
+    public long countByMemberId(Long memberId) {
+        return favoritesPostJpaRepository.countByMemberId(memberId);
+    }
+
+    @Override
     public void append(FavoritesPost favoritesPost) {
         favoritesPostJpaRepository.save(favoritesPost);
     }

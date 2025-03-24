@@ -7,6 +7,7 @@ import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
+import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
@@ -39,12 +40,12 @@ public class PostController implements PostApiController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<ResponseData<PostResponse>> read(@PathVariable("postId") Long postId) {
-        PostResponse postResponse = postService.read(postId);
+    public ResponseEntity<ResponseData<PostDetailResponse>> read(@PathVariable("postId") Long postId) {
+        PostDetailResponse postResponse = postService.read(postId);
 
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
-
+    // TODO: 내림차순 올림차순 기준도 추가해주세여.
     @GetMapping
     public ResponseEntity<ResponseData<PostPageResponse>> readAll(
             @RequestParam("page") int page,
@@ -56,7 +57,7 @@ public class PostController implements PostApiController {
                 new PostPageableCommand(page, pageSize, sortBy)
         );
 
-        return ResponseData.success(SuccessCode.READ_POST, postPageResponse);
+        return ResponseData.success(SuccessCode.READ_POST_LIST, postPageResponse);
     }
 
     @PutMapping("/{postId}")
@@ -83,7 +84,7 @@ public class PostController implements PostApiController {
     ) {
         PostViewsResponse postViewsResponse = postService.readViews(postId);
 
-        return ResponseData.success(SuccessCode.UPDATE_VIEWS, postViewsResponse);
+        return ResponseData.success(SuccessCode.READ_VIEWS, postViewsResponse);
     }
 
     @DeleteMapping("/{postId}")

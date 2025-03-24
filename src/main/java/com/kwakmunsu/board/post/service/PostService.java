@@ -2,7 +2,11 @@ package com.kwakmunsu.board.post.service;
 
 import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.comment.infrastruture.CommentReader;
+import com.kwakmunsu.board.comment.service.dto.response.CommentPageResponse;
+import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostReader;
 import com.kwakmunsu.board.likes.infrastruture.LikesReader;
+import com.kwakmunsu.board.member.entity.Member;
+import com.kwakmunsu.board.member.infrastruture.MemberReader;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostCommander;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
@@ -10,6 +14,7 @@ import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
+import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
@@ -31,21 +36,30 @@ public class PostService {
     private final PostReader postReader;
     private final LikesReader likesReader;
     private final CommentReader commentReader;
+    private final MemberReader memberReader;
+    private final FavoritesPostReader favoritesPostReader;
 
     public void create(PostCreateCommand postCreateCommand) {
+        Member member = memberReader.getMember(postCreateCommand.memberId());
         postCommander.append(
                 postCreateCommand.title(),
                 postCreateCommand.content(),
-                postCreateCommand.memberId()
+                member
         );
     }
 
-    public PostResponse read(Long postId) {
+    public PostDetailResponse read(Long postId) {
         Post post = postReader.read(postId);
         long likesCount = likesReader.readLikes(postId);
-        List<Comment> comments = commentReader.readByPostId(postId);
+        long favoritesCount = favoritesPostReader.countByPostId(postId);
+        PostResponse postResponse = PostResponse.from(post, likesCount, favoritesCount);
 
-        return PostResponse.from(post, likesCount, comments);
+        List<Comment> comments = commentReader.readByPostId(postId);
+        List<CommentPageResponse> commentPageResponses = comments.stream()
+                .map(CommentPageResponse::from)
+                .toList();
+
+        return new PostDetailResponse(postResponse, commentPageResponses);
     }
 
     public PostPageResponse readAll(PostPageableCommand pageableCommand) {
@@ -55,6 +69,7 @@ public class PostService {
                 Sort.by(Direction.DESC, pageableCommand.sortBy())
         );
         Page<Post> posts = postReader.readAll(pageable);
+
         return new PostPageResponse(posts);
     }
 
@@ -81,7 +96,7 @@ public class PostService {
         Long memberId = postDeleteCommand.memberId();
 
         postReader.validatePostExist(postId);
-        postCommander.delete(postId,memberId);
+        postCommander.delete(postId, memberId);
     }
 
 }
