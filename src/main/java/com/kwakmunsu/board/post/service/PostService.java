@@ -41,6 +41,7 @@ public class PostService {
 
     public void create(PostCreateCommand postCreateCommand) {
         Member member = memberReader.getMember(postCreateCommand.memberId());
+
         postCommander.append(
                 postCreateCommand.title(),
                 postCreateCommand.content(),
@@ -79,6 +80,14 @@ public class PostService {
         post.updatePost(postUpdateCommand.title(), postUpdateCommand.content());
     }
 
+    public void delete(PostDeleteCommand postDeleteCommand) {
+        Long postId = postDeleteCommand.postId();
+        Long memberId = postDeleteCommand.memberId();
+
+        postReader.validatePostExist(postId);
+        postCommander.delete(postId, memberId);
+    }
+
     @Transactional
     public void updateViews(Long postId) {
         Post post = postReader.read(postId);
@@ -89,14 +98,6 @@ public class PostService {
         Post post = postReader.read(postId);
 
         return new PostViewsResponse(post.getViewCount());
-    }
-
-    public void delete(PostDeleteCommand postDeleteCommand) {
-        Long postId = postDeleteCommand.postId();
-        Long memberId = postDeleteCommand.memberId();
-
-        postReader.validatePostExist(postId);
-        postCommander.delete(postId, memberId);
     }
 
 }
