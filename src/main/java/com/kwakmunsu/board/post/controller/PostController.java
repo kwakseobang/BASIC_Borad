@@ -7,11 +7,9 @@ import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
 import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
-import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
-import io.swagger.v3.oas.annotations.Operation;
+import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,35 +30,35 @@ public class PostController implements PostApiController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<ResponseData<PostCreateResponse>> create(
+    public ResponseEntity<ResponseData<Long>> create(
             @RequestBody PostCreateRequest request
     ) {
-        PostCreateResponse postCreateResponse = postService.create(request.toPostCreateCommand());
+        Long postId = postService.create(request.toPostCreateCommand());
 
-        return ResponseData.success(SuccessCode.CREATED_POST, postCreateResponse);
+        return ResponseData.success(SuccessCode.CREATED_POST, postId);
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<ResponseData<PostDetailResponse>> read(
+    public ResponseEntity<ResponseData<PostResponse>> read(
             @PathVariable("postId") Long postId
     ) {
-        PostDetailResponse postResponse = postService.read(postId);
+        PostResponse postResponse = postService.read(postId);
 
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
-
+    
     @GetMapping
-    public ResponseEntity<ResponseData<PostPageResponse>> readAll(
+    public ResponseEntity<ResponseData<List<PostPreviewResponse>>> readAll(
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pageSize,
             @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt")
             String sortBy,
             @RequestParam("isDesc") boolean isDesc
     ) {
-        PostPageResponse postPageResponse = postService.readAll(
+        List<PostPreviewResponse> postPreviewResponse = postService.readAll(
                 new PostPageableCommand(page, pageSize, sortBy, isDesc)
         );
-        return ResponseData.success(SuccessCode.READ_POST_LIST, postPageResponse);
+        return ResponseData.success(SuccessCode.READ_POST_LIST, postPreviewResponse);
     }
 
     @PutMapping("/{postId}")
@@ -80,7 +78,6 @@ public class PostController implements PostApiController {
         return ResponseData.success(SuccessCode.DELETE_POST);
     }
 
-    @Operation(summary = "게시글 조회수 증가")
     @PostMapping("/{postId}/views")
     public ResponseEntity<ResponseData<?>> updateViews(@PathVariable("postId") Long postId) {
         postService.updateViews(postId);
@@ -89,12 +86,12 @@ public class PostController implements PostApiController {
     }
 
     @GetMapping("/{postId}/views")
-    public ResponseEntity<ResponseData<PostViewsResponse>> readViews(
+    public ResponseEntity<ResponseData<Long>> readViews(
             @PathVariable("postId") Long postId
     ) {
-        PostViewsResponse postViewsResponse = postService.readViews(postId);
+        Long viewsCount = postService.readViews(postId);
 
-        return ResponseData.success(SuccessCode.READ_VIEWS, postViewsResponse);
+        return ResponseData.success(SuccessCode.READ_VIEWS, viewsCount);
     }
 
 }

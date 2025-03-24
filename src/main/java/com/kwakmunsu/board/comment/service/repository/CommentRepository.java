@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface CommentRepository {
 
-    long append(Comment comment);
+    Long append(Comment comment);
     Comment readById(Long commentId);
     List<Comment> readByPostId(Long postId);
     void delete(Long commentId);

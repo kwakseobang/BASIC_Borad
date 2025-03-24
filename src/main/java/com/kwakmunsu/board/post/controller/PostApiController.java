@@ -4,14 +4,13 @@ package com.kwakmunsu.board.post.controller;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
-import com.kwakmunsu.board.post.service.dto.response.PostCreateResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostDetailResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostPageResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostViewsResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
+import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +23,14 @@ public interface PostApiController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "게시글 생성 성공")
     })
-    ResponseEntity<ResponseData<PostCreateResponse>> create(@RequestBody PostCreateRequest request);
+    ResponseEntity<ResponseData<Long>> create(@RequestBody PostCreateRequest request);
 
     @Operation(summary = "게시물 상세 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "게시글 상세 조회 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
     })
-    ResponseEntity<ResponseData<PostDetailResponse>> read(@PathVariable("postId") Long postId);
+    ResponseEntity<ResponseData<PostResponse>> read(@PathVariable("postId") Long postId);
 
     @Operation(
             summary = "게시물 목록 조회 [내림차순]",
@@ -43,7 +42,7 @@ public interface PostApiController {
             @ApiResponse(responseCode = "200", description = "게시글 상세 조회 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
     })
-    ResponseEntity<ResponseData<PostPageResponse>> readAll(
+    ResponseEntity<ResponseData<List<PostPreviewResponse>>> readAll(
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pageSize,
             @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt")
@@ -73,7 +72,7 @@ public interface PostApiController {
             @ApiResponse(responseCode = "201", description = "게시글 조회수 조회 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
     })
-    ResponseEntity<ResponseData<PostViewsResponse>> readViews(@PathVariable("postId") Long postId);
+    ResponseEntity<ResponseData<Long>> readViews(@PathVariable("postId") Long postId);
 
     @Operation(summary = "게시글 삭제")
     @ApiResponses(value = {

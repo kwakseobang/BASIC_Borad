@@ -4,7 +4,6 @@ package com.kwakmunsu.board.comment.controller;
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.CommentService;
-import com.kwakmunsu.board.comment.service.dto.response.CommentCreateResponse;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
@@ -28,13 +27,12 @@ public class CommentController implements CommentApiController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<ResponseData<CommentCreateResponse>> create(
+    public ResponseEntity<ResponseData<Long>> create(
             @RequestBody CommentCreateRequest request
     ) {
-        CommentCreateResponse commentCreateResponse = commentService.create(
-                request.toCommentCreateCommand()
-        );
-        return ResponseData.success(SuccessCode.CREATED_COMMENT, commentCreateResponse);
+        Long commentId = commentService.create(request.toCommentCreateCommand());
+
+        return ResponseData.success(SuccessCode.CREATED_COMMENT, commentId);
     }
 
     @GetMapping("/{commentId}")

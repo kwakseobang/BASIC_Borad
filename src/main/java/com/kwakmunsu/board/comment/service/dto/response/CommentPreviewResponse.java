@@ -4,14 +4,14 @@ import com.kwakmunsu.board.comment.entity.Comment;
 import lombok.Builder;
 
 @Builder
-public record CommentPageResponse(
+public record CommentPreviewResponse(
         Long id,
         Long writerId,
         String content
 ) {
 
-    public static CommentPageResponse from(Comment comment) {
-        return CommentPageResponse.builder()
+    public static CommentPreviewResponse from(Comment comment) {
+        return CommentPreviewResponse.builder()
                 .id(comment.getId())
                 .writerId(comment.getWriterId())
                 .content(comment.getContent())

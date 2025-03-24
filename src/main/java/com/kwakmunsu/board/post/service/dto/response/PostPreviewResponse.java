@@ -2,40 +2,33 @@ package com.kwakmunsu.board.post.service.dto.response;
 
 import static com.kwakmunsu.board.util.TimeConverter.datetimeToString;
 
-import com.kwakmunsu.board.comment.service.dto.response.CommentPreviewResponse;
 import com.kwakmunsu.board.post.entity.Post;
-import java.util.List;
 import lombok.Builder;
 
 @Builder
-public record PostResponse(
+public record PostPreviewResponse(
         long id,
-        String writer,
         String title,
-        String content,
+        String writer,
         String createAt,
         long viewCount,
         long likeCount,
-        long favoritesCount,
-        List<CommentPreviewResponse> commentPreviewResponses
+        long favoritesCount
 ) {
 
-    public static PostResponse from(
+    public static PostPreviewResponse from(
             Post post,
             long likeCount,
-            long favoritesCount,
-            List<CommentPreviewResponse> commentPreviewResponses
+            long favoritesCount
     ) {
-        return PostResponse.builder()
+        return PostPreviewResponse.builder()
                 .id(post.getId())
                 .writer(post.getWriter().getNickname())
                 .title(post.getTitle())
-                .content(post.getContent())
                 .createAt(datetimeToString(post.getCreatedAt()))
                 .viewCount(post.getViewCount())
                 .likeCount(likeCount)
                 .favoritesCount(favoritesCount)
-                .commentPreviewResponses(commentPreviewResponses)
                 .build();
     }
 
