@@ -13,50 +13,50 @@ import lombok.Getter;
 public enum SuccessCode implements StatusCode {
 
     // <=============== MEMBER ===============>
-    CREATED_MEMBER(CREATED.value(), SuccessMessage.CREATED_MEMBER.getMessage()),
-    READ_MEMBER(OK.value(), SuccessMessage.READ_MEMBER.getMessage()),
-    UPDATE_MEMBER(CREATED.value(), SuccessMessage.UPDATE_MEMBER.getMessage()),
-    UPDATE_NICKNAME(CREATED.value(), SuccessMessage.UPDATE_NICKNAME.getMessage()),
-    DELETE_MEMBER(NO_CONTENT.value(), SuccessMessage.DELETE_MEMBER.getMessage()),
+    CREATED_MEMBER(CREATED.value(), "SUCCESS - 회원 가입 성공"),
+    READ_MEMBER(OK.value(), "SUCCESS - 회원 정보 조회 성공"),
+    UPDATE_MEMBER(CREATED.value(), "SUCCESS - 회원 정보 수정 성공"),
+    UPDATE_NICKNAME(CREATED.value(), "SUCCESS - 회원 닉네임 수정 성공"),
+    DELETE_MEMBER(NO_CONTENT.value(), "SUCCESS - 회원 정보 삭제 성공"),
 
     // <=============== POST ===============>
-    CREATED_POST(CREATED.value(), SuccessMessage.CREATED_POST.getMessage()),
-    READ_POST(OK.value(), SuccessMessage.READ_POST.getMessage()),
-    READ_POST_LIST(OK.value(), SuccessMessage.READ_POST_LIST.getMessage()),
-    UPDATE_POST(CREATED.value(), SuccessMessage.UPDATE_POST.getMessage()),
-    DELETE_POST(NO_CONTENT.value(), SuccessMessage.DELETE_POST.getMessage()),
+    CREATED_POST(CREATED.value(), "SUCCESS - 게시물 등록 성공"),
+    READ_POST(OK.value(), "SUCCESS - 게시물 조회 성공"),
+    READ_POST_LIST(OK.value(), "SUCCESS - 게시물 목록 조회 성공"),
+    UPDATE_POST(CREATED.value(), "SUCCESS - 게시물 수정 성공"),
+    DELETE_POST(NO_CONTENT.value(), "SUCCESS - 게시물 삭제"),
 
     // <=============== VIEWS ===============>
-    UPDATE_VIEWS(CREATED.value(), SuccessMessage.UPDATE_VIEWS.getMessage()),
-    READ_VIEWS(OK.value(), SuccessMessage.UPDATE_VIEWS.getMessage()),
+    UPDATE_VIEWS(CREATED.value(), "SUCCESS - 조회수 증가 성공"),
+    READ_VIEWS(OK.value(), "SUCCESS - 조회수 조회 성공"),
 
     // <=============== COMMENT ===============>
-    CREATED_COMMENT(CREATED.value(), SuccessMessage.CREATED_COMMENT.getMessage()),
-    READ_COMMENT(OK.value(), SuccessMessage.READ_COMMENT.getMessage()),
-    UPDATE_COMMENT(CREATED.value(), SuccessMessage.UPDATE_COMMENT.getMessage()),
-    DELETE_COMMENT(NO_CONTENT.value(), SuccessMessage.DELETE_COMMENT.getMessage()),
+    CREATED_COMMENT(CREATED.value(), "SUCCESS - 댓글 등록 성공"),
+    READ_COMMENT(OK.value(), "SUCCESS - 댓글 조회 성공"),
+    UPDATE_COMMENT(CREATED.value(), "SUCCESS - 댓글 수정 성공"),
+    DELETE_COMMENT(NO_CONTENT.value(), "SUCCESS - 댓글 삭제"),
 
     // <=============== LIKE ===============>
-    LIKE_SUCCESS(CREATED.value(), SuccessMessage.LIKE_SUCCESS.getMessage()),
-    UNLIKE_SUCCESS(NO_CONTENT.value(), SuccessMessage.UNLIKE_SUCCESS.getMessage()),
+    LIKE_SUCCESS(CREATED.value(), "SUCCESS - 좋아요 등록 성공"),
+    UNLIKE_SUCCESS(NO_CONTENT.value(), "SUCCESS - 좋아요 취소 성공"),
 
     // <=============== FAVORITES_POST ===============>
-    SAVE_POST_SUCCESS(CREATED.value(), SuccessMessage.SAVE_POST_SUCCESS.getMessage()),
-    CANCEL_POST_SUCCESS(NO_CONTENT.value(), SuccessMessage.CANCEL_POST_SUCCESS.getMessage()),
-    READ_FAVORITES_LIST(OK.value(), SuccessMessage.READ_FAVORITES_LIST.getMessage()),
+    SAVE_POST_SUCCESS(CREATED.value(), "SUCCESS - 게시물 저장 성공"),
+    CANCEL_POST_SUCCESS(NO_CONTENT.value(), "SUCCESS - 게시물 저장 취소 성공"),
+    READ_FAVORITES_LIST(OK.value(), "SUCCESS - 저장 게시물 목록 조회 성공"),
 
     // <=============== AUTH ===============>
-    READ_IS_LOGIN(OK.value(), SuccessMessage.READ_IS_LOGIN.getMessage()),
-    LOGIN_SUCCESS(OK.value(), SuccessMessage.LOGIN_SUCCESS.getMessage()),
-    USERNAME_SUCCESS(OK.value(), SuccessMessage.USERNAME_SUCCESS.getMessage()),
-    NICKNAME_SUCCESS(OK.value(), SuccessMessage.NICKNAME_SUCCESS.getMessage()),
-    LOGOUT_SUCCESS(OK.value(), SuccessMessage.LOGOUT_SUCCESS.getMessage()),
-    UPDATE_PASSWORD(NO_CONTENT.value(), SuccessMessage.UPDATE_PASSWORD.getMessage()),
+    READ_IS_LOGIN(OK.value(), "SUCCESS - 현재 로그인 여부 조회 성공"),
+    LOGIN_SUCCESS(OK.value(), "SUCCESS - 로그인 성공"),
+    USERNAME_SUCCESS(OK.value(), "SUCCESS - 사용 가능한 아이디입니다."),
+    NICKNAME_SUCCESS(OK.value(), "SUCCESS - 사용 가능한 닉네임입니다."),
+    LOGOUT_SUCCESS(OK.value(), "SUCCESS - 로그아웃 성공 및 user Refresh Token 삭제"),
+    UPDATE_PASSWORD(NO_CONTENT.value(), "SUCCESS - 비밀번호 수정 성공"),
 
     // <=============== JWT ===============>
-    REISSUE_SUCCESS(OK.value(), SuccessMessage.REISSUE_SUCCESS.getMessage()),
-    ACCESS_TOKEN_SUCCESS(OK.value(), SuccessMessage.ACCESS_TOKEN_SUCCESS.getMessage()),
-    TOKEN_IS_VALID(OK.value(), SuccessMessage.TOKEN_IS_VALID.getMessage()),
+    REISSUE_SUCCESS(OK.value(), "SUCCESS - JWT Access 토큰 재발급 성공"),
+    ACCESS_TOKEN_SUCCESS(OK.value(), "SUCCESS - JWT Access 토큰 GET "),
+    TOKEN_IS_VALID(OK.value(), "VALID - 유효한 토큰"),
     ;
 
     private final int httpStatus;
