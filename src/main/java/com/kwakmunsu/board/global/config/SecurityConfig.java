@@ -1,6 +1,9 @@
 package com.kwakmunsu.board.global.config;
 
 
+import static com.kwakmunsu.board.member.entity.Role.ADMIN;
+import static com.kwakmunsu.board.member.entity.Role.MEMBER;
+
 import com.kwakmunsu.board.global.jwt.filter.JwtFilter;
 import com.kwakmunsu.board.global.jwt.handler.JwtAccessDeniedHandler;
 import com.kwakmunsu.board.global.jwt.handler.JwtAuthenticationEntryPoint;
@@ -11,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -31,7 +35,7 @@ public class SecurityConfig {
     };
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -51,8 +55,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(permitAllUrl).permitAll()
-                        .requestMatchers(adminUrl).hasRole("ADMIN")
-                        .requestMatchers(hasRoleUrl).hasAnyRole("ADMIN", "MEMBER")
+                        .requestMatchers(adminUrl).hasRole(ADMIN.name())
+                        .requestMatchers(hasRoleUrl).hasAnyRole(ADMIN.name(), MEMBER.name())
                         .anyRequest().authenticated());
 
         http
