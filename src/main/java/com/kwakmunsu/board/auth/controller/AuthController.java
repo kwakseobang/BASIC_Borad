@@ -44,8 +44,7 @@ public class AuthController implements AuthDocsController {
     ) {
         MemberTokens memberTokens = authService.login(request.toServiceRequest());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
-        Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
-        response.addCookie(cookie);
+        addCookie(response, memberTokens);
 
         return success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
     }
@@ -56,10 +55,14 @@ public class AuthController implements AuthDocsController {
             @CookieValue("refreshToken") final String reissueToken
     ) {
         MemberTokens memberTokens = authService.reissue(reissueToken);
-        Cookie cookie = create(REFRESH.getValue(), memberTokens.refreshToken());
-        response.addCookie(cookie);
+        addCookie(response, memberTokens);
 
         return success(SuccessCode.REISSUE_SUCCESS, memberTokens.accessToken());
+    }
+
+    private void addCookie(HttpServletResponse response, MemberTokens memberTokens) {
+        Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
+        response.addCookie(cookie);
     }
 
 }
