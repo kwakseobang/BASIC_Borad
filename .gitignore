@@ -194,4 +194,6 @@ gradle-app.setting
 
 !application.yml
 
+src/main/generated
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,gradle,macos,git
