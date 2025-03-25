@@ -7,6 +7,7 @@ import com.kwakmunsu.board.comment.service.CommentService;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class CommentController implements CommentApiController {
 
     @PostMapping
     public ResponseEntity<ResponseData<Long>> create(
-            @RequestBody CommentCreateRequest request
+            @Valid @RequestBody CommentCreateRequest request
     ) {
         Long commentId = commentService.create(request.toCommentCreateCommand());
 
@@ -47,7 +48,7 @@ public class CommentController implements CommentApiController {
     @PutMapping("/{commentId}")
     public ResponseEntity<ResponseData<?>> update(
             @PathVariable("commentId") Long commentId,
-            @RequestBody CommentUpdateRequest request
+            @Valid @RequestBody CommentUpdateRequest request
     ) {
         commentService.update(request.toCommentUpdateCommand(commentId));
 

@@ -33,9 +33,9 @@ public class FavoritesPostController implements FavoritesPostApiController {
 
     @GetMapping
     public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll() {
-        List<FavoritesPreviewResponse> favoritesPreviewRespons = favoritesPostService.readAll();
+        List<FavoritesPreviewResponse> favoritesPreviewResponses = favoritesPostService.readAll();
 
-        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPreviewRespons);
+        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPreviewResponses);
     }
 
     @DeleteMapping("/{postId}")

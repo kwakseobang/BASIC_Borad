@@ -14,6 +14,7 @@ import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -25,12 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @RestController
-public class AuthController implements AuthApiController{
+public class AuthController implements AuthApiController {
 
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ResponseData<?>> signUp(@RequestBody MemberCreateRequest request) {
+    public ResponseEntity<ResponseData<?>> signUp(
+            @Valid @RequestBody MemberCreateRequest request
+    ) {
         authService.signUp(request.toMemberCreateCommand());
         return ResponseData.success(SuccessCode.CREATED_MEMBER);
     }
@@ -38,7 +41,7 @@ public class AuthController implements AuthApiController{
     @PostMapping("/login")
     public ResponseEntity<ResponseData<String>> login(
             HttpServletResponse response,
-            @RequestBody LoginRequest request
+            @Valid @RequestBody LoginRequest request
     ) {
         MemberTokens memberTokens = authService.login(request.tologinCommand());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
