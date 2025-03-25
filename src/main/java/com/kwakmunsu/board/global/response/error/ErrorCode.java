@@ -65,6 +65,7 @@ public enum ErrorCode implements StatusCode {
     ),
     UNAUTHORIZED_ERROR(UNAUTHORIZED.value(), ErrorMessage.UNAUTHORIZED.getMessage()),
     FORBIDDEN_ERROR(FORBIDDEN.value(), ErrorMessage.FORBIDDEN.getMessage()),
+    BAD_REQUEST_ARGUMENT(BAD_REQUEST.value(), ErrorMessage.BAD_REQUEST_ARGUMENT.getMessage()),
     ;
 
     private final int httpStatus;

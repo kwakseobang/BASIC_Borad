@@ -48,6 +48,7 @@ public enum ErrorMessage {
     INTERNAL_SERVER_ERROR("ERROR - 서버 내부 에러"),
     UNAUTHORIZED("ERROR - Unauthorized"),
     FORBIDDEN("ERROR - Forbidden"),
+    BAD_REQUEST_ARGUMENT("ERROR - invalid Argument")
     ;
 
     private final String message;
