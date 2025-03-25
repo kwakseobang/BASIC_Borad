@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class MemberController implements MemberApiController {
 
     @PutMapping
     public ResponseEntity<ResponseData<?>> updateNickname(
-            @RequestBody NicknameRequest nicknameRequest
+            @Valid @RequestBody NicknameRequest nicknameRequest
     ) {
         NicknameCreateCommand nicknameCreateCommand = nicknameRequest.toNicknameCreateCommand();
         memberService.updateNickname(nicknameCreateCommand);

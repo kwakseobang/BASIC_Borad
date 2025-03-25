@@ -9,6 +9,7 @@ import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class PostController implements PostApiController {
 
     @PostMapping
     public ResponseEntity<ResponseData<Long>> create(
-            @RequestBody PostCreateRequest request
+            @Valid @RequestBody PostCreateRequest request
     ) {
         Long postId = postService.create(request.toPostCreateCommand());
 
@@ -46,7 +47,7 @@ public class PostController implements PostApiController {
 
         return ResponseData.success(SuccessCode.READ_POST, postResponse);
     }
-    
+
     @GetMapping
     public ResponseEntity<ResponseData<List<PostPreviewResponse>>> readAll(
             @RequestParam("page") int page,
@@ -64,7 +65,7 @@ public class PostController implements PostApiController {
     @PutMapping("/{postId}")
     public ResponseEntity<ResponseData<?>> update(
             @PathVariable("postId") Long postId,
-            @RequestBody PostUpdateRequest request
+            @Valid @RequestBody PostUpdateRequest request
     ) {
         postService.update(request.toPostUpdateCommand(postId));
 

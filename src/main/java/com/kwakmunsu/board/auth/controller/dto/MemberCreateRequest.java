@@ -1,10 +1,19 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
 import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public record MemberCreateRequest(
+
+        @NotBlank(message = "사용자 id를 입력해주세요")
         String username,
+
+        @NotBlank(message = "비밀번호를 입력해주세요")
+        @Size(min = 8)
         String password,
+
+        @NotBlank(message = "닉네임을 입력해주세요")
         String nickname
 ) {
 
