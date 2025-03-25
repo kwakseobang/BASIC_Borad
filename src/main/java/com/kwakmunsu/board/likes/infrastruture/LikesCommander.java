@@ -17,7 +17,6 @@ public class LikesCommander {
                 .postId(postId)
                 .memberId(memberId)
                 .build();
-
         likesRepository.incrementLikes(like);
     }
 

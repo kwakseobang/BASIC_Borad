@@ -32,7 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-
         return EXCLUDE_PATHS.stream()
                 .anyMatch(exclude -> pathMatcher.match(exclude, path));
     }

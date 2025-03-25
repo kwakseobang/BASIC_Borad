@@ -12,10 +12,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
-@Table(name = "favorites_post")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "favorites_post")
 @Entity
 public class FavoritesPost extends BaseTimeEntity {
 

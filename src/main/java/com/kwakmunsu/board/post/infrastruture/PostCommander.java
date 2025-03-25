@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.post.infrastruture;
 
-
 import com.kwakmunsu.board.comment.infrastruture.CommentCommander;
 import com.kwakmunsu.board.favoritespost.infrastruture.FavoritesPostCommander;
 import com.kwakmunsu.board.likes.infrastruture.LikesCommander;
@@ -26,7 +25,6 @@ public class PostCommander {
                 .content(content)
                 .writer(writer)
                 .build();
-
         return postRepository.append(post);
     }
 

@@ -1,12 +1,14 @@
 package com.kwakmunsu.board.post.controller;
 
+import static com.kwakmunsu.board.global.response.ResponseData.success;
+
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
 import com.kwakmunsu.board.post.service.PostService;
-import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
+import com.kwakmunsu.board.post.service.dto.request.PostPageableServiceRequest;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import jakarta.validation.Valid;
@@ -36,7 +38,7 @@ public class PostController implements PostDocsController {
             @Valid @RequestBody PostCreateRequest request
     ) {
         Long postId = postService.create(memberId, request.toServiceRequest());
-        return ResponseData.success(SuccessCode.CREATED_POST, postId);
+        return success(SuccessCode.CREATED_POST, postId);
     }
 
     @GetMapping("/{postId}")
@@ -44,7 +46,7 @@ public class PostController implements PostDocsController {
             @PathVariable("postId") Long postId
     ) {
         PostResponse postResponse = postService.read(postId);
-        return ResponseData.success(SuccessCode.READ_POST, postResponse);
+        return success(SuccessCode.READ_POST, postResponse);
     }
 
     @GetMapping
@@ -55,10 +57,13 @@ public class PostController implements PostDocsController {
             String sortBy,
             @RequestParam("isDesc") boolean isDesc
     ) {
-        List<PostPreviewResponse> postPreviewResponse = postService.readAll(
-                new PostPageableCommand(page, pageSize, sortBy, isDesc)
+        List<PostPreviewResponse> postPreviewResponses = postService.readAll(
+                new PostPageableServiceRequest(page, pageSize, sortBy, isDesc)
         );
-        return ResponseData.success(SuccessCode.READ_POST_LIST, postPreviewResponse);
+        return success(
+                SuccessCode.READ_POST_LIST,
+                postPreviewResponses
+               );
     }
 
     @PutMapping("/{postId}")
@@ -68,7 +73,7 @@ public class PostController implements PostDocsController {
             @Valid @RequestBody PostUpdateRequest request
     ) {
         postService.update(postId, memberId, request.toServiceRequest());
-        return ResponseData.success(SuccessCode.UPDATE_POST);
+        return success(SuccessCode.UPDATE_POST);
     }
 
     @DeleteMapping("/{postId}")
@@ -77,7 +82,7 @@ public class PostController implements PostDocsController {
             @CurrentLoginMember Long memberId
     ) {
         postService.delete(postId, memberId);
-        return ResponseData.success(SuccessCode.DELETE_POST);
+        return success(SuccessCode.DELETE_POST);
     }
 
     @PostMapping("/{postId}/views")
@@ -85,7 +90,7 @@ public class PostController implements PostDocsController {
             @PathVariable("postId") Long postId
     ) {
         postService.updateViews(postId);
-        return ResponseData.success(SuccessCode.UPDATE_VIEWS);
+        return success(SuccessCode.UPDATE_VIEWS);
     }
 
     @GetMapping("/{postId}/views")
@@ -93,7 +98,7 @@ public class PostController implements PostDocsController {
             @PathVariable("postId") Long postId
     ) {
         Long viewsCount = postService.readViews(postId);
-        return ResponseData.success(SuccessCode.READ_VIEWS, viewsCount);
+        return success(SuccessCode.READ_VIEWS, viewsCount);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.kwakmunsu.board.member.controller;
 
 import static com.kwakmunsu.board.global.jwt.common.TokenType.REFRESH;
+import static com.kwakmunsu.board.global.response.ResponseData.success;
 
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/members")
 @RequiredArgsConstructor
+@RequestMapping("/members")
 @RestController
 public class MemberController implements MemberDocsController {
 
@@ -28,25 +29,24 @@ public class MemberController implements MemberDocsController {
 
     @PutMapping
     public ResponseEntity<ResponseData<?>> updateNickname(
-            @Valid @RequestBody NicknameRequest nicknameRequest,
-            @CurrentLoginMember Long memberId
+            @CurrentLoginMember Long memberId,
+            @Valid @RequestBody NicknameRequest nicknameRequest
     ) {
-        memberService.updateNickname(nicknameRequest.toServiceRequest(), memberId);
-
-        return ResponseData.success(SuccessCode.UPDATE_NICKNAME);
+        memberService.updateNickname(memberId, nicknameRequest.toServiceRequest());
+        return success(SuccessCode.UPDATE_NICKNAME);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<ResponseData<?>> logout(
-            HttpServletResponse response,
-            @CurrentLoginMember Long memberId
+            @CurrentLoginMember Long memberId,
+            HttpServletResponse response
     ) {
         memberService.logout(memberId);
 
         Cookie initCookie = CookieUtil.delete(REFRESH.getValue());
         response.addCookie(initCookie);
 
-        return ResponseData.success(SuccessCode.LOGOUT_SUCCESS);
+        return success(SuccessCode.LOGOUT_SUCCESS);
     }
 
 }

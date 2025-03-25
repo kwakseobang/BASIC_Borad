@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.global.jwt.response;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import jakarta.servlet.http.HttpServletResponse;

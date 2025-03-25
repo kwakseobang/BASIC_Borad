@@ -1,8 +1,7 @@
 package com.kwakmunsu.board.auth.service;
 
-import com.kwakmunsu.board.auth.service.dto.request.LoginCommand;
-import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
-import com.kwakmunsu.board.auth.service.dto.request.ReissueTokenCommand;
+import com.kwakmunsu.board.auth.service.dto.request.LoginServiceRequest;
+import com.kwakmunsu.board.auth.service.dto.request.MemberCreateServiceRequest;
 import com.kwakmunsu.board.global.exception.UnAuthenticationException;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.jwt.token.JwtProvider;
@@ -22,28 +21,28 @@ public class AuthService {
     private final MemberReader memberReader;
     private final JwtProvider jwtProvider;
 
-    public void signUp(MemberCreateCommand memberCreateCommand) {
-        memberCommander.create(memberCreateCommand);
+    public void signUp(MemberCreateServiceRequest memberCreateServiceRequest) {
+        memberCommander.create(memberCreateServiceRequest);
     }
 
     @Transactional
-    public MemberTokens login(LoginCommand loginCommand) {
-        Member member = memberReader.login(loginCommand.username(),loginCommand.password());
+    public MemberTokens login(LoginServiceRequest request) {
+        Member member = memberReader.login(request.username(), request.password());
         MemberTokens memberTokens = jwtProvider.createTokens(member.getId(), member.getRole());
-        member.updateRefreshToken(memberTokens.refreshToken());
 
+        member.updateRefreshToken(memberTokens.refreshToken());
         return memberTokens;
     }
-    // TODO: 로직 분리 할 수 있을 거 같다. 좀 더 고민해보자.
+
     @Transactional
-    public MemberTokens reissue(ReissueTokenCommand reissueTokenCommand) {
-        if (jwtProvider.isNotValidateToken(reissueTokenCommand.reissueToken())) {
+    public MemberTokens reissue(String reissueToken) {
+        if (jwtProvider.isNotValidateToken(reissueToken)) {
             throw new UnAuthenticationException(ErrorCode.INVALID_TOKEN);
         }
-        Member member = memberReader.findByRefreshToken(reissueTokenCommand.reissueToken());
+        Member member = memberReader.findByRefreshToken(reissueToken);
         MemberTokens memberTokens = jwtProvider.createTokens(member.getId(), member.getRole());
-        member.updateRefreshToken(memberTokens.refreshToken());
 
+        member.updateRefreshToken(memberTokens.refreshToken());
         return memberTokens;
     }
 

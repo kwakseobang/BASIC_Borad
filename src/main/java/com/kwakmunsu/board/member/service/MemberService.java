@@ -14,7 +14,7 @@ public class MemberService {
     private final MemberCommander memberCommander;
     private final MemberReader memberReader;
 
-    public void updateNickname(NicknameCreateServiceRequest request, Long memberId) {
+    public void updateNickname(Long memberId, NicknameCreateServiceRequest request) {
         String nickname = request.nickname();
         memberCommander.updateNickname(nickname, memberId);
     }

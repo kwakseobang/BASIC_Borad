@@ -19,7 +19,6 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Long append(Post post) {
         Post saved = postJpaRepository.save(post);
-
         return saved.getId();
     }
 

@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.auth.controller;
 
-
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
 import com.kwakmunsu.board.global.response.ResponseData;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "AuthController", description = "Auth API")
-public interface AuthApiController {
+public interface AuthDocsController {
 
     @Operation(summary = "회원가입 [JWT 사용 X]")
     @ApiResponses(value = {

@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.member.entity;
 
-
 import com.kwakmunsu.board.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

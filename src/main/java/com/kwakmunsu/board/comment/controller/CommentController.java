@@ -1,5 +1,7 @@
 package com.kwakmunsu.board.comment.controller;
 
+import static com.kwakmunsu.board.global.response.ResponseData.success;
+
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.CommentService;
@@ -32,7 +34,7 @@ public class CommentController implements CommentDocsController {
             @Valid @RequestBody CommentCreateRequest request
     ) {
         Long commentId = commentService.create(memberId, request.toServiceRequest());
-        return ResponseData.success(SuccessCode.CREATED_COMMENT, commentId);
+        return success(SuccessCode.CREATED_COMMENT, commentId);
     }
 
     @GetMapping("/{commentId}")
@@ -40,7 +42,7 @@ public class CommentController implements CommentDocsController {
             @PathVariable("commentId") Long commentId
     ) {
         CommentResponse commentResponse = commentService.read(commentId);
-        return ResponseData.success(SuccessCode.READ_COMMENT, commentResponse);
+        return success(SuccessCode.READ_COMMENT, commentResponse);
     }
 
     @PutMapping("/{commentId}")
@@ -50,7 +52,7 @@ public class CommentController implements CommentDocsController {
             @Valid @RequestBody CommentUpdateRequest request
     ) {
         commentService.update(commentId, memberId, request.toServiceRequest());
-        return ResponseData.success(SuccessCode.UPDATE_COMMENT);
+        return success(SuccessCode.UPDATE_COMMENT);
     }
 
     @DeleteMapping("/{commentId}")
@@ -59,7 +61,7 @@ public class CommentController implements CommentDocsController {
             @CurrentLoginMember Long memberId
     ) {
         commentService.delete(commentId, memberId);
-        return ResponseData.success(SuccessCode.DELETE_COMMENT);
+        return success(SuccessCode.DELETE_COMMENT);
     }
 
 }

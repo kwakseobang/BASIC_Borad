@@ -14,7 +14,7 @@ import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostCommander;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
 import com.kwakmunsu.board.post.service.dto.request.PostCreateServiceRequest;
-import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
+import com.kwakmunsu.board.post.service.dto.request.PostPageableServiceRequest;
 import com.kwakmunsu.board.post.service.dto.request.PostUpdateServiceRequest;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
@@ -50,21 +50,21 @@ public class PostService {
         Post post = postReader.read(postId);
         long likesCount = likesReader.readLikeCount(postId);
         long favoritesCount = favoritesPostReader.countByPostId(postId);
+
         List<Comment> comments = commentReader.readByPostId(postId);
         List<CommentPreviewResponse> commentPreviewResponses = comments.stream()
                 .map(CommentPreviewResponse::from)
                 .toList();
-
         return PostResponse.from(post, likesCount, favoritesCount, commentPreviewResponses);
     }
 
-    public List<PostPreviewResponse> readAll(PostPageableCommand pageableCommand) {
+    public List<PostPreviewResponse> readAll(PostPageableServiceRequest request) {
         // 간단한 삼항 연산자라 사용함.
-        Direction direction = pageableCommand.isDesc() ? DESC : ASC;
+        Direction direction = request.isDesc() ? DESC : ASC;
         Page<Post> posts = postReader.readAll(
-                pageableCommand.page(),
-                pageableCommand.pageSize(),
-                pageableCommand.sortBy(),
+                request.page(),
+                request.pageSize(),
+                request.sortBy(),
                 direction
         );
 
@@ -87,7 +87,6 @@ public class PostService {
 
     public void delete(Long postId, Long memberId) {
         postReader.validateAccess(postId, memberId);
-
         postCommander.delete(postId, memberId);
     }
 

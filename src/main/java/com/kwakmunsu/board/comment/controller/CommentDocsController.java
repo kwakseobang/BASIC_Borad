@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.comment.controller;
 
-
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;

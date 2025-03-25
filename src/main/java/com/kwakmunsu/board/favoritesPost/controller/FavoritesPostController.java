@@ -1,5 +1,7 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
+import static com.kwakmunsu.board.global.response.ResponseData.success;
+
 import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
@@ -28,16 +30,14 @@ public class FavoritesPostController implements FavoritesPostDocsController {
             @CurrentLoginMember Long memberId
     ) {
         favoritesPostService.append(postId, memberId);
-        return ResponseData.success(SuccessCode.SAVE_POST_SUCCESS);
+        return success(SuccessCode.SAVE_POST_SUCCESS);
     }
 
     @GetMapping
     public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
             @CurrentLoginMember Long memberId
     ) {
-        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST,
-                favoritesPostService.readAll()
-        );
+        return success(SuccessCode.READ_FAVORITES_LIST, favoritesPostService.readAll());
     }
 
     @DeleteMapping("/{postId}")
@@ -46,7 +46,7 @@ public class FavoritesPostController implements FavoritesPostDocsController {
             @CurrentLoginMember Long memberId
     ) {
         favoritesPostService.cancel(postId, memberId);
-        return ResponseData.success(SuccessCode.CANCEL_POST_SUCCESS);
+        return success(SuccessCode.CANCEL_POST_SUCCESS);
     }
 
 }

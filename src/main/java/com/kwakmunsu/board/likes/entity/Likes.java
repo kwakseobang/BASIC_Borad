@@ -12,9 +12,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "likes")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "likes")
 @Entity
 public class Likes extends BaseTimeEntity {
 

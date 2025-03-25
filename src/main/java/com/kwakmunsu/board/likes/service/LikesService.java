@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.likes.service;
 
-
 import com.kwakmunsu.board.likes.infrastruture.LikesCommander;
 import com.kwakmunsu.board.likes.infrastruture.LikesReader;
 import com.kwakmunsu.board.post.infrastruture.PostReader;

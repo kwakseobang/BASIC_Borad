@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.post.controller;
 
-
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;

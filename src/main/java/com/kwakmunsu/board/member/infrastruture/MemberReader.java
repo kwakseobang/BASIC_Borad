@@ -1,12 +1,12 @@
 package com.kwakmunsu.board.member.infrastruture;
 
-
 import com.kwakmunsu.board.global.exception.UnAuthenticationException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class MemberReader {
 
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     public Member login(String username, String password) {
         Member member = memberRepository.getMember(username);

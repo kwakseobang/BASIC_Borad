@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.member.repository;
 
-
 import com.kwakmunsu.board.global.exception.DuplicationException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;

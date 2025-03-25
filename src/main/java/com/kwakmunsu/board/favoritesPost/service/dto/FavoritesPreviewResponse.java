@@ -16,7 +16,11 @@ public record FavoritesPreviewResponse(
         long favoritesCount
 ) {
 
-    public static FavoritesPreviewResponse from(Post post, long likeCount, long favoritesCount) {
+    public static FavoritesPreviewResponse from(
+            Post post,
+            long likeCount,
+            long favoritesCount
+    ) {
         return FavoritesPreviewResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())

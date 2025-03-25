@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.post.infrastruture;
 
-
 import com.kwakmunsu.board.global.exception.ForbiddenException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
@@ -35,7 +34,6 @@ public class PostReader {
                 pageSize,
                 Sort.by(direction, sortBy)
         );
-
         return postRepository.readAll(pageable);
     }
 
@@ -43,7 +41,6 @@ public class PostReader {
         if (postRepository.isExist(postId)) {
             return;
         }
-
         throw new NotFoundException((ErrorCode.NOT_FOUND_POST));
     }
 

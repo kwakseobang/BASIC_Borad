@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.post.service.dto.request;
 
-public record PostPageableCommand(
+public record PostPageableServiceRequest(
         int page,
         int pageSize,
         String sortBy,

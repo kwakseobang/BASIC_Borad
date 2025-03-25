@@ -1,13 +1,13 @@
 package com.kwakmunsu.board.auth.controller;
 
-
 import static com.kwakmunsu.board.global.jwt.common.TokenType.REFRESH;
+import static com.kwakmunsu.board.global.response.ResponseData.success;
 import static com.kwakmunsu.board.util.CookieUtil.create;
 
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
 import com.kwakmunsu.board.auth.service.AuthService;
-import com.kwakmunsu.board.auth.service.dto.request.ReissueTokenCommand;
+import com.kwakmunsu.board.auth.service.dto.request.ReissueTokenServiceRequest;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/auth")
 @RequiredArgsConstructor
+@RequestMapping("/auth")
 @RestController
-public class AuthController implements AuthApiController {
+public class AuthController implements AuthDocsController {
 
     private final AuthService authService;
 
@@ -34,8 +34,8 @@ public class AuthController implements AuthApiController {
     public ResponseEntity<ResponseData<?>> signUp(
             @Valid @RequestBody MemberCreateRequest request
     ) {
-        authService.signUp(request.toMemberCreateCommand());
-        return ResponseData.success(SuccessCode.CREATED_MEMBER);
+        authService.signUp(request.toServiceRequest());
+        return success(SuccessCode.CREATED_MEMBER);
     }
 
     @PostMapping("/login")
@@ -43,26 +43,24 @@ public class AuthController implements AuthApiController {
             HttpServletResponse response,
             @Valid @RequestBody LoginRequest request
     ) {
-        MemberTokens memberTokens = authService.login(request.tologinCommand());
+        MemberTokens memberTokens = authService.login(request.toServiceRequest());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
         Cookie cookie = CookieUtil.create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
 
-        return ResponseData.success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
+        return success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
     }
 
     @PostMapping("/reissue")
     public ResponseEntity<ResponseData<String>> reissue(
             HttpServletResponse response,
-            @CookieValue("refreshToken") final String refreshTokenRequest
+            @CookieValue("refreshToken") final String reissueToken
     ) {
-        MemberTokens memberTokens = authService.reissue(
-                new ReissueTokenCommand(refreshTokenRequest)
-        );
+        MemberTokens memberTokens = authService.reissue(reissueToken);
         Cookie cookie = create(REFRESH.getValue(), memberTokens.refreshToken());
         response.addCookie(cookie);
 
-        return ResponseData.success(SuccessCode.REISSUE_SUCCESS, memberTokens.accessToken());
+        return success(SuccessCode.REISSUE_SUCCESS, memberTokens.accessToken());
     }
 
 }
