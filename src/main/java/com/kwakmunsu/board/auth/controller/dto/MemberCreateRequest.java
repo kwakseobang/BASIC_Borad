@@ -10,7 +10,7 @@ public record MemberCreateRequest(
         String username,
 
         @NotBlank(message = "비밀번호를 입력해주세요")
-        @Size(min = 8)
+        @Size(min = 8, message = "비밀번호는 최소 8자리 이상입니다")
         String password,
 
         @NotBlank(message = "닉네임을 입력해주세요")
