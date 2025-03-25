@@ -5,8 +5,10 @@ import com.kwakmunsu.board.comment.service.dto.request.CommentCreateServiceReque
 import com.kwakmunsu.board.comment.service.dto.request.CommentUpdateServiceRequest;
 import com.kwakmunsu.board.comment.service.repository.CommentRepository;
 import com.kwakmunsu.board.global.exception.ForbiddenException;
+import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.post.service.PostCommandService;
+import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentCommandService {
 
     private final CommentRepository commentRepository;
-    private final PostCommandService postCommandService;
+    private final PostRepository postRepository;
 
     public Long create(
             Long memberId,
             CommentCreateServiceRequest request
     ) {
-        postCommandService.validatePostExist(request.postId());
+        validatePostExist(request.postId());
 
         Comment comment = Comment.builder()
                 .writerId(memberId)
@@ -59,6 +61,14 @@ public class CommentCommandService {
             commentRepository.deleteAllByPostId(postId);
         }
     }
+
+    private void validatePostExist(Long postId) {
+        if (postRepository.isExist(postId)) {
+            return;
+        }
+        throw new NotFoundException((ErrorCode.NOT_FOUND_POST));
+    }
+
 
     private void validateAccess(Long commentId, Long memberId) {
         if (commentRepository.existsByIdAndWriterId(commentId, memberId)) {

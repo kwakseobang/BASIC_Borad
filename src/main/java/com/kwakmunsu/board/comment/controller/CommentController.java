@@ -6,7 +6,6 @@ import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.CommentCommandService;
 import com.kwakmunsu.board.comment.service.CommentQueryService;
-import com.kwakmunsu.board.comment.service.CommentService;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
