@@ -4,6 +4,7 @@ package com.kwakmunsu.board.comment.controller;
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "CommentController", description = "Comment API")
-public interface CommentApiController {
+public interface CommentDocsController {
 
     @Operation(summary = "댓글 생성")
     @ApiResponses(value = {
@@ -22,6 +23,7 @@ public interface CommentApiController {
             @ApiResponse(responseCode = "404", description = "존재하지 않은 게시글로 댓글 생성 불가")
     })
     ResponseEntity<ResponseData<Long>> create(
+            @CurrentLoginMember Long memberId,
             @RequestBody CommentCreateRequest request
     );
 
@@ -39,6 +41,7 @@ public interface CommentApiController {
     })
     ResponseEntity<ResponseData<?>> update(
             @PathVariable("commentId") Long commentId,
+            @CurrentLoginMember Long memberId,
             @RequestBody CommentUpdateRequest request
     );
 
@@ -47,6 +50,9 @@ public interface CommentApiController {
             @ApiResponse(responseCode = "204", description = "댓글 삭제 성공"),
             @ApiResponse(responseCode = "404", description = "존재하지 않은 댓글입니다.")
     })
-    ResponseEntity<ResponseData<?>> delete(@PathVariable("commentId") Long commentId);
+    ResponseEntity<ResponseData<?>> delete(
+            @PathVariable("commentId") Long commentId,
+            @CurrentLoginMember Long memberId
+    );
 
 }

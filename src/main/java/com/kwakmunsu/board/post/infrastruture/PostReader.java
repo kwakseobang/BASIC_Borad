@@ -1,6 +1,7 @@
 package com.kwakmunsu.board.post.infrastruture;
 
 
+import com.kwakmunsu.board.global.exception.ForbiddenException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.post.entity.Post;
@@ -44,6 +45,13 @@ public class PostReader {
         }
 
         throw new NotFoundException((ErrorCode.NOT_FOUND_POST));
+    }
+
+    public void validateAccess(Long postId, Long memberId) {
+        if (postRepository.existsByIdAndWriterId(postId, memberId)) {
+            return;
+        }
+        throw new ForbiddenException(ErrorCode.FORBIDDEN_ERROR);
     }
 
 }

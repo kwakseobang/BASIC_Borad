@@ -13,10 +13,9 @@ import com.kwakmunsu.board.member.infrastruture.MemberReader;
 import com.kwakmunsu.board.post.entity.Post;
 import com.kwakmunsu.board.post.infrastruture.PostCommander;
 import com.kwakmunsu.board.post.infrastruture.PostReader;
-import com.kwakmunsu.board.post.service.dto.request.PostCreateCommand;
-import com.kwakmunsu.board.post.service.dto.request.PostDeleteCommand;
+import com.kwakmunsu.board.post.service.dto.request.PostCreateServiceRequest;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableCommand;
-import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
+import com.kwakmunsu.board.post.service.dto.request.PostUpdateServiceRequest;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import java.util.ArrayList;
@@ -38,19 +37,18 @@ public class PostService {
     private final MemberReader memberReader;
     private final FavoritesPostReader favoritesPostReader;
 
-    public Long create(PostCreateCommand postCreateCommand) {
-        Member member = memberReader.getMember(postCreateCommand.memberId());
-
+    public Long create(Long memberId, PostCreateServiceRequest request) {
+        Member member = memberReader.getMember(memberId);
         return postCommander.append(
-                postCreateCommand.title(),
-                postCreateCommand.content(),
+                request.title(),
+                request.content(),
                 member
         );
     }
 
     public PostResponse read(Long postId) {
         Post post = postReader.read(postId);
-        long likesCount = likesReader.readLikes(postId);
+        long likesCount = likesReader.readLikeCount(postId);
         long favoritesCount = favoritesPostReader.countByPostId(postId);
         List<Comment> comments = commentReader.readByPostId(postId);
         List<CommentPreviewResponse> commentPreviewResponses = comments.stream()
@@ -72,25 +70,24 @@ public class PostService {
 
         List<PostPreviewResponse> postPreviewResponses = new ArrayList<>();
         for (Post post : posts) {
-            long likesCount = likesReader.readLikes(post.getId());
+            long likesCount = likesReader.readLikeCount(post.getId());
             long favoritesCount = favoritesPostReader.countByPostId(post.getId());
             postPreviewResponses.add(PostPreviewResponse.from(post, likesCount, favoritesCount));
         }
-
         return postPreviewResponses;
     }
 
     @Transactional
-    public void update(PostUpdateCommand postUpdateCommand) {
-        Post post = postReader.read(postUpdateCommand.postId());
-        post.updatePost(postUpdateCommand.title(), postUpdateCommand.content());
+    public void update(Long postId, Long memberId, PostUpdateServiceRequest request) {
+        postReader.validateAccess(postId, memberId);
+
+        Post post = postReader.read(postId);
+        post.updatePost(request.title(), request.content());
     }
 
-    public void delete(PostDeleteCommand postDeleteCommand) {
-        Long postId = postDeleteCommand.postId();
-        Long memberId = postDeleteCommand.memberId();
+    public void delete(Long postId, Long memberId) {
+        postReader.validateAccess(postId, memberId);
 
-        postReader.validatePostExist(postId);
         postCommander.delete(postId, memberId);
     }
 
@@ -102,7 +99,6 @@ public class PostService {
 
     public Long readViews(Long postId) {
         Post post = postReader.read(postId);
-
         return post.getViewCount();
     }
 

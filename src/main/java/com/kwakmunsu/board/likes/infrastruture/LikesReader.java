@@ -13,8 +13,8 @@ public class LikesReader {
 
     private final LikesRepository likesRepository;
 
-    public long readLikes(Long postId) {
-        return likesRepository.read(postId);
+    public long readLikeCount(Long postId) {
+        return likesRepository.countByPostId(postId);
     }
 
     public void validateNotLiked(Long postId, Long memberId) {

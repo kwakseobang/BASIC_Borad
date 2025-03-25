@@ -1,7 +1,6 @@
 package com.kwakmunsu.board.comment.controller.dto;
 
-import com.kwakmunsu.board.comment.service.dto.request.CommentCreateCommand;
-import com.kwakmunsu.board.util.JwtUtil;
+import com.kwakmunsu.board.comment.service.dto.request.CommentCreateServiceRequest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
@@ -15,13 +14,11 @@ public record CommentCreateRequest(
         Long postId
 ) {
 
-    public CommentCreateCommand toCommentCreateCommand() {
-        Long memberId = JwtUtil.getCurrentMemberId();
+    public CommentCreateServiceRequest toServiceRequest() {
 
-        return CommentCreateCommand.builder()
+        return CommentCreateServiceRequest.builder()
                 .content(content)
                 .postId(postId)
-                .writerId(memberId)
                 .build();
     }
 

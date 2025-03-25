@@ -12,11 +12,12 @@ public class LikesCommander {
 
     private final LikesRepository likesRepository;
 
-    public void like(Long postId, Long memberId) {
+    public void incrementLikes(Long postId, Long memberId) {
         Likes like = Likes.builder()
                 .postId(postId)
                 .memberId(memberId)
                 .build();
+
         likesRepository.incrementLikes(like);
     }
 

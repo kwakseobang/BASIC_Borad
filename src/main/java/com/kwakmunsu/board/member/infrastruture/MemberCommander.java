@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @RequiredArgsConstructor
 @Component
 public class MemberCommander {
@@ -35,7 +34,7 @@ public class MemberCommander {
     }
 
     @Transactional
-    public void updateNickname(Long memberId, String newNickname) {
+    public void updateNickname(String newNickname, Long memberId) {
         memberRepository.validateNickname(newNickname);
 
         Member member = memberRepository.getMember(memberId);

@@ -3,7 +3,7 @@ package com.kwakmunsu.board.member.service;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.infrastruture.MemberCommander;
 import com.kwakmunsu.board.member.infrastruture.MemberReader;
-import com.kwakmunsu.board.member.service.dto.NicknameCreateCommand;
+import com.kwakmunsu.board.member.service.dto.NicknameCreateServiceRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,9 @@ public class MemberService {
     private final MemberCommander memberCommander;
     private final MemberReader memberReader;
 
-    public void updateNickname(NicknameCreateCommand nicknameCreateCommand) {
-        Long memberId = nicknameCreateCommand.memberId();
-        String nickname = nicknameCreateCommand.nickname();
-
-        memberCommander.updateNickname(memberId, nickname);
+    public void updateNickname(NicknameCreateServiceRequest request, Long memberId) {
+        String nickname = request.nickname();
+        memberCommander.updateNickname(nickname, memberId);
     }
 
     public void logout(Long memberId) {

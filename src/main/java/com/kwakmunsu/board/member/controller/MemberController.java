@@ -1,17 +1,13 @@
 package com.kwakmunsu.board.member.controller;
 
-
 import static com.kwakmunsu.board.global.jwt.common.TokenType.REFRESH;
 
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.member.controller.dto.NicknameRequest;
 import com.kwakmunsu.board.member.service.MemberService;
-import com.kwakmunsu.board.member.service.dto.NicknameCreateCommand;
 import com.kwakmunsu.board.util.CookieUtil;
-import com.kwakmunsu.board.util.JwtUtil;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -26,26 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/members")
 @RequiredArgsConstructor
 @RestController
-public class MemberController implements MemberApiController {
+public class MemberController implements MemberDocsController {
 
     private final MemberService memberService;
 
     @PutMapping
     public ResponseEntity<ResponseData<?>> updateNickname(
-            @Valid @RequestBody NicknameRequest nicknameRequest
+            @Valid @RequestBody NicknameRequest nicknameRequest,
+            @CurrentLoginMember Long memberId
     ) {
-        NicknameCreateCommand nicknameCreateCommand = nicknameRequest.toNicknameCreateCommand();
-        memberService.updateNickname(nicknameCreateCommand);
+        memberService.updateNickname(nicknameRequest.toServiceRequest(), memberId);
 
         return ResponseData.success(SuccessCode.UPDATE_NICKNAME);
     }
 
-    // 클라이언트에서 AccessToken 삭제해주어야 함.
-    // TODO : 보안 강화 로직 추가 가능
     @PostMapping("/logout")
-    public ResponseEntity<ResponseData<?>> logout(HttpServletResponse response) {
-        // TODO: getCurrentMemberId()를 어느 레이어에서 호출 할 지 고민이다..
-        Long memberId = JwtUtil.getCurrentMemberId();
+    public ResponseEntity<ResponseData<?>> logout(
+            HttpServletResponse response,
+            @CurrentLoginMember Long memberId
+    ) {
         memberService.logout(memberId);
 
         Cookie initCookie = CookieUtil.delete(REFRESH.getValue());
