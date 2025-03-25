@@ -17,7 +17,7 @@ public class PostRepositoryImpl implements PostRepository {
     private final PostJpaRepository postJpaRepository;
 
     @Override
-    public Long append(Post post) {
+    public Long save(Post post) {
         Post saved = postJpaRepository.save(post);
         return saved.getId();
     }
@@ -28,13 +28,13 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public Post read(Long postId) {
+    public Post findById(Long postId) {
         return postJpaRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_POST));
     }
 
     @Override
-    public Page<Post> readAll(Pageable pageable) {
+    public Page<Post> findAll(Pageable pageable) {
         try {
             return postJpaRepository.findAll(pageable);
         } catch (IllegalArgumentException e) {

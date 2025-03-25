@@ -2,7 +2,8 @@ package com.kwakmunsu.board.favoritespost.controller;
 
 import static com.kwakmunsu.board.global.response.ResponseData.success;
 
-import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
+import com.kwakmunsu.board.favoritespost.service.FavoritesCommandService;
+import com.kwakmunsu.board.favoritespost.service.FavoritesQueryService;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
@@ -22,14 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FavoritesPostController implements FavoritesPostDocsController {
 
-    private final FavoritesPostService favoritesPostService;
+    private final FavoritesCommandService favoritesCommandService;
+    private final FavoritesQueryService favoritesQueryService;
 
     @PostMapping("/{postId}")
     public ResponseEntity<ResponseData<?>> append(
             @PathVariable("postId") Long postId,
             @CurrentLoginMember Long memberId
     ) {
-        favoritesPostService.append(postId, memberId);
+        favoritesCommandService.append(postId, memberId);
         return success(SuccessCode.SAVE_POST_SUCCESS);
     }
 
@@ -37,7 +39,7 @@ public class FavoritesPostController implements FavoritesPostDocsController {
     public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
             @CurrentLoginMember Long memberId
     ) {
-        return success(SuccessCode.READ_FAVORITES_LIST, favoritesPostService.readAll());
+        return success(SuccessCode.READ_FAVORITES_LIST, favoritesQueryService.readAll());
     }
 
     @DeleteMapping("/{postId}")
@@ -45,7 +47,7 @@ public class FavoritesPostController implements FavoritesPostDocsController {
             @PathVariable("postId") Long postId,
             @CurrentLoginMember Long memberId
     ) {
-        favoritesPostService.cancel(postId, memberId);
+        favoritesCommandService.cancel(postId, memberId);
         return success(SuccessCode.CANCEL_POST_SUCCESS);
     }
 

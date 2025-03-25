@@ -4,6 +4,8 @@ import static com.kwakmunsu.board.global.response.ResponseData.success;
 
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
+import com.kwakmunsu.board.comment.service.CommentCommandService;
+import com.kwakmunsu.board.comment.service.CommentQueryService;
 import com.kwakmunsu.board.comment.service.CommentService;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
@@ -26,14 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CommentController implements CommentDocsController {
 
-    private final CommentService commentService;
+    private final CommentCommandService commentCommandService;
+    private final CommentQueryService commentQueryService;
 
     @PostMapping
     public ResponseEntity<ResponseData<Long>> create(
             @CurrentLoginMember Long memberId,
             @Valid @RequestBody CommentCreateRequest request
     ) {
-        Long commentId = commentService.create(memberId, request.toServiceRequest());
+        Long commentId = commentCommandService.create(memberId, request.toServiceRequest());
         return success(SuccessCode.CREATED_COMMENT, commentId);
     }
 
@@ -41,7 +44,7 @@ public class CommentController implements CommentDocsController {
     public ResponseEntity<ResponseData<CommentResponse>> read(
             @PathVariable("commentId") Long commentId
     ) {
-        CommentResponse commentResponse = commentService.read(commentId);
+        CommentResponse commentResponse = commentQueryService.read(commentId);
         return success(SuccessCode.READ_COMMENT, commentResponse);
     }
 
@@ -51,7 +54,7 @@ public class CommentController implements CommentDocsController {
             @CurrentLoginMember Long memberId,
             @Valid @RequestBody CommentUpdateRequest request
     ) {
-        commentService.update(commentId, memberId, request.toServiceRequest());
+        commentCommandService.update(commentId, memberId, request.toServiceRequest());
         return success(SuccessCode.UPDATE_COMMENT);
     }
 
@@ -60,7 +63,7 @@ public class CommentController implements CommentDocsController {
             @PathVariable("commentId") Long commentId,
             @CurrentLoginMember Long memberId
     ) {
-        commentService.delete(commentId, memberId);
+        commentCommandService.delete(commentId, memberId);
         return success(SuccessCode.DELETE_COMMENT);
     }
 

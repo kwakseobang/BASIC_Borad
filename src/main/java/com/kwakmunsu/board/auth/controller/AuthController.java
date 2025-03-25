@@ -7,7 +7,6 @@ import static com.kwakmunsu.board.util.CookieUtil.create;
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
 import com.kwakmunsu.board.auth.service.AuthService;
-import com.kwakmunsu.board.auth.service.dto.request.ReissueTokenServiceRequest;
 import com.kwakmunsu.board.global.jwt.dto.MemberTokens;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;

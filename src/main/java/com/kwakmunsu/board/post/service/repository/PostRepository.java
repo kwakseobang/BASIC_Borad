@@ -6,11 +6,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostRepository {
 
-    Long append(Post post);
+    Long save(Post post);
     void deleteById(Long postId);
-    Post read(Long postId);
+    Post findById(Long postId);
     boolean isExist(Long postId);
-    Page<Post> readAll(Pageable pageable);
+    Page<Post> findAll(Pageable pageable);
     boolean existsByIdAndWriterId(Long postId, Long memberId);
 
 }

@@ -1,18 +1,19 @@
-package com.kwakmunsu.board.member.infrastruture;
+package com.kwakmunsu.board.member.service;
 
 import static com.kwakmunsu.board.member.entity.Member.createMember;
 
 import com.kwakmunsu.board.auth.service.dto.request.MemberCreateServiceRequest;
 import com.kwakmunsu.board.member.entity.Member;
+import com.kwakmunsu.board.member.service.dto.NicknameCreateServiceRequest;
 import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Component
-public class MemberCommander {
+@Service
+public class MemberCommandService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
@@ -31,11 +32,11 @@ public class MemberCommander {
     }
 
     @Transactional
-    public void updateNickname(String newNickname, Long memberId) {
-        memberRepository.validateNickname(newNickname);
+    public void updateNickname(Long memberId, NicknameCreateServiceRequest request) {
+        memberRepository.validateNickname(request.nickname());
 
         Member member = memberRepository.getMember(memberId);
-        member.updateNickname(newNickname);
+        member.updateNickname(request.nickname());
     }
 
 }

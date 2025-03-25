@@ -7,7 +7,8 @@ import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
-import com.kwakmunsu.board.post.service.PostService;
+import com.kwakmunsu.board.post.service.PostCommandService;
+import com.kwakmunsu.board.post.service.PostQueryService;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableServiceRequest;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
@@ -30,14 +31,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PostController implements PostDocsController {
 
-    private final PostService postService;
+    private final PostCommandService postCommandService;
+    private final PostQueryService postQueryService;
 
     @PostMapping
     public ResponseEntity<ResponseData<Long>> create(
             @CurrentLoginMember Long memberId,
             @Valid @RequestBody PostCreateRequest request
     ) {
-        Long postId = postService.create(memberId, request.toServiceRequest());
+        Long postId = postCommandService.create(memberId, request.toServiceRequest());
         return success(SuccessCode.CREATED_POST, postId);
     }
 
@@ -45,7 +47,7 @@ public class PostController implements PostDocsController {
     public ResponseEntity<ResponseData<PostResponse>> read(
             @PathVariable("postId") Long postId
     ) {
-        PostResponse postResponse = postService.read(postId);
+        PostResponse postResponse = postQueryService.read(postId);
         return success(SuccessCode.READ_POST, postResponse);
     }
 
@@ -57,7 +59,7 @@ public class PostController implements PostDocsController {
             String sortBy,
             @RequestParam("isDesc") boolean isDesc
     ) {
-        List<PostPreviewResponse> postPreviewResponses = postService.readAll(
+        List<PostPreviewResponse> postPreviewResponses = postQueryService.readAll(
                 new PostPageableServiceRequest(page, pageSize, sortBy, isDesc)
         );
         return success(
@@ -72,7 +74,7 @@ public class PostController implements PostDocsController {
             @CurrentLoginMember Long memberId,
             @Valid @RequestBody PostUpdateRequest request
     ) {
-        postService.update(postId, memberId, request.toServiceRequest());
+        postCommandService.update(postId, memberId, request.toServiceRequest());
         return success(SuccessCode.UPDATE_POST);
     }
 
@@ -81,7 +83,7 @@ public class PostController implements PostDocsController {
             @PathVariable("postId") Long postId,
             @CurrentLoginMember Long memberId
     ) {
-        postService.delete(postId, memberId);
+        postCommandService.delete(postId, memberId);
         return success(SuccessCode.DELETE_POST);
     }
 
@@ -89,7 +91,7 @@ public class PostController implements PostDocsController {
     public ResponseEntity<ResponseData<?>> updateViews(
             @PathVariable("postId") Long postId
     ) {
-        postService.updateViews(postId);
+        postCommandService.updateViews(postId);
         return success(SuccessCode.UPDATE_VIEWS);
     }
 
@@ -97,7 +99,7 @@ public class PostController implements PostDocsController {
     public ResponseEntity<ResponseData<Long>> readViews(
             @PathVariable("postId") Long postId
     ) {
-        Long viewsCount = postService.readViews(postId);
+        Long viewsCount = postQueryService.readViews(postId);
         return success(SuccessCode.READ_VIEWS, viewsCount);
     }
 
