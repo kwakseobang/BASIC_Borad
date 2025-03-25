@@ -13,7 +13,7 @@ public class LikesRepositoryImpl implements LikesRepository {
     private final LikesJpaRepository likesJpaRepository;
 
     @Override
-    public long read(Long postId) {
+    public long countByPostId(Long postId) {
         return likesJpaRepository.countByPostId(postId);
     }
 

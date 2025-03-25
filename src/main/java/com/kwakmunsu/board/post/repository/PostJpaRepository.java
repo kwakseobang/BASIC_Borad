@@ -9,4 +9,6 @@ public interface PostJpaRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAll(Pageable pageable);
 
+    boolean existsByIdAndWriter_id(Long id, Long writerId);
+
 }

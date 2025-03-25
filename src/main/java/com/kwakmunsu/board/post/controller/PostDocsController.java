@@ -1,6 +1,7 @@
 package com.kwakmunsu.board.post.controller;
 
 
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
@@ -17,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "PostController", description = "Post API")
-public interface PostApiController {
+public interface PostDocsController {
 
     @Operation(summary = "게시글 생성")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "게시글 생성 성공")
     })
-    ResponseEntity<ResponseData<Long>> create(@RequestBody PostCreateRequest request);
+    ResponseEntity<ResponseData<Long>> create(
+            @CurrentLoginMember Long memberId,
+            @RequestBody PostCreateRequest request
+    );
 
     @Operation(summary = "게시물 상세 조회")
     @ApiResponses(value = {
@@ -57,7 +61,18 @@ public interface PostApiController {
     })
     ResponseEntity<ResponseData<?>> update(
             @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId,
             @RequestBody PostUpdateRequest request
+    );
+
+    @Operation(summary = "게시글 삭제")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "게시글 삭제 성공"),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
+    })
+    ResponseEntity<ResponseData<?>> delete(
+            @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId
     );
 
     @Operation(summary = "게시글 조회수 증가")
@@ -73,12 +88,5 @@ public interface PostApiController {
             @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
     })
     ResponseEntity<ResponseData<Long>> readViews(@PathVariable("postId") Long postId);
-
-    @Operation(summary = "게시글 삭제")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "게시글 삭제 성공"),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 게시물입니다."),
-    })
-    ResponseEntity<ResponseData<?>> delete(@PathVariable("postId") Long postId);
 
 }

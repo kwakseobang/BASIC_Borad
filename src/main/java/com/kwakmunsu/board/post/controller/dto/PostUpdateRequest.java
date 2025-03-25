@@ -1,7 +1,6 @@
 package com.kwakmunsu.board.post.controller.dto;
 
-import com.kwakmunsu.board.post.service.dto.request.PostUpdateCommand;
-import com.kwakmunsu.board.util.JwtUtil;
+import com.kwakmunsu.board.post.service.dto.request.PostUpdateServiceRequest;
 import jakarta.validation.constraints.Null;
 
 public record PostUpdateRequest(
@@ -13,14 +12,10 @@ public record PostUpdateRequest(
         String content
 ) {
 
-    public PostUpdateCommand toPostUpdateCommand(Long postId) {
-        Long memberId = JwtUtil.getCurrentMemberId();
-
-        return PostUpdateCommand.builder()
+    public PostUpdateServiceRequest toServiceRequest() {
+        return PostUpdateServiceRequest.builder()
                 .title(title)
                 .content(content)
-                .postId(postId)
-                .memberId(memberId)
                 .build();
     }
 

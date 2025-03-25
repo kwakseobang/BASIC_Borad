@@ -16,36 +16,34 @@ public class CommentRepositoryImpl implements CommentRepository {
     private final CommentJpaRepository commentJpaRepository;
 
     @Override
-    public Long append(Comment comment) {
+    public Long save(Comment comment) {
         Comment saved = commentJpaRepository.save(comment);
-
         return saved.getId();
     }
 
     @Override
-    public Comment readById(Long commentId) {
+    public Comment findById(Long commentId) {
         return commentJpaRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_FOUND_COMMENT));
     }
 
     @Override
-    public List<Comment> readByPostId(Long postId) {
+    public List<Comment> findByPostId(Long postId) {
         return commentJpaRepository.findByPostId(postId);
-
     }
 
     @Override
-    public void delete(Long commentId) {
+    public void deleteById(Long commentId) {
         commentJpaRepository.deleteById(commentId);
     }
 
     @Override
-    public void deleteAll(Long postId) {
+    public void deleteAllByPostId(Long postId) {
         commentJpaRepository.deleteByPostId(postId);
     }
 
     @Override
-    public void validateCommentById(Long commentId) {
+    public void validateByCommentId(Long commentId) {
         if (commentJpaRepository.existsById(commentId)) {
             return;
         }
@@ -56,4 +54,10 @@ public class CommentRepositoryImpl implements CommentRepository {
     public boolean isExistByPostId(Long postId) {
         return commentJpaRepository.existsByPostId(postId);
     }
+
+    @Override
+    public boolean existsByIdAndWriterId(Long commentId, Long writerId) {
+        return commentJpaRepository.existsByIdAndWriterId(commentId, writerId);
+    }
+
 }

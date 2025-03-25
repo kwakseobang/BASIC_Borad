@@ -5,4 +5,6 @@ public record PostPageableCommand(
         int pageSize,
         String sortBy,
         boolean isDesc
-) { }
+) {
+
+}

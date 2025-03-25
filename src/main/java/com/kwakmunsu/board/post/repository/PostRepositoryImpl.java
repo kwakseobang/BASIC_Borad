@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.post.repository;
 
-
 import com.kwakmunsu.board.global.exception.BadRequestException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
@@ -48,4 +47,10 @@ public class PostRepositoryImpl implements PostRepository {
     public boolean isExist(Long postId) {
         return postJpaRepository.existsById(postId);
     }
+
+    @Override
+    public boolean existsByIdAndWriterId(Long postId, Long memberId) {
+        return postJpaRepository.existsByIdAndWriter_id(postId, memberId);
+    }
+
 }

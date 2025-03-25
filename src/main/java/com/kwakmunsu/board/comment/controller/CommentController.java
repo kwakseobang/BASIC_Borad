@@ -1,10 +1,10 @@
 package com.kwakmunsu.board.comment.controller;
 
-
 import com.kwakmunsu.board.comment.controller.dto.CommentCreateRequest;
 import com.kwakmunsu.board.comment.controller.dto.CommentUpdateRequest;
 import com.kwakmunsu.board.comment.service.CommentService;
 import com.kwakmunsu.board.comment.service.dto.response.CommentResponse;
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import jakarta.validation.Valid;
@@ -19,20 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-@RequestMapping("/comments")
 @RequiredArgsConstructor
+@RequestMapping("/comments")
 @RestController
-public class CommentController implements CommentApiController {
+public class CommentController implements CommentDocsController {
 
     private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity<ResponseData<Long>> create(
+            @CurrentLoginMember Long memberId,
             @Valid @RequestBody CommentCreateRequest request
     ) {
-        Long commentId = commentService.create(request.toCommentCreateCommand());
-
+        Long commentId = commentService.create(memberId, request.toServiceRequest());
         return ResponseData.success(SuccessCode.CREATED_COMMENT, commentId);
     }
 
@@ -41,24 +40,25 @@ public class CommentController implements CommentApiController {
             @PathVariable("commentId") Long commentId
     ) {
         CommentResponse commentResponse = commentService.read(commentId);
-
         return ResponseData.success(SuccessCode.READ_COMMENT, commentResponse);
     }
 
     @PutMapping("/{commentId}")
     public ResponseEntity<ResponseData<?>> update(
             @PathVariable("commentId") Long commentId,
+            @CurrentLoginMember Long memberId,
             @Valid @RequestBody CommentUpdateRequest request
     ) {
-        commentService.update(request.toCommentUpdateCommand(commentId));
-
+        commentService.update(commentId, memberId, request.toServiceRequest());
         return ResponseData.success(SuccessCode.UPDATE_COMMENT);
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<ResponseData<?>> delete(@PathVariable("commentId") Long commentId) {
-        commentService.delete(commentId);
-
+    public ResponseEntity<ResponseData<?>> delete(
+            @PathVariable("commentId") Long commentId,
+            @CurrentLoginMember Long memberId
+    ) {
+        commentService.delete(commentId, memberId);
         return ResponseData.success(SuccessCode.DELETE_COMMENT);
     }
 

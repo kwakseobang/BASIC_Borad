@@ -1,7 +1,7 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
-
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Tag(name = "FavoritesPostController", description = "FavoritesPost API")
-public interface FavoritesPostApiController {
+public interface FavoritesPostDocsController {
 
     @Operation(summary = "저장 목록에 게시글 추가")
     @ApiResponses(value = {
@@ -20,13 +20,18 @@ public interface FavoritesPostApiController {
             @ApiResponse(responseCode = "404", description = "존재하지 않은 게시글로 저장 실패"),
             @ApiResponse(responseCode = "409", description = "이미 저장된 게시글입니다."),
     })
-    ResponseEntity<ResponseData<?>> append(@PathVariable("postId") Long postId);
+    ResponseEntity<ResponseData<?>> append(
+            @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId
+    );
 
     @Operation(summary = "저장된 게시글 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     })
-    ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll();
+    ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
+            @CurrentLoginMember Long memberId
+    );
 
     @Operation(summary = "게시글 저장 취소")
     @ApiResponses(value = {
@@ -34,6 +39,9 @@ public interface FavoritesPostApiController {
             @ApiResponse(responseCode = "404", description = "존재하지 않은 게시글로 저장 취소 실패"),
             @ApiResponse(responseCode = "409", description = "저장되지 않은 게시글입니다."),
     })
-    ResponseEntity<ResponseData<?>> cancel(@PathVariable("postId") Long postId);
+    ResponseEntity<ResponseData<?>> cancel(
+            @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId
+    );
 
 }

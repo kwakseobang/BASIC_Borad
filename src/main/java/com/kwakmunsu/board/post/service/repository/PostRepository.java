@@ -11,5 +11,6 @@ public interface PostRepository {
     Post read(Long postId);
     boolean isExist(Long postId);
     Page<Post> readAll(Pageable pageable);
+    boolean existsByIdAndWriterId(Long postId, Long memberId);
 
 }

@@ -1,7 +1,6 @@
 package com.kwakmunsu.board.member.controller.dto;
 
-import com.kwakmunsu.board.member.service.dto.NicknameCreateCommand;
-import com.kwakmunsu.board.util.JwtUtil;
+import com.kwakmunsu.board.member.service.dto.NicknameCreateServiceRequest;
 import jakarta.validation.constraints.NotBlank;
 
 public record NicknameRequest(
@@ -10,12 +9,9 @@ public record NicknameRequest(
         String nickname
 ) {
 
-    public NicknameCreateCommand toNicknameCreateCommand() {
-        Long memberId = JwtUtil.getCurrentMemberId();
-
-        return NicknameCreateCommand.builder()
+    public NicknameCreateServiceRequest toServiceRequest() {
+        return NicknameCreateServiceRequest.builder()
                 .nickname(nickname)
-                .memberId(memberId)
                 .build();
     }
 

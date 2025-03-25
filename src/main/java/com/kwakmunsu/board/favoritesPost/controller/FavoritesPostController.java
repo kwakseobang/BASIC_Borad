@@ -1,9 +1,8 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
-
 import com.kwakmunsu.board.favoritespost.service.FavoritesPostService;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesCommand;
 import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
+import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import java.util.List;
@@ -19,30 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/favorites-posts")
 @RequiredArgsConstructor
 @RestController
-public class FavoritesPostController implements FavoritesPostApiController {
+public class FavoritesPostController implements FavoritesPostDocsController {
 
     private final FavoritesPostService favoritesPostService;
 
     @PostMapping("/{postId}")
-    public ResponseEntity<ResponseData<?>> append(@PathVariable("postId") Long postId) {
-        FavoritesCommand favoritesCommand = FavoritesCommand.from(postId);
-        favoritesPostService.append(favoritesCommand);
-
+    public ResponseEntity<ResponseData<?>> append(
+            @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId
+    ) {
+        favoritesPostService.append(postId, memberId);
         return ResponseData.success(SuccessCode.SAVE_POST_SUCCESS);
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll() {
-        List<FavoritesPreviewResponse> favoritesPreviewResponses = favoritesPostService.readAll();
-
-        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST, favoritesPreviewResponses);
+    public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
+            @CurrentLoginMember Long memberId
+    ) {
+        return ResponseData.success(SuccessCode.READ_FAVORITES_LIST,
+                favoritesPostService.readAll()
+        );
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<ResponseData<?>> cancel(@PathVariable("postId") Long postId) {
-        FavoritesCommand favoritesCommand = FavoritesCommand.from(postId);
-        favoritesPostService.cancel(favoritesCommand);
-
+    public ResponseEntity<ResponseData<?>> cancel(
+            @PathVariable("postId") Long postId,
+            @CurrentLoginMember Long memberId
+    ) {
+        favoritesPostService.cancel(postId, memberId);
         return ResponseData.success(SuccessCode.CANCEL_POST_SUCCESS);
     }
 
