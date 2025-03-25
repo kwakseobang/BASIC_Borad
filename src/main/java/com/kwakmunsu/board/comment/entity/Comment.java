@@ -33,7 +33,7 @@ public class Comment extends BaseTimeEntity {
     private String content;
 
     @Builder
-    public Comment(Long postId, Long writerId, String content) {
+    private Comment(Long postId, Long writerId, String content) {
         this.postId = postId;
         this.writerId = writerId;
         this.content = content;

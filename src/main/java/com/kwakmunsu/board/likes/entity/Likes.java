@@ -30,7 +30,7 @@ public class Likes extends BaseTimeEntity {
     private Long memberId;
 
     @Builder
-    public Likes(Long postId, Long memberId) {
+    private Likes(Long postId, Long memberId) {
         this.postId = postId;
         this.memberId = memberId;
     }

@@ -24,8 +24,8 @@ public class CommentService {
     ) {
         postReader.validatePostExist(request.postId());
         return commentCommander.append(
-                request.postId(),
                 memberId,
+                request.postId(),
                 request.content()
         );
     }

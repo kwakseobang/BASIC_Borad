@@ -41,7 +41,7 @@ public class Post extends BaseTimeEntity {
     private long viewCount;
 
     @Builder
-    public Post(String title, String content, Member writer) {
+    private Post(String title, String content, Member writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;

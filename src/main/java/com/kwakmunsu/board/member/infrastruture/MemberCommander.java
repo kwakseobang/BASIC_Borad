@@ -1,10 +1,11 @@
 package com.kwakmunsu.board.member.infrastruture;
 
+import static com.kwakmunsu.board.member.entity.Member.createMember;
+
 import com.kwakmunsu.board.auth.service.dto.request.MemberCreateServiceRequest;
 import com.kwakmunsu.board.member.entity.Member;
 import com.kwakmunsu.board.member.service.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +17,16 @@ public class MemberCommander {
     private final MemberRepository memberRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    public void create(MemberCreateServiceRequest memberCreateServiceRequest) {
-        String username = memberCreateServiceRequest.username();
-        String nickname = memberCreateServiceRequest.nickname();
+    public void create(MemberCreateServiceRequest request) {
+        String username = request.username();
+        String nickname = request.nickname();
 
         memberRepository.validateUsername(username);
         memberRepository.validateNickname(nickname);
 
-        String encodedPassword = bCryptPasswordEncoder.encode(memberCreateServiceRequest.password());
+        String encodedPassword = bCryptPasswordEncoder.encode(request.password());
 
-        Member member = Member.builder()
-                .username(username)
-                .password(encodedPassword)
-                .nickname(nickname)
-                .build();
-
+        Member member = createMember(username,encodedPassword,nickname);
         memberRepository.append(member);
     }
 

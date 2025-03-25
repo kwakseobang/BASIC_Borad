@@ -12,7 +12,7 @@ public class CommentCommander {
 
     private final CommentRepository commentRepository;
 
-    public Long append(Long postId, Long writerId, String content) {
+    public Long append(Long writerId, Long postId, String content) {
         Comment comment = Comment.builder()
                 .postId(postId)
                 .writerId(writerId)
