@@ -5,14 +5,14 @@ import lombok.Builder;
 
 @Builder
 public record CommentPreviewResponse(
-        Long id,
+        Long commentId,
         Long writerId,
         String content
 ) {
 
     public static CommentPreviewResponse from(Comment comment) {
         return CommentPreviewResponse.builder()
-                .id(comment.getId())
+                .commentId(comment.getId())
                 .writerId(comment.getWriterId())
                 .content(comment.getContent())
                 .build();

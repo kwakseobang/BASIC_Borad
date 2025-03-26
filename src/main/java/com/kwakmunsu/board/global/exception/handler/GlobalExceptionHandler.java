@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.global.exception.handler;
 
-import com.kwakmunsu.board.global.exception.BoardException;
+import com.kwakmunsu.board.global.exception.common.BoardException;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import java.nio.file.AccessDeniedException;

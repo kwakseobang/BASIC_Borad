@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public class PostRepositoryImpl implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
-    private final PostQueryRepository postQueryRepository;
+    private final PostQueryDslRepository postQueryDslRepository;
 
     @Override
     public Long save(Post post) {
@@ -37,7 +37,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public PostDetailResponse read(Long postId) {
-        PostDetailResponse postDetailResponse = postQueryRepository.read(postId);
+        PostDetailResponse postDetailResponse = postQueryDslRepository.read(postId);
         if (postDetailResponse.postResponse() == null) {
             throw new NotFoundException(ErrorCode.NOT_FOUND_POST);
         }
@@ -49,7 +49,7 @@ public class PostRepositoryImpl implements PostRepository {
             CursorServiceRequest request,
             PostSortOption option
     ) {
-        return postQueryRepository.findAll(request, option);
+        return postQueryDslRepository.findAll(request, option);
     }
 
     @Override

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 @Repository
-public class PostQueryRepository {
+public class PostQueryDslRepository {
 
     private final JPAQueryFactory query;
     private static final int SIZE = 10;
