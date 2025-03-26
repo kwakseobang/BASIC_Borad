@@ -7,7 +7,6 @@ import com.kwakmunsu.board.comment.service.repository.CommentRepository;
 import com.kwakmunsu.board.global.exception.ForbiddenException;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
-import com.kwakmunsu.board.post.service.PostCommandService;
 import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,6 @@ public class CommentCommandService {
             Long memberId
     ) {
         validateAccess(commentId, memberId);
-        commentRepository.validateByCommentId(commentId);
         commentRepository.deleteById(commentId);
     }
 

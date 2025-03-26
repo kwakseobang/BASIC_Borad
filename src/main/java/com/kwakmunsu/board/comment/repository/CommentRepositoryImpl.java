@@ -42,14 +42,6 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public void validateByCommentId(Long commentId) {
-        if (commentJpaRepository.existsById(commentId)) {
-            return;
-        }
-        throw new NotFoundException(ErrorCode.NOT_FOUND_COMMENT);
-    }
-
-    @Override
     public boolean isExistByPostId(Long postId) {
         return commentJpaRepository.existsByPostId(postId);
     }

@@ -50,6 +50,7 @@ public class PostCommandService {
         post.incrementViewCount();
     }
 
+    // TODO: DB 삭제 방법 변경하기
     @Transactional
     public void delete(Long postId, Long memberId) {
         validateAccess(postId, memberId);
@@ -57,13 +58,6 @@ public class PostCommandService {
         commentCommandService.deleteAll(postId);
         favoritesPostService.cancel(postId, memberId);
         postRepository.deleteById(postId);
-    }
-
-    public void validatePostExist(Long postId) {
-        if (postRepository.isExist(postId)) {
-            return;
-        }
-        throw new NotFoundException((ErrorCode.NOT_FOUND_POST));
     }
 
     private void validateAccess(Long postId, Long memberId) {
