@@ -3,7 +3,6 @@ package com.kwakmunsu.board.post.service;
 import com.kwakmunsu.board.comment.service.CommentCommandService;
 import com.kwakmunsu.board.favoritespost.service.FavoritesCommandService;
 import com.kwakmunsu.board.global.exception.ForbiddenException;
-import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.likes.service.LikesCommandService;
 import com.kwakmunsu.board.member.entity.Member;

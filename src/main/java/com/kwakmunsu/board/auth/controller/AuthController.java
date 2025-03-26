@@ -2,7 +2,6 @@ package com.kwakmunsu.board.auth.controller;
 
 import static com.kwakmunsu.board.global.jwt.common.TokenType.REFRESH;
 import static com.kwakmunsu.board.global.response.ResponseData.success;
-import static com.kwakmunsu.board.util.CookieUtil.create;
 
 import com.kwakmunsu.board.auth.controller.dto.LoginRequest;
 import com.kwakmunsu.board.auth.controller.dto.MemberCreateRequest;
