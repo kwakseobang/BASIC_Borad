@@ -45,7 +45,6 @@ public class AuthController implements AuthDocsController {
         MemberTokens memberTokens = authService.login(request.toServiceRequest());
         // 같은 이름이 있다면 기존에 있던 쿠키 덮어짐.
         addCookie(response, memberTokens);
-
         return success(SuccessCode.LOGIN_SUCCESS, memberTokens.accessToken());
     }
 
@@ -56,7 +55,6 @@ public class AuthController implements AuthDocsController {
     ) {
         MemberTokens memberTokens = authService.reissue(reissueToken);
         addCookie(response, memberTokens);
-
         return success(SuccessCode.REISSUE_SUCCESS, memberTokens.accessToken());
     }
 
