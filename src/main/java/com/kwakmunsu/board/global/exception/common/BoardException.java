@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.global.exception;
+package com.kwakmunsu.board.global.exception.common;
 
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import lombok.Getter;
