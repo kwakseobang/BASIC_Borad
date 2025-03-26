@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.comment.entity;
 
-import com.kwakmunsu.board.global.entity.BaseEntity;
+import com.kwakmunsu.board.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +12,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "comment")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "comment")
 @Entity
-public class Comment extends BaseEntity {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Comment extends BaseEntity {
     private String content;
 
     @Builder
-    public Comment(Long postId, Long writerId, String content) {
+    private Comment(Long postId, Long writerId, String content) {
         this.postId = postId;
         this.writerId = writerId;
         this.content = content;

@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.favoritespost.entity;
 
-import com.kwakmunsu.board.global.entity.BaseEntity;
+import com.kwakmunsu.board.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +12,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
-@Table(name = "favorites_post")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "favorites_post")
 @Entity
-public class FavoritesPost extends BaseEntity {
+public class FavoritesPost extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +30,7 @@ public class FavoritesPost extends BaseEntity {
     private Long memberId;
 
     @Builder
-    public FavoritesPost(Long postId, Long memberId) {
+    private FavoritesPost(Long postId, Long memberId) {
         this.postId = postId;
         this.memberId = memberId;
     }

@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.likes.entity;
 
-import com.kwakmunsu.board.global.entity.BaseEntity;
+import com.kwakmunsu.board.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +12,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "likes")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "likes")
 @Entity
-public class Likes extends BaseEntity {
+public class Likes extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Likes extends BaseEntity {
     private Long memberId;
 
     @Builder
-    public Likes(Long postId, Long memberId) {
+    private Likes(Long postId, Long memberId) {
         this.postId = postId;
         this.memberId = memberId;
     }

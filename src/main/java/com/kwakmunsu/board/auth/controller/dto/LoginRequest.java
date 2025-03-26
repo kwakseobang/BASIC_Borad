@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.request.LoginCommand;
+import com.kwakmunsu.board.auth.service.dto.request.LoginServiceRequest;
 import jakarta.validation.constraints.NotBlank;
 
 public record LoginRequest(
@@ -12,8 +12,8 @@ public record LoginRequest(
         String password
 ) {
 
-    public LoginCommand tologinCommand() {
-        return LoginCommand.builder()
+    public LoginServiceRequest toServiceRequest() {
+        return LoginServiceRequest.builder()
                 .username(username)
                 .password(password)
                 .build();

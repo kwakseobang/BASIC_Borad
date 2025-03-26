@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.post.entity;
 
-import com.kwakmunsu.board.global.entity.BaseEntity;
+import com.kwakmunsu.board.global.entity.BaseTimeEntity;
 import com.kwakmunsu.board.member.entity.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,11 +16,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "post")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Table(name = "post")
 @Entity
-public class Post extends BaseEntity {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class Post extends BaseEntity {
     private long viewCount;
 
     @Builder
-    public Post(String title, String content, Member writer) {
+    private Post(String title, String content, Member writer) {
         this.title = title;
         this.content = content;
         this.writer = writer;

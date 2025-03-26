@@ -1,13 +1,12 @@
 package com.kwakmunsu.board.favoritespost.repository;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FavoritesPostJpaRepository extends JpaRepository<FavoritesPost, Long> {
 
     boolean existsByPostIdAndMemberId(Long postId, Long memberId);
     void deleteByPostIdAndMemberId(Long postId, Long memberId);
-    long countByPostId(Long postId);
-    long countByMemberId(Long memberId);
 
 }

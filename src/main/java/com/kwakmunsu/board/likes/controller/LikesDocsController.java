@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.likes.controller;
 
-
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import io.swagger.v3.oas.annotations.Operation;

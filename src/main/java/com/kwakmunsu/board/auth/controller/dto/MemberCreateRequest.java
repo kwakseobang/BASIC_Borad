@@ -1,6 +1,6 @@
 package com.kwakmunsu.board.auth.controller.dto;
 
-import com.kwakmunsu.board.auth.service.dto.request.MemberCreateCommand;
+import com.kwakmunsu.board.auth.service.dto.request.MemberCreateServiceRequest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -17,8 +17,8 @@ public record MemberCreateRequest(
         String nickname
 ) {
 
-    public MemberCreateCommand toMemberCreateCommand() {
-        return MemberCreateCommand.builder()
+    public MemberCreateServiceRequest toServiceRequest() {
+        return MemberCreateServiceRequest.builder()
                 .username(username)
                 .password(password)
                 .nickname(nickname)

@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.comment.repository;
 
-
 import com.kwakmunsu.board.comment.entity.Comment;
 import com.kwakmunsu.board.comment.service.repository.CommentRepository;
 import com.kwakmunsu.board.global.exception.NotFoundException;
@@ -40,14 +39,6 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Override
     public void deleteAllByPostId(Long postId) {
         commentJpaRepository.deleteByPostId(postId);
-    }
-
-    @Override
-    public void validateByCommentId(Long commentId) {
-        if (commentJpaRepository.existsById(commentId)) {
-            return;
-        }
-        throw new NotFoundException(ErrorCode.NOT_FOUND_COMMENT);
     }
 
     @Override

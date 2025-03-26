@@ -1,8 +1,10 @@
 package com.kwakmunsu.board.favoritespost.repository;
 
-
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
+import com.kwakmunsu.board.post.entity.PostSortOption;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,20 +14,15 @@ import org.springframework.stereotype.Repository;
 public class FavoritesPostRepositoryImpl implements FavoritesPostRepository {
 
     private final FavoritesPostJpaRepository favoritesPostJpaRepository;
+    private final FavoritesPostQueryDslRepository favoritesPostQueryDslRepository;
 
     @Override
-    public List<FavoritesPost> readAll() {
-        return favoritesPostJpaRepository.findAll();
-    }
-
-    @Override
-    public long countByPostId(Long postId) {
-        return favoritesPostJpaRepository.countByPostId(postId);
-    }
-
-    @Override
-    public long countByMemberId(Long memberId) {
-        return favoritesPostJpaRepository.countByMemberId(memberId);
+    public List<PostResponse> findAll(
+            CursorServiceRequest request,
+            PostSortOption option,
+            Long memberId
+    ) {
+        return favoritesPostQueryDslRepository.findAll(request, option, memberId);
     }
 
     @Override

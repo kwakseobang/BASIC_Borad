@@ -1,6 +1,5 @@
 package com.kwakmunsu.board.member.controller;
 
-
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.member.controller.dto.NicknameRequest;
@@ -22,8 +21,8 @@ public interface MemberDocsController {
             @ApiResponse(responseCode = "409", description = "이미 존재하는 닉네임 입니다.")
     })
     ResponseEntity<ResponseData<?>> updateNickname(
-            @RequestBody NicknameRequest nicknameRequest,
-            @CurrentLoginMember Long memberId
+            @CurrentLoginMember Long memberId,
+            @RequestBody NicknameRequest nicknameRequest
     );
 
     @Operation(summary = "로그아웃")
@@ -33,8 +32,8 @@ public interface MemberDocsController {
             @ApiResponse(responseCode = "404", description = "존재하지 않은 회원 입니다."),
     })
     ResponseEntity<ResponseData<?>> logout(
-            HttpServletResponse response,
-            @CurrentLoginMember Long memberId
+            @CurrentLoginMember Long memberId,
+            HttpServletResponse response
             );
 
 }
