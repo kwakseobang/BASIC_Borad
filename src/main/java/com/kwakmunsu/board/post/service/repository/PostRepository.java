@@ -1,10 +1,10 @@
 package com.kwakmunsu.board.post.service.repository;
 
 import com.kwakmunsu.board.post.entity.Post;
-import com.kwakmunsu.board.post.entity.PostDetailResponse;
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostDetailResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
-import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import java.util.List;
 
 public interface PostRepository {

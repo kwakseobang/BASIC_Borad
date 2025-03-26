@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.post.repository;
+package com.kwakmunsu.board.post.service.dto.request;
 
 import java.time.LocalDateTime;
 

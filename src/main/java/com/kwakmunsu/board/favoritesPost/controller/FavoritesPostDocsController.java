@@ -2,7 +2,7 @@ package com.kwakmunsu.board.favoritespost.controller;
 
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

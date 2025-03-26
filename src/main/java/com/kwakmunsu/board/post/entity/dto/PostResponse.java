@@ -1,4 +1,4 @@
-package com.kwakmunsu.board.post.entity;
+package com.kwakmunsu.board.post.entity.dto;
 
 import java.time.LocalDateTime;
 import lombok.Builder;

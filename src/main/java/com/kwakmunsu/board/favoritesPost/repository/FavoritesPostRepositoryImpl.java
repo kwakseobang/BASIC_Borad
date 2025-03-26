@@ -2,9 +2,9 @@ package com.kwakmunsu.board.favoritespost.repository;
 
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
-import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

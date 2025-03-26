@@ -3,10 +3,10 @@ package com.kwakmunsu.board.post.service;
 import static com.kwakmunsu.board.post.entity.PostSortOption.toSortOption;
 
 import com.kwakmunsu.board.post.entity.Post;
-import com.kwakmunsu.board.post.entity.PostDetailResponse;
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostDetailResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
-import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import com.kwakmunsu.board.post.service.repository.PostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +34,6 @@ public class PostQueryService {
     public Long readViews(Long postId) {
         Post post = postRepository.findById(postId);
         return post.getViewCount();
-    }
-
-    public Post readById(Long postId) {
-        return postRepository.findById(postId);
     }
 
 }

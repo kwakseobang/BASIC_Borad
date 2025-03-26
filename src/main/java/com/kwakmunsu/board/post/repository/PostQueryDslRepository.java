@@ -7,9 +7,10 @@ import static com.kwakmunsu.board.post.entity.QPost.post;
 import static com.querydsl.core.types.Projections.constructor;
 
 import com.kwakmunsu.board.comment.service.dto.response.CommentPreviewResponse;
-import com.kwakmunsu.board.post.entity.PostDetailResponse;
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostDetailResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

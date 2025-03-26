@@ -1,5 +1,4 @@
-package com.kwakmunsu.board.post.entity;
-
+package com.kwakmunsu.board.post.entity.dto;
 
 import com.kwakmunsu.board.comment.service.dto.response.CommentPreviewResponse;
 import java.util.List;

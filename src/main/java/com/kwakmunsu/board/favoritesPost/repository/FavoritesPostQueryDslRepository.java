@@ -5,9 +5,9 @@ import static com.kwakmunsu.board.likes.entity.QLikes.likes;
 import static com.kwakmunsu.board.post.entity.QPost.post;
 import static com.querydsl.core.types.Projections.constructor;
 
-import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.entity.dto.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
-import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

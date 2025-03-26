@@ -4,7 +4,7 @@ import static com.kwakmunsu.board.post.entity.QPost.post;
 
 import com.kwakmunsu.board.global.exception.BadRequestException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
-import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import com.kwakmunsu.board.post.service.dto.request.CursorServiceRequest;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import java.util.stream.Stream;
 
