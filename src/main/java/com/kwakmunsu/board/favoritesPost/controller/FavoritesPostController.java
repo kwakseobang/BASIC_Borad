@@ -4,10 +4,12 @@ import static com.kwakmunsu.board.global.response.ResponseData.success;
 
 import com.kwakmunsu.board.favoritespost.service.FavoritesCommandService;
 import com.kwakmunsu.board.favoritespost.service.FavoritesQueryService;
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
+import com.kwakmunsu.board.post.entity.PostResponse;
+import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/favorites-posts")
@@ -36,10 +39,24 @@ public class FavoritesPostController implements FavoritesPostDocsController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
+    public ResponseEntity<ResponseData<List<PostResponse>>> readAll(
+            @RequestParam(value = "lastPostId", required = false) Long lastPostId,
+            @RequestParam(value = "lastViews", required = false) Long lastViews,
+            @RequestParam(value = "lastTitle", required = false) String lastTitle,
+            @RequestParam(value = "lastCreatedAt", required = false) LocalDateTime lastCreatedAt,
+            @RequestParam(defaultValue = "createAt", value = "sortBy") String sortBy,
             @CurrentLoginMember Long memberId
     ) {
-        return success(SuccessCode.READ_FAVORITES_LIST, favoritesQueryService.readAll());
+        CursorServiceRequest request = new CursorServiceRequest(
+                lastPostId,
+                lastViews,
+                lastTitle,
+                lastCreatedAt
+        );
+        return success(
+                SuccessCode.READ_FAVORITES_LIST,
+                favoritesQueryService.findAll(request,sortBy, memberId)
+        );
     }
 
     @DeleteMapping("/{postId}")

@@ -3,8 +3,9 @@ package com.kwakmunsu.board.favoritespost.service;
 import com.kwakmunsu.board.favoritespost.entity.FavoritesPost;
 import com.kwakmunsu.board.favoritespost.service.repository.FavoritesPostRepository;
 import com.kwakmunsu.board.global.exception.DuplicationException;
+import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
-import com.kwakmunsu.board.post.service.PostCommandService;
+import com.kwakmunsu.board.post.service.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FavoritesCommandService {
 
-    private final PostCommandService postCommandService;
     private final FavoritesPostRepository favoritesPostRepository;
+    private final PostRepository postRepository;
 
     public void append(Long postId, Long memberId) {
-        postCommandService.validatePostExist(postId);
+        validatePostExist(postId);
 
         // 해당 유저가 해당 게시물을 저장하지 않았으면 유효성 검증 통과
         validateNotSave(postId, memberId);
@@ -31,13 +32,20 @@ public class FavoritesCommandService {
 
     @Transactional
     public void cancel(Long postId, Long memberId) {
-        postCommandService.validatePostExist(postId);
+        validatePostExist(postId);
 
         // 해당 유저가 해당 게시물을 저장했으면 유효성 검증 통과
         validateSave(postId, memberId);
         if (favoritesPostRepository.isSave(postId, memberId)) {
             favoritesPostRepository.cancel(postId, memberId);
         }
+    }
+
+    private void validatePostExist(Long postId) {
+        if (postRepository.isExist(postId)) {
+            return;
+        }
+        throw new NotFoundException((ErrorCode.NOT_FOUND_POST));
     }
 
     private void validateNotSave(Long postId, Long memberId) {

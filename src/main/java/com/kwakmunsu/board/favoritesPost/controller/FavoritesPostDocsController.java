@@ -1,15 +1,17 @@
 package com.kwakmunsu.board.favoritespost.controller;
 
-import com.kwakmunsu.board.favoritespost.service.dto.FavoritesPreviewResponse;
 import com.kwakmunsu.board.global.annotation.CurrentLoginMember;
 import com.kwakmunsu.board.global.response.ResponseData;
+import com.kwakmunsu.board.post.entity.PostResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Tag(name = "FavoritesPostController", description = "FavoritesPost API")
 public interface FavoritesPostDocsController {
@@ -29,7 +31,12 @@ public interface FavoritesPostDocsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     })
-    ResponseEntity<ResponseData<List<FavoritesPreviewResponse>>> readAll(
+    ResponseEntity<ResponseData<List<PostResponse>>> readAll(
+            @RequestParam(value = "lastPostId", required = false) Long lastPostId,
+            @RequestParam(value = "lastViews", required = false) Long lastViews,
+            @RequestParam(value = "lastTitle", required = false) String lastTitle,
+            @RequestParam(value = "lastCreatedAt", required = false) LocalDateTime lastCreatedAt,
+            @RequestParam(defaultValue = "createAt", value = "sortBy") String sortBy,
             @CurrentLoginMember Long memberId
     );
 
