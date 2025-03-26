@@ -1,8 +1,10 @@
 package com.kwakmunsu.board.post.service.repository;
 
 import com.kwakmunsu.board.post.entity.Post;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.kwakmunsu.board.post.entity.PostPaginationResponse;
+import com.kwakmunsu.board.post.entity.PostSortOption;
+import com.kwakmunsu.board.post.repository.CursorServiceRequest;
+import java.util.List;
 
 public interface PostRepository {
 
@@ -10,7 +12,7 @@ public interface PostRepository {
     void deleteById(Long postId);
     Post findById(Long postId);
     boolean isExist(Long postId);
-    Page<Post> findAll(Pageable pageable);
+    List<PostPaginationResponse> findAll(CursorServiceRequest cursor, PostSortOption postSortOption);
     boolean existsByIdAndWriterId(Long postId, Long memberId);
 
 }

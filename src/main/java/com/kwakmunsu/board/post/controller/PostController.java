@@ -7,14 +7,18 @@ import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
+import com.kwakmunsu.board.post.entity.PostPaginationResponse;
+import com.kwakmunsu.board.post.repository.CursorServiceRequest;
 import com.kwakmunsu.board.post.service.PostCommandService;
 import com.kwakmunsu.board.post.service.PostQueryService;
 import com.kwakmunsu.board.post.service.dto.request.PostPageableServiceRequest;
 import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
 import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import jakarta.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/posts")
 @RestController
 public class PostController implements PostDocsController {
@@ -52,20 +57,20 @@ public class PostController implements PostDocsController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<List<PostPreviewResponse>>> readAll(
-            @RequestParam("page") int page,
-            @RequestParam("pageSize") int pageSize,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt")
-            String sortBy,
-            @RequestParam("isDesc") boolean isDesc
+    public ResponseEntity<ResponseData<List<PostPaginationResponse>>> findAll(
+            @RequestParam(value = "lastPostId", required = false) Long lastPostId,
+            @RequestParam(value = "lastViews", required = false) Long lastViews,
+            @RequestParam(value = "lastTitle", required = false) String lastTitle,
+            @RequestParam(value = "lastCreatedAt", required = false) LocalDateTime lastCreatedAt,
+            @RequestParam(defaultValue = "createAt", value = "sortBy") String sortBy
     ) {
-        List<PostPreviewResponse> postPreviewResponses = postQueryService.readAll(
-                new PostPageableServiceRequest(page, pageSize, sortBy, isDesc)
+        CursorServiceRequest request = new CursorServiceRequest(
+                lastPostId,
+                lastViews,
+                lastTitle,
+                lastCreatedAt
         );
-        return success(
-                SuccessCode.READ_POST_LIST,
-                postPreviewResponses
-               );
+        return success(SuccessCode.READ_POST_LIST, postQueryService.findAll(request, sortBy));
     }
 
     @PutMapping("/{postId}")
