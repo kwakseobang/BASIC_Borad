@@ -7,13 +7,11 @@ import com.kwakmunsu.board.global.response.ResponseData;
 import com.kwakmunsu.board.global.response.success.SuccessCode;
 import com.kwakmunsu.board.post.controller.dto.PostCreateRequest;
 import com.kwakmunsu.board.post.controller.dto.PostUpdateRequest;
-import com.kwakmunsu.board.post.entity.PostPaginationResponse;
+import com.kwakmunsu.board.post.entity.PostDetailResponse;
+import com.kwakmunsu.board.post.entity.PostResponse;
 import com.kwakmunsu.board.post.repository.CursorServiceRequest;
 import com.kwakmunsu.board.post.service.PostCommandService;
 import com.kwakmunsu.board.post.service.PostQueryService;
-import com.kwakmunsu.board.post.service.dto.request.PostPageableServiceRequest;
-import com.kwakmunsu.board.post.service.dto.response.PostPreviewResponse;
-import com.kwakmunsu.board.post.service.dto.response.PostResponse;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,15 +47,15 @@ public class PostController implements PostDocsController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<ResponseData<PostResponse>> read(
+    public ResponseEntity<ResponseData<PostDetailResponse>> read(
             @PathVariable("postId") Long postId
     ) {
-        PostResponse postResponse = postQueryService.read(postId);
-        return success(SuccessCode.READ_POST, postResponse);
+        PostDetailResponse postDetailResponse = postQueryService.read(postId);
+        return success(SuccessCode.READ_POST, postDetailResponse);
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<List<PostPaginationResponse>>> findAll(
+    public ResponseEntity<ResponseData<List<PostResponse>>> findAll(
             @RequestParam(value = "lastPostId", required = false) Long lastPostId,
             @RequestParam(value = "lastViews", required = false) Long lastViews,
             @RequestParam(value = "lastTitle", required = false) String lastTitle,

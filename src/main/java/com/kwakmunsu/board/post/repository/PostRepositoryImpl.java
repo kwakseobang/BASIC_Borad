@@ -3,7 +3,8 @@ package com.kwakmunsu.board.post.repository;
 import com.kwakmunsu.board.global.exception.NotFoundException;
 import com.kwakmunsu.board.global.response.error.ErrorCode;
 import com.kwakmunsu.board.post.entity.Post;
-import com.kwakmunsu.board.post.entity.PostPaginationResponse;
+import com.kwakmunsu.board.post.entity.PostDetailResponse;
+import com.kwakmunsu.board.post.entity.PostResponse;
 import com.kwakmunsu.board.post.entity.PostSortOption;
 import com.kwakmunsu.board.post.service.repository.PostRepository;
 import java.util.List;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public class PostRepositoryImpl implements PostRepository {
 
     private final PostJpaRepository postJpaRepository;
-    private final PostPaginationRepository postPaginationRepository;
+    private final PostQueryRepository postQueryRepository;
 
     @Override
     public Long save(Post post) {
@@ -35,11 +36,20 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<PostPaginationResponse> findAll(
+    public PostDetailResponse read(Long postId) {
+        PostDetailResponse postDetailResponse = postQueryRepository.read(postId);
+        if (postDetailResponse.postResponse() == null) {
+            throw new NotFoundException(ErrorCode.NOT_FOUND_POST);
+        }
+        return postDetailResponse;
+    }
+
+    @Override
+    public List<PostResponse> findAll(
             CursorServiceRequest request,
             PostSortOption option
-            ) {
-        return postPaginationRepository.findAll(request, option);
+    ) {
+        return postQueryRepository.findAll(request, option);
     }
 
     @Override
