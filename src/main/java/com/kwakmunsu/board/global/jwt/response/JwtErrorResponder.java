@@ -22,6 +22,7 @@ public class JwtErrorResponder {
             ErrorCode errorCode
     ) throws IOException {
         response.setCharacterEncoding("utf-8");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
         JwtExceptionResponse responseJson = new JwtExceptionResponse(
             HttpStatus.UNAUTHORIZED,
             errorCode.getHttpStatus(),
